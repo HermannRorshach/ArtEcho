@@ -1,0 +1,5 @@
+[
+    {"name": "Фильм", "slug": "movie", "id": 1},
+    {"name": "Книга", "slug": "book", "id": 2},
+    {"name": "Музыка", "slug": "music", "id": 3}
+]
