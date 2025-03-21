@@ -19,9 +19,9 @@ def test_case(request):
     return request.param
 
 @pytest.fixture(autouse=True)
-def clean_reviews_category():
+def clean_custom_commands_testcategory():
     with connection.cursor() as cursor:
-        cursor.execute("DELETE FROM reviews_category")
+        cursor.execute("DELETE FROM custom_commands_testcategory")
     yield
 
 
@@ -30,10 +30,10 @@ def test_import_by_table(test_case):
     csv_file, expected_data = test_case
 
     with connection.cursor() as cursor:
-        cursor.execute("INSERT INTO reviews_category (name, slug) VALUES (%s, %s)", ["Без категории", "without_category"])
+        cursor.execute("INSERT INTO custom_commands_testcategory (name, slug) VALUES (%s, %s)", ["Без категории", "without_category"])
 
     with connection.cursor() as cursor:
-        cursor.execute("SELECT COALESCE(MAX(id), 0) FROM reviews_category")
+        cursor.execute("SELECT COALESCE(MAX(id), 0) FROM custom_commands_testcategory")
         last_id_before = cursor.fetchone()[0]
 
     if expected_data[0][0] <= last_id_before:
@@ -41,10 +41,10 @@ def test_import_by_table(test_case):
         expected_data = [[data[0] + difference, data[1], data[2]] for data in expected_data]
 
     try:
-        call_command('import_by_table', csv_file, 'reviews_category')
+        call_command('import_by_table', csv_file, 'custom_commands_testcategory')
 
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM reviews_category WHERE id > %s", [last_id_before])
+            cursor.execute("SELECT * FROM custom_commands_testcategory WHERE id > %s", [last_id_before])
             added_rows = cursor.fetchall()
 
         assert len(added_rows) == len(expected_data)
@@ -53,8 +53,8 @@ def test_import_by_table(test_case):
     finally:
         with transaction.atomic():
             with connection.cursor() as cursor:
-                cursor.execute("DELETE FROM reviews_category")
-                cursor.execute("UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'reviews_category'")
+                cursor.execute("DELETE FROM custom_commands_testcategory")
+                cursor.execute("UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'custom_commands_testcategory'")
 
 
 @pytest.mark.django_db(transaction=True)
@@ -62,11 +62,11 @@ def test_import_by_model(test_case):
     csv_file, expected_data = test_case
 
     with connection.cursor() as cursor:
-        cursor.execute("INSERT INTO reviews_category (name, slug) VALUES (%s, %s)", ["Без категории", "without_category"])
-        cursor.execute("SELECT * FROM reviews_category")
+        cursor.execute("INSERT INTO custom_commands_testcategory (name, slug) VALUES (%s, %s)", ["Без категории", "without_category"])
+        cursor.execute("SELECT * FROM custom_commands_testcategory")
         print("Записи в БД после добавления первой строки", cursor.fetchall())
     with connection.cursor() as cursor:
-        cursor.execute("SELECT COALESCE(MAX(id), 0) FROM reviews_category")
+        cursor.execute("SELECT COALESCE(MAX(id), 0) FROM custom_commands_testcategory")
         last_id_before = cursor.fetchone()[0]
 
     if expected_data[0][0] <= last_id_before:
@@ -74,10 +74,10 @@ def test_import_by_model(test_case):
         expected_data = [[data[0] + difference, data[1], data[2]] for data in expected_data]
 
     try:
-        call_command('import_by_model', csv_file, 'reviews.Category')
+        call_command('import_by_model', csv_file, 'custom_commands.TestCategory')
 
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM reviews_category WHERE id > %s", [last_id_before])
+            cursor.execute("SELECT * FROM custom_commands_testcategory WHERE id > %s", [last_id_before])
             added_rows = cursor.fetchall()
         print("_________________________________________/n____________________________")
         print("last_id_befor =", last_id_before, "added_rows =", added_rows)
@@ -87,5 +87,5 @@ def test_import_by_model(test_case):
     finally:
         with transaction.atomic():
             with connection.cursor() as cursor:
-                cursor.execute("DELETE FROM reviews_category")
-                cursor.execute("UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'reviews_category'")
+                cursor.execute("DELETE FROM custom_commands_testcategory")
+                cursor.execute("UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'custom_commands_testcategory'")

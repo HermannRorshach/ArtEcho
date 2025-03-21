@@ -86,7 +86,6 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        # Логика обработки данных будет реализована позже.
         file_path = options['file_path']
         app_name, model_name = options['model_name'].split(".")
         self.use_bulk = options['bulk']

@@ -31,7 +31,7 @@ class Title(models.Model):
     year = models.IntegerField()
     slug = models.SlugField(max_length=255)
     category = models.ForeignKey(
-        'Category', on_delete=models.SET_DEFAULT, default=1)
+        'Category', on_delete=models.SET_NULL, null=True)
     genre = models.ManyToManyField(
         'Genre', blank=True, related_name='genre')
 
@@ -81,7 +81,7 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
         related_name='comment', verbose_name='Автор',
         help_text='Автор комментария',
-        default=1
+        default=100
     )
     slug = models.SlugField(max_length=255)
 
