@@ -104,12 +104,6 @@ class Command(BaseCommand):
 
             self.insert_data(table_name, data_list)
 
-            self.stdout.write(
-                self.style.WARNING('Некоторые id, указанные в файле, уже существуют '
-                                    'в базе данных. id при записи данных были заменены'
-                                    ' автоматически.'))
-
-
     def import_json_data(self, file_path, table_name):
         with open(file_path, mode='r', encoding='utf-8') as f:
             data_list = json.load(f)

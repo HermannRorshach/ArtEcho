@@ -38,6 +38,12 @@ class Title(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            transliterated_slug = translit(self.name, 'ru', reversed=True)
+            self.slug = slugify(transliterated_slug)
+        super().save(*args, **kwargs)
+
 
 class Review(models.Model):
     author = models.ForeignKey(
@@ -57,27 +63,33 @@ class Review(models.Model):
     def __str__(self):
         return f'{self.author}: {self.text[:15]}...'
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            transliterated_slug = translit(self.text[:15], 'ru', reversed=True)
+            self.slug = slugify(transliterated_slug)
+        super().save(*args, **kwargs)
+
 
 class Comment(models.Model):
-    author = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='comment', verbose_name='Автор',
-        help_text='Автор комментария'
-    )
-    slug = models.SlugField(max_length=255)
     review = models.ForeignKey(
         'Review', on_delete=models.CASCADE)
     text = models.TextField(max_length=1800)
     pub_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='comment', verbose_name='Автор',
+        help_text='Автор комментария',
+        default=1
+    )
+    slug = models.SlugField(max_length=255)
 
     def __str__(self):
         return f'{self.author}: {self.text[:15]}...'
 
     def save(self, *args, **kwargs):
-        print('Мы в методе save')
-        if not slugify(self.text):
-            transliterated_slug = translit(self.text[:30], 'ru', reversed=True)
+        if not self.slug:
+            transliterated_slug = translit(self.text[:15], 'ru', reversed=True)
             self.slug = slugify(transliterated_slug)
         super().save(*args, **kwargs)

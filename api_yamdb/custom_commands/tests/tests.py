@@ -3,15 +3,15 @@ from django.core.management import call_command
 from django.db import connection, transaction
 
 TEST_CASES = [
-    ("static/data/category_with_header_and_id_1.csv", [[1, "Фильм", "movie"], [2, "Книга", "book"], [3, "Музыка", "music"]]),
-    ("static/data/category_with_header_and_id_2.csv", [[2, "Фильм", "movie"], [3, "Книга", "book"], [5, "Музыка", "music"]]),
-    ("static/data/category_with_header_and_id_3.csv", [[2, "Фильм", "movie"], [3, "Книга", "book"], [5, "Музыка", "music"]]),
-    ("static/data/category_with_id1.csv", [[1, "Фильм", "movie"], [2, "Книга", "book"], [3, "Музыка", "music"]]),
-    ("static/data/category_with_id2.csv", [[2, "Фильм", "movie"], [3, "Книга", "book"], [5, "Музыка", "music"]]),
-    ("static/data/category_without_id.csv", [[1, "Фильм", "movie"], [2, "Книга", "book"], [3, "Музыка", "music"]]),
-    ("static/data/category_with_id1.json", [[1, "Фильм", "movie"], [2, "Книга", "book"], [3, "Музыка", "music"]]),
-    ("static/data/category_with_id2.json", [[2, "Фильм", "movie"], [3, "Музыка", "music"], [5, "Книга", "book"]]),
-    ("static/data/category_without_id.json", [[1, "Фильм", "movie"], [2, "Книга", "book"], [3, "Музыка", "music"]]),
+    ("custom_commands/fixtures/category_with_header_and_id_1.csv", [[1, "Фильм", "movie"], [2, "Книга", "book"], [3, "Музыка", "music"]]),
+    ("custom_commands/fixtures/category_with_header_and_id_2.csv", [[2, "Фильм", "movie"], [3, "Книга", "book"], [5, "Музыка", "music"]]),
+    ("custom_commands/fixtures/category_with_header_and_id_3.csv", [[2, "Фильм", "movie"], [3, "Книга", "book"], [5, "Музыка", "music"]]),
+    ("custom_commands/fixtures/category_with_id1.csv", [[1, "Фильм", "movie"], [2, "Книга", "book"], [3, "Музыка", "music"]]),
+    ("custom_commands/fixtures/category_with_id2.csv", [[2, "Фильм", "movie"], [3, "Книга", "book"], [5, "Музыка", "music"]]),
+    ("custom_commands/fixtures/category_without_id.csv", [[1, "Фильм", "movie"], [2, "Книга", "book"], [3, "Музыка", "music"]]),
+    ("custom_commands/fixtures/category_with_id1.json", [[1, "Фильм", "movie"], [2, "Книга", "book"], [3, "Музыка", "music"]]),
+    ("custom_commands/fixtures/category_with_id2.json", [[2, "Фильм", "movie"], [3, "Музыка", "music"], [5, "Книга", "book"]]),
+    ("custom_commands/fixtures/category_without_id.json", [[1, "Фильм", "movie"], [2, "Книга", "book"], [3, "Музыка", "music"]]),
 ]
 
 @pytest.fixture(params=TEST_CASES)
@@ -63,7 +63,8 @@ def test_import_by_model(test_case):
 
     with connection.cursor() as cursor:
         cursor.execute("INSERT INTO reviews_category (name, slug) VALUES (%s, %s)", ["Без категории", "without_category"])
-
+        cursor.execute("SELECT * FROM reviews_category")
+        print("Записи в БД после добавления первой строки", cursor.fetchall())
     with connection.cursor() as cursor:
         cursor.execute("SELECT COALESCE(MAX(id), 0) FROM reviews_category")
         last_id_before = cursor.fetchone()[0]
@@ -78,7 +79,8 @@ def test_import_by_model(test_case):
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM reviews_category WHERE id > %s", [last_id_before])
             added_rows = cursor.fetchall()
-
+        print("_________________________________________/n____________________________")
+        print("last_id_befor =", last_id_before, "added_rows =", added_rows)
         assert len(added_rows) == len(expected_data)
         assert all(added == tuple(expected) for added, expected in zip(added_rows, expected_data))
 
