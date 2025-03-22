@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+  {{ title }}
+{% endblock %}
+{% block content %}
+  <main>
+    <div class="container py-5">
+        <form method="post">{% csrf_token %}
+            <p>Вы уверены, что хотите удалить "{{ object }}"?</p>
+
+            <input type="submit" value="Удалить">
+        </form>
+    </div>
+  </main>
+{% endblock %}
