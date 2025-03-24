@@ -1,8 +1,8 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 from transliterate import translit
-
 
 User = get_user_model()
 
@@ -38,6 +38,9 @@ class Title(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("reviews:title_detail", kwargs={"pk": self.pk})
+
     def save(self, *args, **kwargs):
         if not self.slug:
             transliterated_slug = translit(self.name, 'ru', reversed=True)
@@ -55,13 +58,16 @@ class Review(models.Model):
     title = models.ForeignKey(
         'Title', on_delete=models.CASCADE)
     text = models.TextField(max_length=1800)
-    score = models.IntegerField()
+    score = models.IntegerField(choices=[(i, i) for i in range(1, 11)])
     pub_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
     slug = models.SlugField(max_length=255)
 
     def __str__(self):
         return f'{self.author}: {self.text[:15]}...'
+
+    def get_absolute_url(self):
+        return reverse("reviews:review_detail", kwargs={"title_id": self.title.pk, "pk": self.pk})
 
     def save(self, *args, **kwargs):
         if not self.slug:

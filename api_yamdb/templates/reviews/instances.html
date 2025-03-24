@@ -7,14 +7,20 @@
   <main>
     <div class="container py-5">
       {% include "includes/header.html" %}
-      <h1>{{ title }}</h1>
+      <div class="wrapper-container">
+        <h1>{{ title }}</h1>
+        <h5><a href="{{ create_url }}">{{ action }}</a></h5>
 
-      <a href="{% url 'reviews:create_title' %}">Добавить произведение</a>
-
-        {% for instance in object_list %}
-            <p>{{ instance }} <a href="{% url 'reviews:title_detail' instance.pk %}">Перейти к произведению</a></p>
-
-        {% endfor %}
+          {% for instance in object_list %}
+            <p><a href="{{ instance.get_absolute_url }}">{{ instance }}</a></p>
+          {% endfor %}
+          <br>
+          {% if back_url %}
+          <p>
+            <a class="back btn btn-primary" href="{{ back_url }}">Назад</a>
+          </p>
+          {% endif %}
+      </div>
     </div>
   </main>
 {% endblock %}

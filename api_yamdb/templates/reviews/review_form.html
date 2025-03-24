@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Создать отзыв{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Создать отзыв для "{{ title.name }}"</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+</div>
+{% endblock content %}

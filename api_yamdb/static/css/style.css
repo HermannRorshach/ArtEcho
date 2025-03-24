@@ -1,0 +1,255 @@
+@import url('minireset.css');
+@import url('normalize.css');
+
+
+@font-face {
+	font-family: 'Comfortaa';
+	src: url('../fonts/Comfortaa.eot');
+	src: local('Comfortaa'),
+		url('../fonts/Comfortaa.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/Comfortaa.woff') format('woff'),
+		url('../fonts/Comfortaa.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Comfortaa';
+	src: url('../fonts/Comfortaa-Bold.eot');
+	src: local('Comfortaa Bold'), local('Comfortaa-Bold'),
+		url('../fonts/Comfortaa-Bold.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/Comfortaa-Bold.woff') format('woff'),
+		url('../fonts/Comfortaa-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Comfortaa';
+	src: url('../fonts/Comfortaa-Light.eot');
+	src: local('Comfortaa Light'), local('Comfortaa-Light'),
+		url('../fonts/Comfortaa-Light.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/Comfortaa-Light.woff') format('woff'),
+		url('../fonts/Comfortaa-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+}
+
+html {
+  margin: 0;
+}
+
+body {
+  font-family: 'Comfortaa', 'Arial', sans-serif;
+}
+
+
+.container {
+  max-width: 1100px; /* Ширина контейнера */
+  margin: 50px auto; /* Центрирование */
+  margin-bottom: 50px;
+  padding: 30px; /* Внутренние отступы */
+  background: #fff; /* Цвет фона контейнера */
+  border-radius: 8px; /* Закругленные углы */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Тень для эффекта глубины */
+  text-align: center; /* Центрирование текста */
+}
+
+.wrapper-container {
+  text-align: left;
+}
+
+.container-list {
+  max-width: 1000px; /* Ширина контейнера */
+}
+
+h1 {
+  font-size: 36px; /* Размер заголовка */
+  color: #333; /* Цвет текста */
+  margin: 20px 0 25px 0; /* Отступы сверху и снизу */
+  font-weight: bold; /* Жирный текст */
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 28px;
+  margin-top: 30px; /*Отступ перед заголовком о начале недели*/
+}
+
+h4 {
+  font-size: 24px;
+}
+
+h5 {
+  font-size: 22px;
+}
+
+h6 {
+  font-size: 20px;
+}
+
+h1, h2, h3, h4 {
+  color: #333; /* Цвет текста */
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+
+h5, h6 {
+  color: #333; /* Цвет текста */
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+.contacts h3 {
+  font-size: 18px; /* Размер подзаголовка */
+  color: #555; /* Цвет текста */
+  margin-bottom: 30px; /* Отступ снизу */
+}
+
+/* Стили для ссылок */
+a {
+  color: #282626; /* Цвет ссылки */
+  text-decoration: none; /* Убираем подчеркивание */
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+a:hover {
+  color: #000000; /* Цвет ссылки при наведении */
+  transform: scale(1.05);
+  font-weight: 700;
+}
+
+a.red {
+  color: #E5322D; /* Цвет ссылки */
+  text-decoration: none; /* Убираем подчеркивание */
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+a.red:hover {
+  color: #BD060A; /* Цвет ссылки при наведении */
+  transform: scale(1.05);
+}
+
+a.button-red {
+  background-color: #E5322D;
+  color: white;
+}
+
+a.button-red:hover {
+  background-color: #BD060A;
+  color: white;
+  font-weight: 700;
+  transform: scale(1.05);
+}
+
+/* Дополнительные стили для отзыва и ошибок, если нужны */
+.alert {
+  background-color: #f8d7da; /* Цвет фона для ошибки */
+  color: #721c24; /* Цвет текста для ошибки */
+  padding: 15px; /* Внутренние отступы */
+  margin-bottom: 20px; /* Отступ снизу */
+  border: 1px solid #f5c6cb; /* Цвет рамки */
+  border-radius: 5px; /* Закругленные углы */
+}
+
+.faq-container h1 {
+  text-align: center; /* Центрирование заголовка */
+  color: #333; /* Цвет заголовка */
+  margin-bottom: 50px; /* Отступ снизу */
+}
+
+.nav {
+  display: flex; /* Flexbox для выравнивания */
+  justify-content: flex-end; /* Выравнивание элементов вправо */
+  align-items: center; /* Выравнивание по центру по вертикали */
+  width: 100%; /* Занимаем всю ширину */
+}
+
+.nav-item {
+  margin-left: 20px; /* Отступы между элементами */
+}
+
+
+.nav-link {
+  padding: 10px 15px; /* Увеличиваем отступы для лучшего клика */
+}
+
+a.edit {
+  background-color: rgb(17, 33, 173);
+  color: white;
+}
+a.edit:hover {
+  background-color: rgb(15, 25, 105);
+  color: white;
+}
+
+a.edit:active {
+  background-color: rgb(10, 20, 150);
+  color: white;
+}
+
+
+html, body {
+  height: 100%; /* Убедитесь, что body занимает всю высоту экрана */
+  margin: 0; /* Убираем отступы */
+}
+
+body {
+  background-size: cover; /* Занимает всё пространство */
+  background-position: center;
+  background-repeat: repeat;
+  height: 100vh; /* Занимает всю высоту окна браузера */
+  margin: 0; /* Убирает отступы */
+}
+
+.full-width {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.full-height {
+  height: 95%; /* Устанавливаем высоту на 100% */
+}
+
+
+.icons {
+  display: inline-flex;
+  margin-bottom: 50px;
+}
+
+.icons__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 40px;
+  border: solid var(--color-blue); /* Замените $color-blue на реальное значение цвета */
+  border-radius: 40px;
+  margin-right: 50px;
+}
+
+.icons__item:last-child {
+  margin-right: 0;
+}
+
+.icons__item i {
+  font-size: 25px;
+  color: black;
+}
+
+.icon-svg {
+  /* width: 21px; Подгоните размер под другие иконки */
+  height: 25px; /* Подгоните размер под другие иконки */
+  color: black; /* Цвет иконки, если необходимо */
+  display: block; /* Чтобы избежать отступов */
+}

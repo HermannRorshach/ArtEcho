@@ -1,13 +1,39 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
   {{ title }}
 {% endblock %}
 {% block content %}
   <main>
     <div class="container py-5">
-        <h1>{{ object }}</h1>
-        <p><a href="{% url 'reviews:update_title' object.pk %}">Изменить</a></p>
-        <p><a href="{% url 'reviews:delete_title' object.pk %}">Удалить</a></p>
+      <div class="wrapper-container">
+        <h1>{% if object.text %}{{ object.text }}{% else %}{{object}}{% endif %}</h1>
+        <div class="container-fluid">
+          <div class="row justify-content-start"> <!-- Выравниваем контент по левому краю -->
+            <div class="col-12"> <!-- Занимаем всю ширину строки -->
+              <div class="d-flex flex-row gap-5"> <!-- Flex-контейнер с отступами между элементами -->
+                <a class="back btn btn-primary" href="{{ update_url }}">Изменить</a>
+                <a class="button-red btn" href="{{ delete_url }}">Удалить</a>
+              </div>
+              <br>
+              <p>
+                <a class="back btn btn-primary" href="{{ back_url }}">Назад</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+        {% if related_object_list %}
+        <h2>{{ related_object_title }}</h2>
+        {% else %} <h2>{{ no_related_objects_title }}</h2>
+        {% endif %}
+        <h4><a href="{{ create_related_object_url }}">{{ create_related_object_title }}</a></h4>
+        {% for instance in related_object_list %}
+            <p><a href="{{ instance.get_absolute_url }}">{{ instance.text }}</a></p>
+        {% endfor %}
+
+      </div>
     </div>
   </main>
 {% endblock %}

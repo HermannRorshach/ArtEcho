@@ -1,8 +1,8 @@
 def menu(request):
     items = {
         'common_items': [
-            {'path': 'planner:contacts', 'text': 'Техподдержка'},
-            {'path': 'planner:faq', 'text': 'FAQ'},
+            {'path': 'reviews:contacts', 'text': 'Техподдержка'},
+            {'path': 'reviews:faq', 'text': 'FAQ'},
         ],
     }
     if request.user.is_authenticated:
