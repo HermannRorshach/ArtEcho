@@ -7,6 +7,11 @@
   <main>
     <div class="container py-5">
       {% include "includes/header.html" %}
+
+      {% if request.resolver_match.view_name == 'reviews:titles' %}
+        {% include "includes/genres.html" %}
+      {% endif %}
+
       <div class="wrapper-container">
         <h1>{{ title }}</h1>
         <h5><a href="{{ create_url }}">{{ action }}</a></h5>

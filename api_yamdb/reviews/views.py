@@ -1,25 +1,17 @@
-from django.views.generic.edit import CreateView
-from .models import Title, Category, Comment, Review, Genre
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import login_required
 from pprint import pprint
 
-
 import requests
-
-from django.contrib.auth.decorators import login_required
-
-
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
-
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import DeleteView, DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
-from .forms import GenreForm, TitleForm, ReviewForm
-from django.contrib.auth.decorators import user_passes_test
-from django.utils.decorators import method_decorator
+
+from .forms import CommentForm, GenreForm, ReviewForm, TitleForm
+from .models import Category, Comment, Genre, Review, Title
+
 
 def is_admin_or_superuser(user):
     return user.is_authenticated and (user.is_admin or user.is_superuser)
@@ -76,7 +68,7 @@ class TitleCreateView(CreateView):
         context.update(title_context)
         context['title'] = 'Добавить новое произведение'
         context['is_edit'] = False
-        context["create_url"] = reverse("reviews:create_title")
+        context["create_url"] = reverse_lazy("reviews:create_title")
         pprint(context)
         return context
 
@@ -108,6 +100,10 @@ class TitleListView(ListView):
         context = super().get_context_data(**kwargs)
         context.update(title_context)
         context['title'] = 'Список произведений'
+        context["create_url"] = reverse_lazy("reviews:create_title")
+        context['genres_list'] = Genre.objects.all()
+        context['category_list'] = Category.objects.all()
+        # pprint(context)
         return context
 
 
@@ -122,9 +118,9 @@ class TitleDetailView(DetailView):
         context.update(title_context)
         context['title'] = f'Произведение {context["object"]}'
         context['related_object_list'] = Review.objects.filter(title_id=self.kwargs['pk'])
+        context['create_related_object_url'] = reverse_lazy('reviews:create_review', kwargs={"title_id": self.object.pk})
         context["update_url"] = reverse_lazy("reviews:update_title", kwargs={"pk": self.object.pk})
         context["delete_url"] = reverse_lazy("reviews:delete_title", kwargs={"pk": self.object.pk})
-        context['create_related_object_url'] = reverse_lazy('reviews:create_review', kwargs={"title_id": self.object.pk})
         context['back_url'] = reverse_lazy('reviews:titles')
         pprint(context)
         return context
@@ -248,14 +244,17 @@ review_context = {
     'create_button_text': 'Добавить',  # Для страницы создания
     'url_with_arg': True,
 
-    'update_url': 'reviews:update_review',  # Для страницы редактирования
+    # 'update_url': 'reviews:update_review',  # Для страницы редактирования
     'update_button_text': 'Изменить',  # Для страницы редактирования
 
     'action': 'Добавить отзыв',  # Для страницы списка
-    'detail_url': 'reviews:review_detail',  # Для страницы списка
+    # 'detail_url': 'reviews:review_detail',  # Для страницы списка
 
-    'update_url': 'reviews:update_review',
-    'delete_url': 'reviews:delete_review',
+    # 'update_url': 'reviews:update_review',
+    # 'delete_url': 'reviews:delete_review',
+    'related_object_title': 'Комментарии',
+    'no_related_objects_title': 'Комментариев нет',
+    'create_related_object_title': 'Оставить комментарий',
 }
 
 # @method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
@@ -337,9 +336,15 @@ class ReviewDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context.update(review_context)
         context['title'] = f'Отзыв {context["object"]}'
+        self.title_id = self.kwargs['title_id']
+        context['related_object_list'] = Comment.objects.filter(review_id=self.kwargs['pk'])
+        context['create_related_object_url'] = reverse_lazy('reviews:create_comment', kwargs={'title_id': self.title_id, 'review_id': self.object.pk})
+        pprint(context['create_related_object_url'])
         context["update_url"] = reverse_lazy("reviews:update_review", kwargs={"title_id": self.object.title.pk, "pk": self.object.pk})
         context["delete_url"] = reverse_lazy("reviews:delete_review", kwargs={"title_id": self.object.title.pk, "pk": self.object.pk})
         context['back_url'] = reverse_lazy('reviews:reviews',  kwargs={"title_id": self.object.title.pk})
+        pprint("kwargs в get_context_data ReviewDetailView в create_related_object_url")
+        pprint({'title_id': self.title_id, 'review_id': self.object.pk})
         pprint(context)
         return context
 
@@ -362,50 +367,143 @@ class ReviewDeleteView(DeleteView):
         return context
 
 
+comment_context = {
+    # 'create_url': 'reviews:create_review',  # Для страницы создания и редактирования
+    'create_button_text': 'Добавить',  # Для страницы создания
+    # 'url_with_arg': True,
 
-# from django.views.generic import CreateView
-# from django.urls import reverse_lazy
-# from django.shortcuts import get_object_or_404
-# from .models import Review, Title
-# from .forms import ReviewForm
+    # 'update_url': 'reviews:update_review',  # Для страницы редактирования
+    'update_button_text': 'Изменить',  # Для страницы редактирования
 
-# class ReviewCreateView(CreateView):
-#     model = Review
-#     form_class = ReviewForm
-#     template_name = "reviews/review_form.html"
+    'action': 'Добавить комментарий',  # Для страницы списка
+    # 'detail_url': 'reviews:review_detail',  # Для страницы списка
 
-#     def dispatch(self, request, *args, **kwargs):
-#         self.title = get_object_or_404(Title, id=self.kwargs["title_id"])
-#         return super().dispatch(request, *args, **kwargs)
+    # 'update_url': 'reviews:update_review',
+    # 'delete_url': 'reviews:delete_review',
+}
 
-#     def form_valid(self, form):
-#         form.instance.author = self.request.user
-#         form.instance.title = self.title
-#         return super().form_valid(form)
+class CommentCreateView(CreateView):
+    model = Comment
+    template_name = 'reviews/create_instance.html'
+    form_class = CommentForm
 
-#     def get_success_url(self):
-#         return reverse_lazy("reviews:review_list", kwargs={"title_id": self.title.id})
+    @property
+    def title_id(self):
+        return self.kwargs['title_id']
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["title"] = self.title
-#         return context
+    @property
+    def review_id(self):
+        return self.kwargs['review_id']
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'reviews:review_detail', kwargs={'title_id': self.title_id, 'pk': self.review_id}
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(comment_context)
+        context['title'] = 'Добавить комментарий'
+        context['is_edit'] = False
+        context['create_url'] = reverse_lazy('reviews:create_review', kwargs={'title_id': self.title_id, 'review_id': self.review_id})
+        return context
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        review = Review.objects.get(pk=self.kwargs['review_id'])
+        form.instance.review = review
+        return super().form_valid(form)
 
 
-# from django.views.generic import ListView
-# from django.shortcuts import get_object_or_404
-# from .models import Review, Title
 
-# class ReviewListView(ListView):
-#     model = Review
-#     template_name = "reviews/instances.html"
-#     # context_object_name = "reviews"
+class CommentUpdateView(UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'reviews/create_instance.html'
 
-#     def get_queryset(self):
-#         self.title = get_object_or_404(Title, id=self.kwargs["title_id"])
-#         return Review.objects.filter(title=self.title)
+    @property
+    def title_id(self):
+        return self.kwargs['title_id']
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["title"] = self.title
-#         return context
+    @property
+    def review_id(self):
+        return self.kwargs['review_id']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(comment_context)
+        context['title'] = f'Изменить комментарий {context["object"]}'
+        context['is_edit'] = True
+        context['cancel_url'] = reverse_lazy('reviews:comment_detail', kwargs={'title_id': self.title_id, 'review_id': self.review_id, "pk": self.object.pk})
+        pprint(context)
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('reviews:comment_detail', kwargs={'title_id': self.title_id, 'review_id': self.review_id, "pk": self.object.pk})
+
+
+class CommentListView(ListView):
+    model = Comment
+    template_name = 'reviews/instances.html'
+
+    @property
+    def title_id(self):
+        return self.kwargs['title_id']
+
+    @property
+    def review_id(self):
+        return self.kwargs['review_id']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(comment_context)
+        context['title'] = f'Список комментариев к отзыву {Review.objects.get(pk=self.review_id)}'
+        context['back_url'] = reverse_lazy('reviews:review_detail',  kwargs={"title_id": self.title_id, "pk": self.review_id})
+        context['create_url'] = reverse_lazy('reviews:create_comment', kwargs={'title_id': self.title_id, 'review_id': self.review_id})
+        pprint(context)
+        return context
+
+    def get_queryset(self):
+        self.review = get_object_or_404(Review, id=self.review_id)
+        return Comment.objects.filter(review=self.review)
+
+
+# @method_decorator(login_required, name='dispatch')
+class CommentDetailView(DetailView):
+    model = Comment
+    template_name = 'reviews/instance_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(comment_context)
+        context['title'] = f'Комментарий {context["object"]}'
+        self.title_id = self.kwargs['title_id']
+        self.review_id = self.kwargs['review_id']
+        context["update_url"] = reverse_lazy("reviews:update_comment", kwargs={"title_id": self.title_id, "review_id": self.review_id, "pk": self.object.pk})
+        context["delete_url"] = reverse_lazy("reviews:delete_comment", kwargs={"title_id": self.title_id, "review_id": self.review_id, "pk": self.object.pk})
+        context['back_url'] = reverse_lazy('reviews:comments',  kwargs={"title_id": self.title_id, "review_id": self.review_id})
+        pprint(context)
+        return context
+
+
+class CommentDeleteView(DeleteView):
+    model = Comment
+    template_name = 'reviews/confirm_delete.html'
+
+    @property
+    def title_id(self):
+        return self.kwargs['title_id']
+
+    @property
+    def review_id(self):
+        return self.kwargs['review_id']
+
+    def get_success_url(self):
+        return reverse_lazy('reviews:review_detail',  kwargs={'title_id': self.title_id, 'pk': self.review_id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(comment_context)
+        context['message'] = f'Удалить комментарий {context["object"]}'
+        context['cancel_url'] = reverse_lazy('reviews:comment_detail',  kwargs={'title_id': self.title_id, 'review_id': self.review_id, "pk": self.object.pk})
+        return context

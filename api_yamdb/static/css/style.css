@@ -41,6 +41,7 @@ html {
 
 body {
   font-family: 'Comfortaa', 'Arial', sans-serif;
+  background-color: #D9A560;
 }
 
 
@@ -53,6 +54,7 @@ body {
   border-radius: 8px; /* Закругленные углы */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Тень для эффекта глубины */
   text-align: center; /* Центрирование текста */
+  background-color: #FDEACA;
 }
 
 .wrapper-container {
@@ -92,20 +94,22 @@ h6 {
 }
 
 h1, h2, h3, h4 {
-  color: #333; /* Цвет текста */
+  color: #6E4E39; /* Цвет текста */
   margin-bottom: 30px;
+  text-align: center;
   font-weight: bold;
 }
 
 
 h5, h6 {
-  color: #333; /* Цвет текста */
+  color: #6E4E39; /* Цвет текста */
   margin-bottom: 15px;
   font-weight: bold;
 }
 
 p {
   margin-bottom: 10px;
+  color: #6E4E39;
 }
 
 .contacts h3 {
@@ -116,14 +120,14 @@ p {
 
 /* Стили для ссылок */
 a {
-  color: #282626; /* Цвет ссылки */
+  color: #6E4E39; /* Цвет ссылки */
   text-decoration: none; /* Убираем подчеркивание */
   display: inline-block;
   transition: transform 0.3s ease;
 }
 
 a:hover {
-  color: #000000; /* Цвет ссылки при наведении */
+  color: #6E4E39; /* Цвет ссылки при наведении */
   transform: scale(1.05);
   font-weight: 700;
 }
@@ -182,6 +186,12 @@ a.button-red:hover {
 
 .nav-link {
   padding: 10px 15px; /* Увеличиваем отступы для лучшего клика */
+  color: #FDEACA;
+}
+
+.nav-link:hover {
+  color: #FDEACA;
+  font-weight: 700;
 }
 
 a.edit {
@@ -252,4 +262,51 @@ body {
   height: 25px; /* Подгоните размер под другие иконки */
   color: black; /* Цвет иконки, если необходимо */
   display: block; /* Чтобы избежать отступов */
+}
+
+/* Хедер */
+
+header {
+  margin-bottom: 30px;
+}
+
+.header-container {
+  text-align: center; /* Центрирование текста */
+  border-radius: 8px; /* Закругленные углы */
+  background-color: #AF794B;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Тень для эффекта глубины */
+  display: inline-block;
+  max-width: 100%;
+  padding: 20px;
+}
+
+select, option {
+  background-color: #FDEACA;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.filters {
+  display: flex;
+  gap: 10px; /* Отступ между селектами */
+  text-align: left;
+}
+
+select.filters {
+  background-color: #FDEACA;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: auto;
+  min-width: 100px; /* (опционально) задаёт минимальную ширину */
+  margin: 0 30px 0 0;
+  margin-left: 0px;
+}
+
+.form-select {
+  width: auto; /* Чтобы селект занимал ширину по содержимому */
+}
+
+.form-select:focus {
+  border-color: #D9A560; /* Ваш желаемый цвет */
+  border-width: 3px;
+  box-shadow: none; /* Убирает тень, если не хотите её */
 }

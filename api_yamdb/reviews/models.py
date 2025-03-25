@@ -94,6 +94,14 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.author}: {self.text[:15]}...'
 
+    def get_absolute_url(self):
+        return reverse("reviews:comment_detail", kwargs={
+            "title_id": self.review.title.pk,
+            "review_id": self.review.pk,
+            "pk": self.pk
+        })
+
+
     def save(self, *args, **kwargs):
         if not self.slug:
             transliterated_slug = translit(self.text[:15], 'ru', reversed=True)

@@ -37,4 +37,10 @@ urlpatterns = [
     path('title/<int:title_id>/review/<int:pk>/', views.ReviewDetailView.as_view(), name='review_detail'),
     path('title/<int:title_id>/review/delete/<int:pk>/', views.ReviewDeleteView.as_view(), name='delete_review'),
 
+    path('title/<int:title_id>/review/<int:review_id>/comment/new/', views.CommentCreateView.as_view(), name='create_comment'),
+    path('title/<int:title_id>/review/<int:review_id>/comment/update/<int:pk>/', views.CommentUpdateView.as_view(), name='update_comment'),
+    path('title/<int:title_id>/review/<int:review_id>/comments/', views.CommentListView.as_view(), name='comments'),
+    path('title/<int:title_id>/review/<int:review_id>/comment/<int:pk>/', views.CommentDetailView.as_view(), name='comment_detail'),
+    path('title/<int:title_id>/review/<int:review_id>/comment/delete/<int:pk>/', views.CommentDeleteView.as_view(), name='delete_comment'),
+
 ]

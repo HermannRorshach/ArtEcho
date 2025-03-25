@@ -1,7 +1,7 @@
 {% load static %}
 <header>
-  <nav class="navbar navbar-light" style="background-color: lightskyblue">
-    <div class="container">
+  <nav>
+    <div class="header-container">
       <ul class="nav nav-pills ms-auto">
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.view_name == 'planner:planner' %}active{% endif %}"
