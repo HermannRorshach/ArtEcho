@@ -58,6 +58,13 @@ body {
 }
 
 .wrapper-container {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto
+}
+
+.container-left {
+  width: 100%;
   text-align: left;
 }
 
@@ -144,16 +151,33 @@ a.red:hover {
   transform: scale(1.05);
 }
 
-a.button-red {
-  background-color: #E5322D;
-  color: white;
+.button {
+  background-color: #FDEACA;
+  color: #6E4E39;
+  border: solid 1px #6E4E39;
+  display: inline-block;
+  padding: 0 20px; /* Можно настроить паддинги для нужной высоты */
+  line-height: 40px; /* Устанавливаем line-height равным высоте кнопки, чтобы текст выровнялся по центру */
+  text-align: center; /* Выравнивание текста по горизонтали (если нужно) */
 }
 
-a.button-red:hover {
-  background-color: #BD060A;
+
+.button:hover {
+  background-color: #D9A560;
   color: white;
+  border: solid 2px #AF794B;
   font-weight: 700;
   transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавление тени при наведении */
+}
+
+.button:active {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Тень при клике */
+  transform: scale(1); /* Возвращаем к исходному размеру при клике */
+}
+
+.buttons {
+  margin-bottom: 20px;
 }
 
 /* Дополнительные стили для отзыва и ошибок, если нужны */
@@ -184,14 +208,21 @@ a.button-red:hover {
 }
 
 
-.nav-link {
+.nav-lnk {
   padding: 10px 15px; /* Увеличиваем отступы для лучшего клика */
   color: #FDEACA;
 }
 
-.nav-link:hover {
+.nav-lnk:hover {
   color: #FDEACA;
   font-weight: 700;
+}
+
+.nav-lnk.active {
+  background-color: #FDEACA;
+  font-weight: 700;
+  border-radius: 12px;
+  color:#6E4E39
 }
 
 a.edit {
@@ -282,7 +313,6 @@ header {
 
 select, option {
   background-color: #FDEACA;
-  display: inline-block;
   max-width: 100%;
 }
 
@@ -309,4 +339,170 @@ select.filters {
   border-color: #D9A560; /* Ваш желаемый цвет */
   border-width: 3px;
   box-shadow: none; /* Убирает тень, если не хотите её */
+}
+
+.title-card {
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  transition: border-color 0.3s;
+  margin: 0 100px 0 100px;
+}
+
+.title-card:hover {
+  background-color: #F2F2F0;
+  border: 3px solid #AF794B;
+}
+
+.margin-bottom {
+  margin-bottom: 30px;
+}
+
+.margin-right {
+  margin-right: 20px;
+}
+
+#id_genre{
+  display: block;
+}
+
+.btn-back-hover {
+  display: none; /* Скрыть вторую иконку по умолчанию */
+  height: 40px;
+}
+
+a img.btn-back {
+  height: 40px;
+}
+
+a:hover .btn-back {
+  display: none; /* Скрыть первую иконку при наведении */
+}
+
+a:hover .btn-back-hover {
+  display: block; /* Показать вторую иконку при наведении */
+}
+
+
+.card-header {
+  background-color: #FDEACA;
+  color: #6E4E39;
+}
+
+.card-body {
+  background-color: #F2F2F0;
+  color: #6E4E39;
+}
+
+.form-group {
+  background-color: #F2F2F0;
+  color: #6E4E39;
+}
+
+.form-group label {
+  color: #6E4E39;
+}
+
+.form-group textarea,
+.form-group select {
+  background-color: #FDEACA;
+  color: #6E4E39;
+  border-color: #6E4E39;
+}
+
+/* Стиль для выбранных option в множественном select */
+select[multiple] option:checked {
+  background-color: #6E4E39;
+  color: #F2F2F0;
+  font-weight: bold;
+}
+
+option.selected-option {
+  background-color: #6E4E39!important;
+  color: #F2F2F0!important;
+}
+
+input {
+  background-color: #FDEACA;
+  border-radius: 8px;
+  border: solid 1px #6E4E39;
+  height: 24px;
+}
+
+.form-text, input.form-control {
+  color: #6E4E39 !important;
+}
+
+/* Базовые стили для всех input.form-control */
+input.form-control {
+  background-color: #FDEACA !important;
+  color: #6E4E39;
+  border-radius: 12px;
+}
+
+/* Переопределение для автозаполнения */
+input.form-control:-webkit-autofill,
+input.form-control:-webkit-autofill:hover,
+input.form-control:-webkit-autofill:focus,
+input.form-control:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #FDEACA inset !important;
+  -webkit-text-fill-color: #6E4E39 !important;
+  caret-color: #6E4E39 !important;
+}
+
+/* Для Firefox */
+input.form-control:-moz-autofill,
+input.form-control:-moz-autofill-preview {
+  background-color: #FDEACA !important;
+  color: #6E4E39 !important;
+}
+
+/* Принудительное применение цвета для всех состояний */
+input.form-control:not(:-webkit-autofill) {
+  background-color: #FDEACA !important;
+}
+
+.custom-select {
+  padding: 0;
+  border: solid 1px #6E4E39;
+  border-radius: 8px;
+  overflow: hidden
+}
+
+.hidden {
+  display: none;
+}
+.hidden.selected {
+  display: block;
+}
+.option:hover {
+  background-color: #6E4E39;
+  color: #F2F2F0;
+  font-weight: bold;
+}
+.option.selected {
+  background-color: #6E4E39;
+  color: #F2F2F0;
+  font-weight: bold;
+}
+
+.option.selected.empty-value {
+  background-color: #FDEACA;
+  color: #6E4E39;
+}
+
+
+@media (max-width: 576px) {
+  .title-card {
+      margin: 0;
+  }
+  select.filters.genres {
+    margin-right: 0;
+  }
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }

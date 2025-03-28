@@ -42,5 +42,8 @@ urlpatterns = [
     path('title/<int:title_id>/review/<int:review_id>/comments/', views.CommentListView.as_view(), name='comments'),
     path('title/<int:title_id>/review/<int:review_id>/comment/<int:pk>/', views.CommentDetailView.as_view(), name='comment_detail'),
     path('title/<int:title_id>/review/<int:review_id>/comment/delete/<int:pk>/', views.CommentDeleteView.as_view(), name='delete_comment'),
+    path('fig/', views.FigView.as_view(),
+        name='fig'),
+
 
 ]

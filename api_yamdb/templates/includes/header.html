@@ -4,35 +4,35 @@
     <div class="header-container">
       <ul class="nav nav-pills ms-auto">
         <li class="nav-item">
-          <a class="nav-link {% if request.resolver_match.view_name == 'planner:planner' %}active{% endif %}"
-             href="">Главная</a>
+          <a class="nav-lnk {% if request.resolver_match.view_name == 'planner:planner' %}active{% endif %}"
+             href="{% url 'reviews:titles' %}">Главная</a>
         </li>
         {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.view_name == 'planner:cabinet' %}active{% endif %}"
+            <a class="nav-lnk {% if request.resolver_match.view_name == 'planner:cabinet' %}active{% endif %}"
                href="">Кабинет</a>
           </li>
         {% endif %}
         {% for item in common_items %}
           <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.view_name == item.path %}active{% endif %}"
+            <a class="nav-lnk {% if request.resolver_match.view_name == item.path %}active{% endif %}"
                href="{% url item.path %}">{{ item.text }}</a>
           </li>
         {% endfor %}
         {% if user.is_authenticated %}
           {% for item in authenticated_items %}
             <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.view_name == item.path %}active{% endif %}"
+              <a class="nav-lnk {% if request.resolver_match.view_name == item.path %}active{% endif %}"
                  href="{% url item.path %}">{{ item.text }}</a>
             </li>
           {% endfor %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
+            <a class="nav-lnk" href="{% url 'users:logout' %}">Выйти</a>
           </li>
         {% else %}
           {% for item in guest_items %}
             <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.view_name == item.path %}active{% endif %}"
+              <a class="nav-lnk {% if request.resolver_match.view_name == item.path %}active{% endif %}"
                  href="{% url item.path %}">{{ item.text }}</a>
             </li>
           {% endfor %}

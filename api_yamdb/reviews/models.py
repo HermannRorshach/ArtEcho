@@ -6,6 +6,11 @@ from transliterate import translit
 
 User = get_user_model()
 
+def cut_text(text, max_length):
+    if len(text) > max_length:
+        return text[:max_length] + "..."
+    return text
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=255)
@@ -27,13 +32,16 @@ class Genre(models.Model):
 
 
 class Title(models.Model):
-    name = models.CharField(max_length=100)
-    year = models.IntegerField()
+    name = models.CharField(max_length=100,
+        verbose_name='Название')
+    year = models.IntegerField(verbose_name='Год создания',)
     slug = models.SlugField(max_length=255)
     category = models.ForeignKey(
-        'Category', on_delete=models.SET_NULL, null=True)
+        'Category', on_delete=models.SET_NULL, null=True,
+        verbose_name='Категория',)
     genre = models.ManyToManyField(
-        'Genre', blank=True, related_name='genre')
+        'Genre', blank=True, related_name='genre',
+        verbose_name='Жанр',)
 
     def __str__(self):
         return self.name
@@ -56,15 +64,18 @@ class Review(models.Model):
         help_text='Автор отзыва'
     )
     title = models.ForeignKey(
-        'Title', on_delete=models.CASCADE)
+        'Title', on_delete=models.CASCADE, verbose_name='Произведение')
     text = models.TextField(max_length=1800)
-    score = models.IntegerField(choices=[(i, i) for i in range(1, 11)])
-    pub_date = models.DateTimeField(auto_now_add=True)
-    update_date = models.DateTimeField(auto_now=True)
-    slug = models.SlugField(max_length=255)
+    score = models.IntegerField(choices=[(i, i) for i in range(1, 11)],
+                                verbose_name='Оценка пользователя')
+    pub_date = models.DateTimeField(auto_now_add=True,
+                                    verbose_name='Дата и время публикации')
+    update_date = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    slug = models.SlugField(max_length=255, verbose_name='Ссылка')
 
     def __str__(self):
-        return f'{self.author}: {self.text[:15]}...'
+        return (f"Отзыв {self.author} на произведение {self.title}:\n"
+                f"{cut_text(self.text, 25)}")
 
     def get_absolute_url(self):
         return reverse("reviews:review_detail", kwargs={"title_id": self.title.pk, "pk": self.pk})
@@ -79,8 +90,8 @@ class Review(models.Model):
 class Comment(models.Model):
     review = models.ForeignKey(
         'Review', on_delete=models.CASCADE)
-    text = models.TextField(max_length=1800)
-    pub_date = models.DateTimeField(auto_now_add=True)
+    text = models.TextField(max_length=1800, verbose_name='Текст комментария')
+    pub_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     update_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(
         User,
@@ -92,7 +103,8 @@ class Comment(models.Model):
     slug = models.SlugField(max_length=255)
 
     def __str__(self):
-        return f'{self.author}: {self.text[:15]}...'
+        return (f"Комментарий {self.author} к отзыву {self.review.author} "
+                f"на произведение {self.review.title}:\n{cut_text(self.text, 25)}")
 
     def get_absolute_url(self):
         return reverse("reviews:comment_detail", kwargs={

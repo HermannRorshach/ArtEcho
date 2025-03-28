@@ -23,6 +23,12 @@ class ContactsView(View):
     def get(self, request):
         return render(request, self.template_name)
 
+class FigView(View):
+    template_name = 'reviews/fig.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
 
 @method_decorator(login_required, name='dispatch')
 class FaqView(View):
@@ -103,6 +109,7 @@ class TitleListView(ListView):
         context["create_url"] = reverse_lazy("reviews:create_title")
         context['genres_list'] = Genre.objects.all()
         context['category_list'] = Category.objects.all()
+        context['display_fields'] = ["year", "category", "genre"]
         # pprint(context)
         return context
 
@@ -122,6 +129,7 @@ class TitleDetailView(DetailView):
         context["update_url"] = reverse_lazy("reviews:update_title", kwargs={"pk": self.object.pk})
         context["delete_url"] = reverse_lazy("reviews:delete_title", kwargs={"pk": self.object.pk})
         context['back_url'] = reverse_lazy('reviews:titles')
+        context['display_fields'] = ["year", "category", "genre"]
         pprint(context)
         return context
 
@@ -276,7 +284,8 @@ class ReviewCreateView(CreateView):
         context['title'] = 'Добавить новый отзыв'
         context['is_edit'] = False
         title_id = self.kwargs['title_id']
-        context['title_id'] = title_id
+        # context['title_id'] = title_id
+        context['cancel_url'] = reverse_lazy('reviews:reviews',  kwargs={"title_id": title_id})
         context['create_url'] = reverse_lazy('reviews:create_review', kwargs={"title_id": title_id})
         return context
 
@@ -319,6 +328,7 @@ class ReviewListView(ListView):
         context['title'] = f'Список отзывов на произведение {Title.objects.get(pk=title_id)}'
         context['back_url'] = reverse_lazy('reviews:title_detail',  kwargs={"pk": title_id})
         context['create_url'] = reverse_lazy('reviews:create_review', kwargs={"title_id": title_id})
+        context['display_fields'] = ["author", "text", "score", "pub_date"]
         pprint(context)
         return context
 
@@ -406,6 +416,7 @@ class CommentCreateView(CreateView):
         context['title'] = 'Добавить комментарий'
         context['is_edit'] = False
         context['create_url'] = reverse_lazy('reviews:create_review', kwargs={'title_id': self.title_id, 'review_id': self.review_id})
+        context['cancel_url'] = reverse_lazy('reviews:review_detail', kwargs={'title_id': self.title_id, 'pk': self.review_id})
         return context
 
     def form_valid(self, form):
@@ -460,6 +471,7 @@ class CommentListView(ListView):
         context['title'] = f'Список комментариев к отзыву {Review.objects.get(pk=self.review_id)}'
         context['back_url'] = reverse_lazy('reviews:review_detail',  kwargs={"title_id": self.title_id, "pk": self.review_id})
         context['create_url'] = reverse_lazy('reviews:create_comment', kwargs={'title_id': self.title_id, 'review_id': self.review_id})
+        context['display_fields'] = ["author", "text", "pub_date"]
         pprint(context)
         return context
 
@@ -482,6 +494,7 @@ class CommentDetailView(DetailView):
         context["update_url"] = reverse_lazy("reviews:update_comment", kwargs={"title_id": self.title_id, "review_id": self.review_id, "pk": self.object.pk})
         context["delete_url"] = reverse_lazy("reviews:delete_comment", kwargs={"title_id": self.title_id, "review_id": self.review_id, "pk": self.object.pk})
         context['back_url'] = reverse_lazy('reviews:comments',  kwargs={"title_id": self.title_id, "review_id": self.review_id})
+        context['display_fields'] = ["author", "text", "pub_date"]
         pprint(context)
         return context
 
