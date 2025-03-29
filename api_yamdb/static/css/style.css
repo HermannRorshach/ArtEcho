@@ -364,9 +364,9 @@ select.filters {
   margin-right: 20px;
 }
 
-#id_genre{
+/* #id_genre{
   display: block;
-}
+} */
 
 .btn-back-hover {
   display: none; /* Скрыть вторую иконку по умолчанию */
@@ -428,6 +428,9 @@ input {
   background-color: #FDEACA;
   border-radius: 8px;
   border: solid 1px #6E4E39;
+}
+
+input:not(.delete) {
   height: 24px;
 }
 
@@ -468,7 +471,13 @@ input.form-control:not(:-webkit-autofill) {
   padding: 0;
   border: solid 1px #6E4E39;
   border-radius: 8px;
-  overflow: hidden
+  overflow: hidden;
+  background-color: #FDEACA;
+}
+
+.multiple {
+  overflow-y: auto;
+  height: 120px;
 }
 
 .hidden {
@@ -491,6 +500,10 @@ input.form-control:not(:-webkit-autofill) {
 .option.selected.empty-value {
   background-color: #FDEACA;
   color: #6E4E39;
+}
+
+.option:focus {
+  outline: 2px solid #6E4E39;
 }
 
 
