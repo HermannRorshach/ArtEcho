@@ -503,7 +503,14 @@ input.form-control:not(:-webkit-autofill) {
 }
 
 .option:focus {
-  outline: 2px solid #6E4E39;
+  outline: 2px solid #AF794B;
+  background-color: #AF794B;
+  color: #F2F2F0;
+  font-weight: bold;
+}
+
+.option.selected:focus {
+  background-color: #6E4E39;
 }
 
 
