@@ -30,6 +30,15 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("reviews:genre_detail", kwargs={"pk": self.pk})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            transliterated_slug = translit(self.name, 'ru', reversed=True)
+            self.slug = slugify(transliterated_slug)
+        super().save(*args, **kwargs)
+
 
 class Title(models.Model):
     name = models.CharField(max_length=100,

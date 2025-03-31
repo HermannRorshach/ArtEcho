@@ -37,6 +37,12 @@ class FaqView(View):
     def get(self, request):
         return render(request, self.template_name)
 
+class CabinetView(View):
+    template_name = 'reviews/cabinet.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
 
 title_context = {
     # 'create_url': 'reviews:create_title',  # Для страницы создания и редактирования
@@ -186,6 +192,7 @@ class GenreCreateView(CreateView):
         context.update(genre_context)
         context['title'] = 'Добавить новый жанр'
         context['is_edit'] = False
+        context["create_url"] = reverse_lazy("reviews:create_genre")
         return context
 
 
@@ -199,11 +206,12 @@ class GenreUpdateView(UpdateView):
         context.update(genre_context)
         context['title'] = f'Изменить жанр {context["object"]}'
         context['is_edit'] = True
+        context['cancel_url'] = reverse_lazy('reviews:genre_detail',  kwargs={"pk": self.object.pk})
         return context
 
     def get_success_url(self):
         return reverse_lazy(
-            'reviews:genres'
+            'reviews:genre_detail', kwargs={'pk': self.kwargs['pk']}
         )
 
 
@@ -215,6 +223,8 @@ class GenreListView(ListView):
         context = super().get_context_data(**kwargs)
         context.update(genre_context)
         context['title'] = 'Список жанров'
+        context["create_url"] = reverse_lazy("reviews:create_genre")
+        context['display_fields'] = ["name", "slug"]
         return context
 
 
@@ -227,6 +237,10 @@ class GenreDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context.update(genre_context)
         context['title'] = f'Жанр {context["object"]}'
+        context["update_url"] = reverse_lazy("reviews:update_genre", kwargs={"pk": self.object.pk})
+        context["delete_url"] = reverse_lazy("reviews:delete_genre", kwargs={"pk": self.object.pk})
+        context['back_url'] = reverse_lazy('reviews:genres')
+        context['display_fields'] = ["name", "slug"]
         return context
 
 
@@ -244,6 +258,7 @@ class GenreDeleteView(DeleteView):
         context = super().get_context_data(**kwargs)
         context.update(genre_context)
         context['message'] = f'Удалить жанр {context["object"]}'
+        context['cancel_url'] = reverse_lazy('reviews:genre_detail',  kwargs={"pk": self.object.pk})
         return context
 
 

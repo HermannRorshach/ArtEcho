@@ -17,6 +17,7 @@ urlpatterns = [
         'faq/',
         views.FaqView.as_view(),
         name='faq'),
+    path('cabinet', views.CabinetView.as_view(), name='cabinet'),
     # path("titles/<int:title_id>/reviews/create/", views.ReviewCreateView.as_view(), name="review_create"),
     # path("titles/<int:title_id>/reviews/", views.ReviewListView.as_view(), name="review_list"),
     path('title/new/', views.TitleCreateView.as_view(), name='create_title'),

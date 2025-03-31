@@ -589,6 +589,15 @@ select.filters.form-select {
   content: none !important;
 }
 
+.custom-select.filters {
+  gap: 0; /* Убираем промежутки между элементами в flex-контейнере */
+}
+
+.custom-select.filters .option:not(:first-child) {
+  background-color: #AF794B;
+  color: #FDEACA;
+  font-weight: bold;
+}
 
 @media (max-width: 576px) {
   .title-card {

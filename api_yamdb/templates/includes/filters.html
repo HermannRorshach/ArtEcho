@@ -1,14 +1,14 @@
 <nav class="margin-bottom">
     <div class="filters">
       <select class="filters genres form-select">
-        <option value="1">Все жанры</option>
+        <option class="initial-value" value="1">Все жанры</option>
         {% for genre in genres_list %}
         <option value="{{ genre.name }}">{{ genre.name }}</option>
         {% endfor %}
       </select>
 
       <select class="filters categories form-select">
-        <option value="1">Все категории</option>
+        <option class="initial-value" value="1">Все категории</option>
         {% for category in category_list %}
         <option value="{{ genre.name }}">{{ category.name }}</option>
         {% endfor %}
