@@ -2,6 +2,7 @@
     // Получаем все простые селекты
     let allSimpleSelects = document.querySelectorAll("select:not([multiple])");
 
+
     // Скрываем оригинальные селекты
     allSimpleSelects.forEach(select => select.classList.add("hidden"));
 
@@ -26,6 +27,8 @@
         // кастомный селект будет находить оригинальный для изменения его значения
         select.dataset.number = ++ number;
         customSelect.dataset.number = number;
+        customSelect.classList.add(...select.classList);
+        customSelect.classList.remove("hidden")
 
         for (let option of select.querySelectorAll("option")) {
             let text = option.text;
@@ -47,7 +50,8 @@
             customOption.addEventListener("click", selectOption)
             customSelect.append(customOption);
         }
-        parent.append(customSelect);
+        // parent.append(customSelect);
+        select.insertAdjacentElement('afterEnd', customSelect);
         // console.log(parent)
         customSelect.setAttribute('tabindex', '0');
         customSelect.addEventListener("blur", setClassHidden)
@@ -89,6 +93,7 @@
         // console.log("originalSelect =", originalSelect, "parent.dataset.number =", parent.dataset.number)
         currentIndex = options.indexOf(this);
         originalSelect.selectedIndex = currentIndex;
+        originalSelect.dispatchEvent(new Event('change', { bubbles: true }));
         console.log(originalSelect.getAttribute("class"), originalSelect.selectedIndex, originalSelect.value)
     }
 

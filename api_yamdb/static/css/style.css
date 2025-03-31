@@ -473,6 +473,7 @@ input.form-control:not(:-webkit-autofill) {
   border-radius: 8px;
   overflow: hidden;
   background-color: #FDEACA;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .multiple {
@@ -487,7 +488,7 @@ input.form-control:not(:-webkit-autofill) {
   display: block;
 }
 .option:hover {
-  background-color: #6E4E39;
+  background-color: #AF794B;
   color: #F2F2F0;
   font-weight: bold;
 }
@@ -495,6 +496,7 @@ input.form-control:not(:-webkit-autofill) {
   background-color: #6E4E39;
   color: #F2F2F0;
   font-weight: bold;
+  border: #6E4E39;
 }
 
 .option.selected.empty-value {
@@ -503,14 +505,88 @@ input.form-control:not(:-webkit-autofill) {
 }
 
 .option:focus {
-  outline: 2px solid #AF794B;
+  background-color: #AF794B;
+  color: #F2F2F0;
+  font-weight: bold;
+  border: #AF794B;
+}
+
+.option.selected:focus {
+  background-color: #6E4E39;
+  border: #AF794B;
+}
+
+.option.focused {
   background-color: #AF794B;
   color: #F2F2F0;
   font-weight: bold;
 }
 
-.option.selected:focus {
-  background-color: #6E4E39;
+.option:focus {
+  outline: none;
+}
+
+.filters {
+  gap: 30px;
+}
+
+/* Базовый стиль кастомного селекта */
+.custom-select.filters {
+  position: relative;
+  display: inline-flex; /* Для авто-ширины */
+  flex-direction: column; /* Главная ось - вертикаль */
+  align-self: flex-start;
+  min-width: 120px;
+}
+
+/* Контейнер опций (раскрывается вниз) */
+.custom-select .options-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  flex-direction: column; /* Опции в колонку */
+  width: auto;
+  min-width: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Видимые опции */
+.custom-select[data-is-hidden="false"] .options-container {
+  display: flex; /* Колонка (наследует flex-direction: column) */
+}
+
+/* Стиль опций */
+.custom-select.filters .option {
+  white-space: nowrap; /* Текст в одну строку */
+  padding: 8px 12px;
+}
+
+/* Выбранная опция (всегда видима) */
+.custom-select.filters .option.selected {
+  display: block;
+  background-color: #FDEACA;
+  color: #6E4E39;
+  font-weight: 400;
+}
+
+/* Убираем стрелку у всех селектов */
+.custom-select.filters,
+select.filters.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
+}
+
+
+/* Если стрелка добавлена через псевдоэлемент */
+.custom-select.filters::after {
+  content: none !important;
 }
 
 
