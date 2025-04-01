@@ -66,4 +66,5 @@ urlpatterns = [
         ),
         name='password_reset_complete'
     ),
+    path('users/', views.UsersListView.as_view(), name='users'),
 ]

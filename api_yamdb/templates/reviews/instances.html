@@ -23,7 +23,9 @@
         {% if back_url %}
         {% include 'reviews/includes/back_button.html' %}
         {% endif %}
+        {% if create_url %}
         <h5><a class="button btn" href="{{ create_url }}">{{ action }}</a></h5>
+        {% endif %}
       </div>
 
         <h1>{{ title }}</h1>

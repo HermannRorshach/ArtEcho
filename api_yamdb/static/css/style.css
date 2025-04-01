@@ -151,6 +151,14 @@ a.red:hover {
   transform: scale(1.05);
 }
 
+button.button.btn {
+  margin-bottom: 20px;
+}
+
+a.button.btn {
+  height: 42px;
+}
+
 .button {
   background-color: #FDEACA;
   color: #6E4E39;

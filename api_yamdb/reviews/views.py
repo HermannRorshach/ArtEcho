@@ -9,7 +9,7 @@ from django.views import View
 from django.views.generic import DeleteView, DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 
-from .forms import CommentForm, GenreForm, ReviewForm, TitleForm
+from .forms import CategoryForm, CommentForm, GenreForm, ReviewForm, TitleForm
 from .models import Category, Comment, Genre, Review, Title
 
 
@@ -37,6 +37,8 @@ class FaqView(View):
     def get(self, request):
         return render(request, self.template_name)
 
+
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class CabinetView(View):
     template_name = 'reviews/cabinet.html'
 
@@ -85,6 +87,7 @@ class TitleCreateView(CreateView):
         return context
 
 
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class TitleUpdateView(UpdateView):
     model = Title
     form_class = TitleForm
@@ -140,6 +143,7 @@ class TitleDetailView(DetailView):
         return context
 
 
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class TitleDeleteView(DeleteView):
     model = Title
     success_url = reverse_lazy("reviews:titles")
@@ -175,6 +179,7 @@ genre_context = {
     'delete_url': 'reviews:delete_genre',
 }
 
+
 @method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class GenreCreateView(CreateView):
     model = Genre
@@ -193,9 +198,11 @@ class GenreCreateView(CreateView):
         context['title'] = 'Добавить новый жанр'
         context['is_edit'] = False
         context["create_url"] = reverse_lazy("reviews:create_genre")
+        context['cancel_url'] = reverse_lazy('reviews:genres')
         return context
 
 
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class GenreUpdateView(UpdateView):
     model = Genre
     form_class = GenreForm
@@ -224,6 +231,7 @@ class GenreListView(ListView):
         context.update(genre_context)
         context['title'] = 'Список жанров'
         context["create_url"] = reverse_lazy("reviews:create_genre")
+        del context["back_url"]
         context['display_fields'] = ["name", "slug"]
         return context
 
@@ -244,9 +252,10 @@ class GenreDetailView(DetailView):
         return context
 
 
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class GenreDeleteView(DeleteView):
     model = Genre
-    success_url = reverse_lazy("reviews:titles")
+    success_url = reverse_lazy("reviews:genres")
     template_name = 'reviews/confirm_delete.html'
 
     def get_success_url(self):
@@ -280,7 +289,8 @@ review_context = {
     'create_related_object_title': 'Оставить комментарий',
 }
 
-# @method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
+
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class ReviewCreateView(CreateView):
     model = Review
     template_name = 'reviews/create_instance.html'
@@ -311,6 +321,7 @@ class ReviewCreateView(CreateView):
         return super().form_valid(form)
 
 
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class ReviewUpdateView(UpdateView):
     model = Review
     form_class = ReviewForm
@@ -339,7 +350,7 @@ class ReviewListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(review_context)
-        title_id = self.kwargs['title_id']
+        title_id = self.kwargs.get('title_id', 1)
         context['title'] = f'Список отзывов на произведение {Title.objects.get(pk=title_id)}'
         context['back_url'] = reverse_lazy('reviews:title_detail',  kwargs={"pk": title_id})
         context['create_url'] = reverse_lazy('reviews:create_review', kwargs={"title_id": title_id})
@@ -352,7 +363,6 @@ class ReviewListView(ListView):
         return Review.objects.filter(title=self.title)
 
 
-# @method_decorator(login_required, name='dispatch')
 class ReviewDetailView(DetailView):
     model = Review
     template_name = 'reviews/instance_detail.html'
@@ -374,6 +384,7 @@ class ReviewDetailView(DetailView):
         return context
 
 
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class ReviewDeleteView(DeleteView):
     model = Review
     success_url = reverse_lazy("reviews:reviews")
@@ -407,6 +418,8 @@ comment_context = {
     # 'delete_url': 'reviews:delete_review',
 }
 
+
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class CommentCreateView(CreateView):
     model = Comment
     template_name = 'reviews/create_instance.html'
@@ -441,7 +454,7 @@ class CommentCreateView(CreateView):
         return super().form_valid(form)
 
 
-
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class CommentUpdateView(UpdateView):
     model = Comment
     form_class = CommentForm
@@ -495,7 +508,6 @@ class CommentListView(ListView):
         return Comment.objects.filter(review=self.review)
 
 
-# @method_decorator(login_required, name='dispatch')
 class CommentDetailView(DetailView):
     model = Comment
     template_name = 'reviews/instance_detail.html'
@@ -514,6 +526,7 @@ class CommentDetailView(DetailView):
         return context
 
 
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class CommentDeleteView(DeleteView):
     model = Comment
     template_name = 'reviews/confirm_delete.html'
@@ -535,3 +548,124 @@ class CommentDeleteView(DeleteView):
         context['message'] = f'Удалить комментарий {context["object"]}'
         context['cancel_url'] = reverse_lazy('reviews:comment_detail',  kwargs={'title_id': self.title_id, 'review_id': self.review_id, "pk": self.object.pk})
         return context
+
+category_context = {
+    # 'create_url': 'reviews:create_genre',  # Для страницы создания и редактирования
+    'create_button_text': 'Добавить',  # Для страницы создания
+
+    'update_url': 'reviews:update_category',  # Для страницы редактирования
+    'update_button_text': 'Изменить',  # Для страницы редактирования
+    'cancel_url': 'reviews:category_detail',  # Для страницы редактирования
+
+    'action': 'Добавить категорию',  # Для страницы списка
+    'detail_url': 'reviews:category_detail',  # Для страницы списка
+
+    'back_url': 'reviews:categories',  # Для страницы деталей
+    'update_url': 'reviews:update_category',
+    'delete_url': 'reviews:delete_category',
+}
+
+
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
+class CategoryCreateView(CreateView):
+    model = Category
+    template_name = 'reviews/create_instance.html'
+    form_class = CategoryForm
+
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'reviews:categories'
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(category_context)
+        context['title'] = 'Добавить новую категорию'
+        context['is_edit'] = False
+        context["create_url"] = reverse_lazy("reviews:create_category")
+        context['cancel_url'] = reverse_lazy('reviews:categories')
+        return context
+
+
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'reviews/create_instance.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(category_context)
+        context['title'] = f'Изменить категорию {context["object"]}'
+        context['is_edit'] = True
+        context['cancel_url'] = reverse_lazy('reviews:category_detail',  kwargs={"pk": self.object.pk})
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'reviews:category_detail', kwargs={'pk': self.kwargs['pk']}
+        )
+
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'reviews/instances.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(category_context)
+        context['title'] = 'Список категорий'
+        context["create_url"] = reverse_lazy("reviews:create_category")
+        context['display_fields'] = ["name", "slug"]
+        del context["back_url"]
+        return context
+
+
+class CategoryDetailView(DetailView):
+    model = Category
+    template_name = 'reviews/instance_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(category_context)
+        context['title'] = f'Категория {context["object"]}'
+        context["update_url"] = reverse_lazy("reviews:update_category", kwargs={"pk": self.object.pk})
+        context["delete_url"] = reverse_lazy("reviews:delete_category", kwargs={"pk": self.object.pk})
+        context['back_url'] = reverse_lazy('reviews:categories')
+        context['display_fields'] = ["name", "slug"]
+        return context
+
+
+@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
+class CategoryDeleteView(DeleteView):
+    model = Category
+    success_url = reverse_lazy("reviews:categories")
+    template_name = 'reviews/confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'reviews:categories'
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(category_context)
+        context['message'] = f'Удалить категорию {context["object"]}'
+        context['cancel_url'] = reverse_lazy('reviews:category_detail',  kwargs={"pk": self.object.pk})
+        return context
+
+
+class CabinetReviewsListView(ReviewListView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(review_context)
+        context['title'] = f'Список отзывов'
+        context['back_url'] = reverse_lazy('reviews:cabinet')
+        context['display_fields'] = ["author", "text", "score", "pub_date"]
+        del context["create_url"]
+        pprint(context)
+        return context
+
+    def get_queryset(self):
+        return Review.objects.all().order_by("-pk")

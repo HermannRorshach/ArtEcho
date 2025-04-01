@@ -9,16 +9,14 @@
       <div class="list-group mt-4">
         <a href="{% url 'reviews:genres' %}"
            class="list-group-item list-group-item-action">Жанры</a>
-        <!-- <a href=""
-           class="list-group-item list-group-item-action">Списки записавшихся на субботний обед</a>
-        <a href=""
-           class="list-group-item list-group-item-action">Архивные списки записавшихся на субботний обед</a>
-        <a href=""
-           class="list-group-item list-group-item-action">Архив</a> -->
-        <!-- {% if user.is_superuser %}
-          <a href=""
-             class="list-group-item list-group-item-action">Список администраторов</a>
-        {% endif %} -->
+        <a href="{% url 'reviews:categories' %}"
+           class="list-group-item list-group-item-action">Категории</a>
+        <a href="{% url 'reviews:titles' %}"
+           class="list-group-item list-group-item-action">Произведения</a>
+        <a href="{% url 'reviews:cabinet_reviews' %}"
+           class="list-group-item list-group-item-action">Все отзывы</a>
+          <a href="{% url 'users:users' %}"
+             class="list-group-item list-group-item-action">Список пользователей</a>
       </div>
     </div>
   </div>

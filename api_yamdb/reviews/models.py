@@ -12,11 +12,22 @@ def cut_text(text, max_length):
     return text
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=255)
+    name = models.CharField(max_length=100,
+        verbose_name='Имя категории')
+    slug = models.SlugField(max_length=255,
+        verbose_name='Относительная ссылка')
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("reviews:category_detail", kwargs={"pk": self.pk})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            transliterated_slug = translit(self.name, 'ru', reversed=True)
+            self.slug = slugify(transliterated_slug)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Категория"
@@ -24,8 +35,10 @@ class Category(models.Model):
 
 
 class Genre(models.Model):
-    name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=255)
+    name = models.CharField(max_length=100,
+        verbose_name='Имя жанра')
+    slug = models.SlugField(max_length=255,
+        verbose_name='Относительная ссылка')
 
     def __str__(self):
         return self.name
