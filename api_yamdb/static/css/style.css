@@ -48,7 +48,7 @@ body {
 .container {
   max-width: 1100px; /* Ширина контейнера */
   margin: 50px auto; /* Центрирование */
-  margin-bottom: 50px;
+  margin-bottom: 70px;
   padding: 30px; /* Внутренние отступы */
   background: #fff; /* Цвет фона контейнера */
   border-radius: 8px; /* Закругленные углы */
@@ -248,16 +248,10 @@ a.edit:active {
 }
 
 
-html, body {
-  height: 100%; /* Убедитесь, что body занимает всю высоту экрана */
-  margin: 0; /* Убираем отступы */
-}
-
 body {
   background-size: cover; /* Занимает всё пространство */
   background-position: center;
   background-repeat: repeat;
-  height: 100vh; /* Занимает всю высоту окна браузера */
   margin: 0; /* Убирает отступы */
 }
 
@@ -606,6 +600,59 @@ select.filters.form-select {
   color: #FDEACA;
   font-weight: bold;
 }
+
+.page-navigation {
+  text-align: center;
+  background-color: #FDEACA;
+}
+
+ul.pagination {
+  display: inline-flex;  /* или просто flex */
+  justify-content: center;
+  border: solid 1px #D9A560;
+  border-radius: 8px;
+}
+
+a.page-link {
+  background-color: #FDEACA;
+  color: #6E4E39;
+}
+
+li.page-item.active span.page-link {
+  background-color: #D9A560;
+  color: #F2F2F0;
+  font-weight: 700;
+  border: solid 1px #D9A560;
+}
+
+a.page-link:hover {
+  background-color: #D9A560;
+  color: #F2F2F0;
+  font-weight: 700;
+  border: solid 1px #D9A560;
+}
+
+a.page-link:focus, a.page-link:focus i {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #AF794B !important;  /* Ваш цвет */
+  background-color: #AF794B;
+  color: #F2F2F0;
+  font-weight: 700;
+}
+
+a.page-link i {
+    color: #6E4E39;
+}
+
+a.list-group-item {
+  border-radius: 5px;
+}
+
+i.fa-star, i.fa-star-half-stroke {
+  color: #FFB100;
+}
+
 
 @media (max-width: 576px) {
   .title-card {

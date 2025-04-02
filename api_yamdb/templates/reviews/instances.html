@@ -29,19 +29,25 @@
       </div>
 
         <h1>{{ title }}</h1>
-        {% for instance in object_list %}
+        {% for object in object_list %}
 
-        <div class="title-card" onclick="location.href='{{ instance.get_absolute_url }}'">
-          <h3 class="title-name">{{ instance|linebreaks }}</h3>
+        <div class="title-card" onclick="location.href='{{ object.get_absolute_url }}'">
+          <h3 class="title-name">{{ object|linebreaks }}</h3>
           <ul class="title-properties">
               {% for field in display_fields %}
-                  <li><strong>{{ instance|field_verbose_name:field }}:</strong> {{ instance|custom_getattr:field }}</li>
+                  <li><strong>{{ object|field_verbose_name:field }}:</strong> {{ object|custom_getattr:field }}</li>
               {% endfor %}
+                {% if includes %}
+                {% for path in includes %}
+                  {% include path %}
+                {% endfor %}
+              {% endif %}
           </ul>
         </div>
         {% endfor %}
-
         <br><br><br>
+        {% include "reviews/includes/paginator.html" %}
+
 
 
           <!-- {% for instance in object_list %}

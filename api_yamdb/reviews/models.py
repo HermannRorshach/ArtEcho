@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Avg, IntegerField
+from django.db.models.functions import Coalesce
 from django.urls import reverse
 from django.utils.text import slugify
 from transliterate import translit
@@ -65,11 +67,22 @@ class Title(models.Model):
         'Genre', blank=True, related_name='genre',
         verbose_name='Жанр',)
 
+    @property
+    def average_rating(self):
+        """
+        Вычисляет средний рейтинг произведения на основе связанных отзывов.
+        Возвращает 0, если отзывов нет.
+        """
+        return self.review_set.aggregate(
+            avg_rating=Coalesce(Avg('score'), 0, output_field=IntegerField())
+        )['avg_rating']
+
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse("reviews:title_detail", kwargs={"pk": self.pk})
+
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -98,6 +111,13 @@ class Review(models.Model):
     def __str__(self):
         return (f"Отзыв {self.author} на произведение {self.title}:\n"
                 f"{cut_text(self.text, 25)}")
+
+    def title_link(self):
+        return f'<a href="{reverse("reviews:title_detail", kwargs={"pk": self.title.pk})}">произведение:</a>'
+
+
+    def str_with_link(self):
+        return f"Отзыв {self.author} на {self.title_link()}<br>{cut_text(self.text, 25)}"
 
     def get_absolute_url(self):
         return reverse("reviews:review_detail", kwargs={"title_id": self.title.pk, "pk": self.pk})
@@ -134,6 +154,18 @@ class Comment(models.Model):
             "review_id": self.review.pk,
             "pk": self.pk
         })
+
+
+    def title_link(self):
+        return f'<a href="{reverse("reviews:title_detail", kwargs={"pk": self.review.title.pk})}">произведение:</a>'
+
+    def review_link(self):
+        return f'<a href="{reverse("reviews:review_detail", kwargs={"title_id": self.review.title.pk, "pk": self.review.pk})}">отзыву:</a>'
+
+
+    def str_with_link(self):
+        return (f"Комментарий {self.author} к {self.review_link()}<br>"
+                f"на {self.title_link()}<br>{cut_text(self.text, 25)}")
 
 
     def save(self, *args, **kwargs):

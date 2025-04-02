@@ -1,0 +1,8 @@
+{% load custom_filters %}
+
+<li>
+    <strong>Рейтинг:</strong> {{ object.average_rating }}
+</li>
+<li>
+    {{ object.average_rating|rating_stars }}
+</li>

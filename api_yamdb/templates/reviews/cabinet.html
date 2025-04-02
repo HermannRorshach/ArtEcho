@@ -3,6 +3,9 @@
   Кабинет администратора
 {% endblock title %}
 {% block content %}
+<div class="container py-5">
+  {% include "includes/header.html" %}
+</div>
   <div class="container mt-4 d-flex justify-content-center">
     <div class="w-100" style="max-width: 50%;">
       <h1>Кабинет администратора</h1>
@@ -15,6 +18,8 @@
            class="list-group-item list-group-item-action">Произведения</a>
         <a href="{% url 'reviews:cabinet_reviews' %}"
            class="list-group-item list-group-item-action">Все отзывы</a>
+        <a href="{% url 'reviews:cabinet_comments' %}"
+           class="list-group-item list-group-item-action">Все комментарии</a>
           <a href="{% url 'users:users' %}"
              class="list-group-item list-group-item-action">Список пользователей</a>
       </div>

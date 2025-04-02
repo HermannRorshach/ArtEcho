@@ -1,7 +1,10 @@
+from functools import wraps
 from pprint import pprint
+from django.conf import settings
 
 import requests
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -11,10 +14,8 @@ from django.views.generic.edit import CreateView, UpdateView
 
 from .forms import CategoryForm, CommentForm, GenreForm, ReviewForm, TitleForm
 from .models import Category, Comment, Genre, Review, Title
+from .utils import AuthorOrPrivilegedRequiredMixin, IsStaffMixin, IsAdminOrSuperuser
 
-
-def is_admin_or_superuser(user):
-    return user.is_authenticated and (user.is_admin or user.is_superuser)
 
 
 class ContactsView(View):
@@ -23,11 +24,6 @@ class ContactsView(View):
     def get(self, request):
         return render(request, self.template_name)
 
-class FigView(View):
-    template_name = 'reviews/fig.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -38,8 +34,7 @@ class FaqView(View):
         return render(request, self.template_name)
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class CabinetView(View):
+class CabinetView(IsStaffMixin, View):
     template_name = 'reviews/cabinet.html'
 
     def get(self, request, *args, **kwargs):
@@ -65,8 +60,8 @@ title_context = {
 }
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class TitleCreateView(CreateView):
+
+class TitleCreateView(IsAdminOrSuperuser, CreateView):
     model = Title
     template_name = 'reviews/create_instance.html'
     form_class = TitleForm
@@ -87,8 +82,7 @@ class TitleCreateView(CreateView):
         return context
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class TitleUpdateView(UpdateView):
+class TitleUpdateView(IsAdminOrSuperuser, UpdateView):
     model = Title
     form_class = TitleForm
     template_name = 'reviews/create_instance.html'
@@ -110,6 +104,7 @@ class TitleUpdateView(UpdateView):
 class TitleListView(ListView):
     model = Title
     template_name = 'reviews/instances.html'
+    paginate_by = settings.PAGINATION_PAGE_SIZE
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -119,11 +114,11 @@ class TitleListView(ListView):
         context['genres_list'] = Genre.objects.all()
         context['category_list'] = Category.objects.all()
         context['display_fields'] = ["year", "category", "genre"]
+        context['includes'] = ['reviews/includes/rating.html']
         # pprint(context)
         return context
 
 
-# @method_decorator(login_required, name='dispatch')
 class TitleDetailView(DetailView):
     model = Title
     template_name = 'reviews/instance_detail.html'
@@ -139,12 +134,13 @@ class TitleDetailView(DetailView):
         context["delete_url"] = reverse_lazy("reviews:delete_title", kwargs={"pk": self.object.pk})
         context['back_url'] = reverse_lazy('reviews:titles')
         context['display_fields'] = ["year", "category", "genre"]
+        context['includes'] = ['reviews/includes/rating.html']
+        context['average_rating'] = context['object'].average_rating()
         pprint(context)
         return context
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class TitleDeleteView(DeleteView):
+class TitleDeleteView(IsAdminOrSuperuser, DeleteView):
     model = Title
     success_url = reverse_lazy("reviews:titles")
     template_name = 'reviews/confirm_delete.html'
@@ -180,8 +176,7 @@ genre_context = {
 }
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class GenreCreateView(CreateView):
+class GenreCreateView(IsAdminOrSuperuser, CreateView):
     model = Genre
     template_name = 'reviews/create_instance.html'
     form_class = GenreForm
@@ -202,8 +197,7 @@ class GenreCreateView(CreateView):
         return context
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class GenreUpdateView(UpdateView):
+class GenreUpdateView(IsAdminOrSuperuser, UpdateView):
     model = Genre
     form_class = GenreForm
     template_name = 'reviews/create_instance.html'
@@ -222,9 +216,10 @@ class GenreUpdateView(UpdateView):
         )
 
 
-class GenreListView(ListView):
+class GenreListView(IsStaffMixin, ListView):
     model = Genre
     template_name = 'reviews/instances.html'
+    paginate_by = settings.PAGINATION_PAGE_SIZE
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -236,8 +231,7 @@ class GenreListView(ListView):
         return context
 
 
-# @method_decorator(login_required, name='dispatch')
-class GenreDetailView(DetailView):
+class GenreDetailView(IsStaffMixin, DetailView):
     model = Genre
     template_name = 'reviews/instance_detail.html'
 
@@ -252,8 +246,7 @@ class GenreDetailView(DetailView):
         return context
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class GenreDeleteView(DeleteView):
+class GenreDeleteView(IsAdminOrSuperuser, DeleteView):
     model = Genre
     success_url = reverse_lazy("reviews:genres")
     template_name = 'reviews/confirm_delete.html'
@@ -290,11 +283,24 @@ review_context = {
 }
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
+@method_decorator(login_required, name='dispatch')
 class ReviewCreateView(CreateView):
     model = Review
     template_name = 'reviews/create_instance.html'
     form_class = ReviewForm
+
+    def get(self, request, *args, **kwargs):
+        title_id = self.kwargs['title_id']
+        # Проверяем, есть ли уже отзыв у пользователя
+        existing_review = Review.objects.filter(
+            title_id=title_id,
+            author=request.user
+        ).first()
+
+        if existing_review:
+            return redirect('reviews:update_review', title_id=title_id, pk=existing_review.pk)
+
+        return super().get(request, *args, **kwargs)
 
 
     def get_success_url(self):
@@ -321,8 +327,7 @@ class ReviewCreateView(CreateView):
         return super().form_valid(form)
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class ReviewUpdateView(UpdateView):
+class ReviewUpdateView(AuthorOrPrivilegedRequiredMixin, UpdateView):
     model = Review
     form_class = ReviewForm
     template_name = 'reviews/create_instance.html'
@@ -346,6 +351,7 @@ class ReviewUpdateView(UpdateView):
 class ReviewListView(ListView):
     model = Review
     template_name = 'reviews/instances.html'
+    paginate_by = settings.PAGINATION_PAGE_SIZE
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -378,14 +384,14 @@ class ReviewDetailView(DetailView):
         context["update_url"] = reverse_lazy("reviews:update_review", kwargs={"title_id": self.object.title.pk, "pk": self.object.pk})
         context["delete_url"] = reverse_lazy("reviews:delete_review", kwargs={"title_id": self.object.title.pk, "pk": self.object.pk})
         context['back_url'] = reverse_lazy('reviews:reviews',  kwargs={"title_id": self.object.title.pk})
+        context['display_fields'] = ["author", "text", "score", "pub_date"]
         pprint("kwargs в get_context_data ReviewDetailView в create_related_object_url")
         pprint({'title_id': self.title_id, 'review_id': self.object.pk})
         pprint(context)
         return context
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class ReviewDeleteView(DeleteView):
+class ReviewDeleteView(AuthorOrPrivilegedRequiredMixin, DeleteView):
     model = Review
     success_url = reverse_lazy("reviews:reviews")
     template_name = 'reviews/confirm_delete.html'
@@ -419,7 +425,7 @@ comment_context = {
 }
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
+@method_decorator(login_required, name='dispatch')
 class CommentCreateView(CreateView):
     model = Comment
     template_name = 'reviews/create_instance.html'
@@ -454,8 +460,7 @@ class CommentCreateView(CreateView):
         return super().form_valid(form)
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class CommentUpdateView(UpdateView):
+class CommentUpdateView(AuthorOrPrivilegedRequiredMixin, UpdateView):
     model = Comment
     form_class = CommentForm
     template_name = 'reviews/create_instance.html'
@@ -484,14 +489,15 @@ class CommentUpdateView(UpdateView):
 class CommentListView(ListView):
     model = Comment
     template_name = 'reviews/instances.html'
+    paginate_by = settings.PAGINATION_PAGE_SIZE
 
     @property
     def title_id(self):
-        return self.kwargs['title_id']
+        return self.kwargs.get('title_id', 1)
 
     @property
     def review_id(self):
-        return self.kwargs['review_id']
+        return self.kwargs.get('review_id', 1)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -526,8 +532,7 @@ class CommentDetailView(DetailView):
         return context
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class CommentDeleteView(DeleteView):
+class CommentDeleteView(AuthorOrPrivilegedRequiredMixin, DeleteView):
     model = Comment
     template_name = 'reviews/confirm_delete.html'
 
@@ -566,8 +571,7 @@ category_context = {
 }
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class CategoryCreateView(CreateView):
+class CategoryCreateView(IsAdminOrSuperuser, CreateView):
     model = Category
     template_name = 'reviews/create_instance.html'
     form_class = CategoryForm
@@ -588,8 +592,8 @@ class CategoryCreateView(CreateView):
         return context
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class CategoryUpdateView(UpdateView):
+
+class CategoryUpdateView(IsAdminOrSuperuser, UpdateView):
     model = Category
     form_class = CategoryForm
     template_name = 'reviews/create_instance.html'
@@ -608,9 +612,10 @@ class CategoryUpdateView(UpdateView):
         )
 
 
-class CategoryListView(ListView):
+class CategoryListView(IsStaffMixin, ListView):
     model = Category
     template_name = 'reviews/instances.html'
+    paginate_by = settings.PAGINATION_PAGE_SIZE
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -622,7 +627,7 @@ class CategoryListView(ListView):
         return context
 
 
-class CategoryDetailView(DetailView):
+class CategoryDetailView(IsStaffMixin, DetailView):
     model = Category
     template_name = 'reviews/instance_detail.html'
 
@@ -637,8 +642,7 @@ class CategoryDetailView(DetailView):
         return context
 
 
-@method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
-class CategoryDeleteView(DeleteView):
+class CategoryDeleteView(IsAdminOrSuperuser, DeleteView):
     model = Category
     success_url = reverse_lazy("reviews:categories")
     template_name = 'reviews/confirm_delete.html'
@@ -656,7 +660,7 @@ class CategoryDeleteView(DeleteView):
         return context
 
 
-class CabinetReviewsListView(ReviewListView):
+class CabinetReviewsListView(IsStaffMixin, ReviewListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(review_context)
@@ -669,3 +673,17 @@ class CabinetReviewsListView(ReviewListView):
 
     def get_queryset(self):
         return Review.objects.all().order_by("-pk")
+
+
+class CabinetCommentListView(IsStaffMixin, CommentListView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = f'Все комментарии'
+        context['back_url'] = reverse_lazy('reviews:cabinet')
+        context['display_fields'] = ["author", "text", "pub_date"]
+        del context["create_url"]
+        pprint(context)
+        return context
+
+    def get_queryset(self):
+        return Comment.objects.all().order_by("-pk")

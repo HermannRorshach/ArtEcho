@@ -32,11 +32,16 @@
         <!-- <h1>{% if object.text %}{{ object.text }}{% endif %}</h1> -->
 
         <div class="margin-bottom title-card">
-          <h1 class="title-name">{{ object|linebreaks }}</h1>
+          <h1 class="title-name">{% if object.str_with_link %}{{ object.str_with_link|safe }}{% else %}{{ object|linebreaks }}{% endif %}</h1>
           <ul class="title-properties">
               {% for field in display_fields %}
                   <li><strong>{{ object|field_verbose_name:field }}:</strong> {{ object|custom_getattr:field }}</li>
               {% endfor %}
+              {% if includes %}
+                {% for path in includes %}
+                  {% include path %}
+                {% endfor %}
+              {% endif %}
           </ul>
         </div>
 

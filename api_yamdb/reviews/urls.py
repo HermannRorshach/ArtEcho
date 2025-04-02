@@ -19,6 +19,7 @@ urlpatterns = [
         name='faq'),
     path('cabinet', views.CabinetView.as_view(), name='cabinet'),
     path('cabinet/reviews', views.CabinetReviewsListView.as_view(), name='cabinet_reviews'),
+    path('cabinet/comments', views.CabinetCommentListView.as_view(), name='cabinet_comments'),
     # path("titles/<int:title_id>/reviews/create/", views.ReviewCreateView.as_view(), name="review_create"),
     # path("titles/<int:title_id>/reviews/", views.ReviewListView.as_view(), name="review_list"),
     path('title/new/', views.TitleCreateView.as_view(), name='create_title'),
@@ -50,8 +51,4 @@ urlpatterns = [
     path('title/<int:title_id>/review/<int:review_id>/comments/', views.CommentListView.as_view(), name='comments'),
     path('title/<int:title_id>/review/<int:review_id>/comment/<int:pk>/', views.CommentDetailView.as_view(), name='comment_detail'),
     path('title/<int:title_id>/review/<int:review_id>/comment/delete/<int:pk>/', views.CommentDeleteView.as_view(), name='delete_comment'),
-    path('fig/', views.FigView.as_view(),
-        name='fig'),
-
-
 ]

@@ -1,0 +1,38 @@
+{# templates/posts/includes/paginator.html #}
+
+{% comment %}
+Отрисовываем навигацию паджинатора только если
+все посты не помещаются на первую страницу
+{% endcomment %}
+{% if page_obj.has_other_pages %}
+<nav aria-label="Page navigation" class="page-navigation my-5">
+  <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="?page=1"><i class="fa-solid fa-angles-left"></i></a></li>
+      <li class="page-item">
+        <a class="page-link" href="{% if page_obj.has_previous %} ?page={{ page_obj.previous_page_number }} {% else %}?page=1{% endif %}">
+            <i class="fa-solid fa-chevron-left"></i></a>
+      </li>
+    {% for i in page_obj.paginator.page_range %}
+        {% if page_obj.number == i %}
+          <li class="page-item active">
+            <span class="page-link">{{ i }}</span>
+          </li>
+        {% else %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+          </li>
+        {% endif %}
+    {% endfor %}
+      <li class="page-item">
+        <a class="page-link" href="{% if page_obj.has_next %} ?page={{ page_obj.next_page_number }} {% else %}?page={{ page_obj.paginator.num_pages }}{% endif %}">
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+            <i class="fa-solid fa-angles-right"></i>
+        </a>
+      </li>
+  </ul>
+</nav>
+{% endif %}
