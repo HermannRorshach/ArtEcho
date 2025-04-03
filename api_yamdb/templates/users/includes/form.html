@@ -8,6 +8,7 @@
 <form method="post"
       {% if action_url %} action="{% url action_url %}" {% endif %}>
   {% csrf_token %}
+  <div class="form-fields">
   {% for field in form %}
     <div class="form-group row my-3"
          {% if field.field.required %} aria-required="true" {% else %} aria-required="false" {% endif %}>
@@ -23,7 +24,8 @@
       </div>
     </div>
   {% endfor %}
-  <div class="col-md-6 offset-md-4">
+</div>
+  <div class="group-buttons col-md-6 offset-md-4">
     <button type="submit" class="button btn">{{ button_name }}</button>
     {{ link|safe }}
   </div>

@@ -152,11 +152,13 @@ a.red:hover {
 }
 
 button.button.btn {
-  margin-bottom: 20px;
+  margin-right: 20px;
 }
 
 a.button.btn {
   height: 42px;
+  white-space: nowrap;
+  width: auto;
 }
 
 .button {
@@ -185,6 +187,13 @@ a.button.btn {
 }
 
 .buttons {
+  margin-bottom: 20px;
+}
+
+
+.group-buttons {
+  display: flex;
+  align-items: center;
   margin-bottom: 20px;
 }
 
@@ -401,6 +410,10 @@ a:hover .btn-back-hover {
 .form-group {
   background-color: #F2F2F0;
   color: #6E4E39;
+}
+
+.form-fields {
+  margin-bottom: 40px;
 }
 
 .form-group label {

@@ -6,7 +6,7 @@ from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 from reviews.utils import IsAdminOrSuperuser
 
-from .forms import CreationForm
+from .forms import AdminCreationForm, PublicCreationForm
 
 User = get_user_model()
 
@@ -32,7 +32,7 @@ class CustomLoginView(LoginView):
 
 
 class SignUp(CreateView):
-    form_class = CreationForm
+    form_class = PublicCreationForm
     success_url = reverse_lazy('reviews:titles')
     template_name = 'users/signup.html'
 
@@ -55,7 +55,7 @@ user_context = {
 class UserCreateView(IsAdminOrSuperuser, CreateView):
     model = User
     template_name = 'reviews/create_instance.html'
-    form_class = CreationForm
+    form_class = AdminCreationForm
 
 
     def get_success_url(self):
@@ -74,7 +74,7 @@ class UserCreateView(IsAdminOrSuperuser, CreateView):
 
 class UserUpdateView(IsAdminOrSuperuser, UpdateView):
     model = User
-    form_class = CreationForm
+    form_class = AdminCreationForm
     template_name = 'reviews/create_instance.html'
 
     def get_context_data(self, **kwargs):

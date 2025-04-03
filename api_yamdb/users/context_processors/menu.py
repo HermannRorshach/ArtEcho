@@ -16,5 +16,6 @@ def menu(request):
     else:
         items['guest_items'] = [
             {'path': 'users:login', 'text': 'Войти'},
+            {'path': 'users:signup', 'text': 'Регистрация'},
         ]
     return items
