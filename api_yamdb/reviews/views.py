@@ -106,6 +106,19 @@ class TitleListView(ListView):
     template_name = 'reviews/instances.html'
     paginate_by = settings.PAGINATION_PAGE_SIZE
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Фильтрация по жанру (если параметр есть)
+        if genre_id := self.request.GET.get('genre'):
+            queryset = queryset.filter(genre__id=genre_id)
+
+        # Фильтрация по категории (если параметр есть)
+        if category_id := self.request.GET.get('category'):
+            queryset = queryset.filter(category__id=category_id)
+
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(title_context)
@@ -135,7 +148,7 @@ class TitleDetailView(DetailView):
         context['back_url'] = reverse_lazy('reviews:titles')
         context['display_fields'] = ["year", "category", "genre"]
         context['includes'] = ['reviews/includes/rating.html']
-        context['average_rating'] = context['object'].average_rating()
+        context['average_rating'] = context['object'].average_rating
         pprint(context)
         return context
 

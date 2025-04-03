@@ -511,6 +511,7 @@ input.form-control:not(:-webkit-autofill) {
   color: #F2F2F0;
   font-weight: bold;
   border: #AF794B;
+  outline: none;
 }
 
 .option.selected:focus {
@@ -524,10 +525,6 @@ input.form-control:not(:-webkit-autofill) {
   font-weight: bold;
 }
 
-.option:focus {
-  outline: none;
-}
-
 .filters {
   gap: 30px;
 }
@@ -539,6 +536,7 @@ input.form-control:not(:-webkit-autofill) {
   flex-direction: column; /* Главная ось - вертикаль */
   align-self: flex-start;
   min-width: 120px;
+  box-shadow: 2px 2px 6px rgba(110, 78, 57, 0.3);
 }
 
 /* Контейнер опций (раскрывается вниз) */
@@ -571,10 +569,18 @@ input.form-control:not(:-webkit-autofill) {
 /* Выбранная опция (всегда видима) */
 .custom-select.filters .option.selected {
   display: block;
+  background-color:#AF794B;
+  color: #FDEACA;
+  font-weight: 700;
+}
+
+.custom-select.filters[data-is-hidden="true"] .option.selected.empty-value {
+  display: block;
   background-color: #FDEACA;
   color: #6E4E39;
   font-weight: 400;
 }
+
 
 /* Убираем стрелку у всех селектов */
 .custom-select.filters,
@@ -595,11 +601,6 @@ select.filters.form-select {
   gap: 0; /* Убираем промежутки между элементами в flex-контейнере */
 }
 
-.custom-select.filters .option:not(:first-child) {
-  background-color: #AF794B;
-  color: #FDEACA;
-  font-weight: bold;
-}
 
 .page-navigation {
   text-align: center;

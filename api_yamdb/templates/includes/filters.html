@@ -1,17 +1,29 @@
 <nav class="margin-bottom">
+  <form method="get" action="{% url 'reviews:titles' %}" id="filter-form">
     <div class="filters">
-      <select class="filters genres form-select">
-        <option class="initial-value" value="1">Все жанры</option>
+
+      <!-- Фильтр по жанрам -->
+      <select name="genre" class="filters genres form-select">
+        <option value="">Все жанры</option>
         {% for genre in genres_list %}
-        <option value="{{ genre.name }}">{{ genre.name }}</option>
+          <option value="{{ genre.id }}"
+            {% if request.GET.genre|default:"" == genre.id|stringformat:"s" %}selected{% endif %}>
+            {{ genre.name }}
+          </option>
         {% endfor %}
       </select>
 
-      <select class="filters categories form-select">
-        <option class="initial-value" value="1">Все категории</option>
+      <!-- Фильтр по категориям -->
+      <select name="category" class="filters categories form-select">
+        <option value="">Все категории</option>
         {% for category in category_list %}
-        <option value="{{ genre.name }}">{{ category.name }}</option>
+          <option value="{{ category.id }}"
+            {% if request.GET.category|default:"" == category.id|stringformat:"s" %}selected{% endif %}>
+            {{ category.name }}
+          </option>
         {% endfor %}
       </select>
+      <input type="hidden" name="page" value="1">
     </div>
+  </form>
 </nav>

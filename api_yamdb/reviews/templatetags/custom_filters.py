@@ -34,7 +34,6 @@ def rating_stars(value):
     Преобразует рейтинг (0-10) в HTML с 5 звёздами.
     Пример: 7 → ★★★½☆☆
     """
-    print(value)
     full_stars = int(value / 2)
     half_star = 1 if value % 2 == 1 else 0
     empty_stars = 5 - full_stars - half_star

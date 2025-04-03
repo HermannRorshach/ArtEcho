@@ -47,17 +47,10 @@
         {% endfor %}
         <br><br><br>
         {% include "reviews/includes/paginator.html" %}
-
-
-
-          <!-- {% for instance in object_list %}
-          <p><strong>{{ instance|field_verbose_name:"year" }}:</strong> {{ instance|custom_getattr:"year" }}</p>
-            <p><a href="{{ instance.get_absolute_url }}">{{ instance }}</a></p>
-          {% endfor %} -->
           <br>
       </div>
     </div>
   </main>
-  <script src="{% static 'js/filters.js' %}"></script>
   <script src="{% static 'js/custom-single-select.js' %}"></script>
+  <script src="{% static 'js/custom-select-update.js' %}"></script>
 {% endblock %}
