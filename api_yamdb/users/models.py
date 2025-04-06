@@ -17,6 +17,8 @@ class User(AbstractUser):
         default='user',
     )
 
+    email = models.EmailField(unique=True, blank=False)
+
     @property
     def is_admin(self):
         return self.role == 'admin'
