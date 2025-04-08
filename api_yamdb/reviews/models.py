@@ -1,4 +1,8 @@
+from datetime import datetime
+
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import Avg, IntegerField
 from django.db.models.functions import Coalesce
@@ -17,7 +21,10 @@ class Category(models.Model):
     name = models.CharField(max_length=100,
         verbose_name='Имя категории')
     slug = models.SlugField(max_length=255,
-        verbose_name='Относительная ссылка')
+        verbose_name='Относительная ссылка',
+        validators=[RegexValidator(regex='^[-a-zA-Z0-9_]+$')],
+        unique=True,
+        )
 
     def __str__(self):
         return self.name
@@ -29,6 +36,11 @@ class Category(models.Model):
         if not self.slug:
             transliterated_slug = translit(self.name, 'ru', reversed=True)
             self.slug = slugify(transliterated_slug)
+            original_slug = self.slug
+            counter = 1
+            while Category.objects.filter(slug=self.slug).exists():
+                self.slug = f'{original_slug}-{counter}'
+                counter += 1
         super().save(*args, **kwargs)
 
     class Meta:
@@ -40,7 +52,9 @@ class Genre(models.Model):
     name = models.CharField(max_length=100,
         verbose_name='Имя жанра')
     slug = models.SlugField(max_length=255,
-        verbose_name='Относительная ссылка')
+        verbose_name='Относительная ссылка',
+        validators=[RegexValidator(regex='^[-a-zA-Z0-9_]+$')],
+        unique=True,)
 
     def __str__(self):
         return self.name
@@ -48,18 +62,29 @@ class Genre(models.Model):
     def get_absolute_url(self):
         return reverse("reviews:genre_detail", kwargs={"pk": self.pk})
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            transliterated_slug = translit(self.name, 'ru', reversed=True)
-            self.slug = slugify(transliterated_slug)
-        super().save(*args, **kwargs)
+def save(self, *args, **kwargs):
+    if not self.slug:
+        transliterated_slug = translit(self.name, 'ru', reversed=True)
+        self.slug = slugify(transliterated_slug)
+        original_slug = self.slug
+        counter = 1
+        using_db = self._state.db or 'default'
+        while Genre.objects.using(using_db).filter(slug=self.slug).exists():
+            self.slug = f'{original_slug}-{counter}'
+            counter += 1
+    super().save(*args, **kwargs)
+
 
 
 class Title(models.Model):
     name = models.CharField(max_length=100,
         verbose_name='Название')
-    year = models.IntegerField(verbose_name='Год создания',)
-    slug = models.SlugField(max_length=255)
+    year = models.IntegerField(verbose_name='Год создания')
+    description = models.TextField(max_length=1800, blank=True, null=True)
+    slug = models.SlugField(max_length=255,
+                            verbose_name="Ссылка",
+                            validators=[RegexValidator(regex='^[-a-zA-Z0-9_]+$')],
+                            unique=True,)
     category = models.ForeignKey(
         'Category', on_delete=models.SET_NULL, null=True,
         verbose_name='Категория',)
@@ -73,7 +98,7 @@ class Title(models.Model):
         Вычисляет средний рейтинг произведения на основе связанных отзывов.
         Возвращает 0, если отзывов нет.
         """
-        return self.review_set.aggregate(
+        return self.reviews.aggregate(
             avg_rating=Coalesce(Avg('score'), 0, output_field=IntegerField())
         )['avg_rating']
 
@@ -83,11 +108,20 @@ class Title(models.Model):
     def get_absolute_url(self):
         return reverse("reviews:title_detail", kwargs={"pk": self.pk})
 
+    def clean(self):
+        if self.year > datetime.now().year:
+            raise ValidationError({'year': 'Год не может быть больше текущего'})
+
 
     def save(self, *args, **kwargs):
         if not self.slug:
             transliterated_slug = translit(self.name, 'ru', reversed=True)
             self.slug = slugify(transliterated_slug)
+            original_slug = self.slug
+            counter = 1
+            while Title.objects.filter(slug=self.slug).exists():
+                self.slug = f'{original_slug}-{counter}'
+                counter += 1
         super().save(*args, **kwargs)
 
 
@@ -99,14 +133,16 @@ class Review(models.Model):
         help_text='Автор отзыва'
     )
     title = models.ForeignKey(
-        'Title', on_delete=models.CASCADE, verbose_name='Произведение')
+        'Title', related_name='reviews', on_delete=models.CASCADE, verbose_name='Произведение')
     text = models.TextField(max_length=1800)
     score = models.IntegerField(choices=[(i, i) for i in range(1, 11)],
                                 verbose_name='Оценка пользователя')
     pub_date = models.DateTimeField(auto_now_add=True,
                                     verbose_name='Дата и время публикации')
     update_date = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
-    slug = models.SlugField(max_length=255, verbose_name='Ссылка')
+    slug = models.SlugField(max_length=255, verbose_name='Ссылка',
+                            validators=[RegexValidator(regex='^[-a-zA-Z0-9_]+$')],
+                            unique=True,)
 
     def __str__(self):
         return (f"Отзыв {self.author} на произведение {self.title}:\n"
@@ -126,6 +162,11 @@ class Review(models.Model):
         if not self.slug:
             transliterated_slug = translit(self.text[:15], 'ru', reversed=True)
             self.slug = slugify(transliterated_slug)
+            original_slug = self.slug
+            counter = 1
+            while Review.objects.filter(slug=self.slug).exists():
+                self.slug = f'{original_slug}-{counter}'
+                counter += 1
         super().save(*args, **kwargs)
 
 
@@ -142,7 +183,10 @@ class Comment(models.Model):
         help_text='Автор комментария',
         default=100
     )
-    slug = models.SlugField(max_length=255)
+    slug = models.SlugField(max_length=255,
+                            verbose_name='Ссылка',
+                            validators=[RegexValidator(regex='^[-a-zA-Z0-9_]+$')],
+                            unique=True,)
 
     def __str__(self):
         return (f"Комментарий {self.author} к отзыву {self.review.author} "
@@ -172,4 +216,36 @@ class Comment(models.Model):
         if not self.slug:
             transliterated_slug = translit(self.text[:15], 'ru', reversed=True)
             self.slug = slugify(transliterated_slug)
+            original_slug = self.slug
+            counter = 1
+            while Comment.objects.filter(slug=self.slug).exists():
+                self.slug = f'{original_slug}-{counter}'
+                counter += 1
         super().save(*args, **kwargs)
+
+from django.db import models
+from django.conf import settings
+from django.utils import timezone
+from datetime import timedelta
+
+
+class ConfirmationCode(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='confirmation_code'
+    )
+    code = models.CharField(max_length=32)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        if not self.expires_at:
+            self.expires_at = timezone.now() + timedelta(hours=24)
+        super().save(*args, **kwargs)
+
+    def is_valid(self):
+        return timezone.now() < self.expires_at
+
+    def __str__(self):
+        return f"Confirmation code for {self.user.username}"
