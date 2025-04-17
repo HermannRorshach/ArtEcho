@@ -7,7 +7,10 @@ User = get_user_model()
 class PublicCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['password1'].help_text = 'Придумайте пароль минимум из 8 символов, в котором должна быть хотя бы одна буква и хотя бы одна цифра'
+        self.fields['password1'].help_text = (
+            'Придумайте пароль минимум из 8 символов, '
+            'selfв котором должна быть хотя бы одна буква и хотя бы одна цифра'
+        )
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -24,7 +27,10 @@ class PublicCreationForm(UserCreationForm):
         help_texts = {
             'first_name': 'Введите ваше имя.',
             'last_name': 'Введите вашу фамилию.',
-            'username': 'Придумайте уникальный логин. Не более 150 символов. Это должны быть буквы, цифры и символы @/./+/-/_.',
+            'username': (
+                'Придумайте уникальный логин. Не более 150 символов. '
+                'Это должны быть буквы, цифры и символы @/./+/-/_.'
+            ),
             'email': 'Введите ваш email.',
             'bio': 'Расскажите о себе.'
         }

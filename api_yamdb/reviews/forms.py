@@ -1,19 +1,20 @@
 from django import forms
-from .models import Comment, Category, Title, Genre, Review
+
+from .models import Category, Comment, Genre, Review, Title
 
 
 class TitleForm(forms.ModelForm):
 
     class Meta:
         model = Title
-        fields = ("name", "year", "category", "genre")
+        fields = ('name', 'year', 'category', 'genre')
 
 
 class GenreForm(forms.ModelForm):
 
     class Meta:
         model = Genre
-        fields = ("name", "slug")
+        fields = ('name', 'slug')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,7 +25,7 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = Category
-        fields = ("name", "slug")
+        fields = ('name', 'slug')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -35,11 +36,11 @@ class ReviewForm(forms.ModelForm):
 
     class Meta:
         model = Review
-        fields = ("text", "score")
+        fields = ('text', 'score')
 
 
 class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ("text",)
+        fields = ('text',)

@@ -1,12 +1,7 @@
-from functools import wraps
-from pprint import pprint
 from django.conf import settings
-
-import requests
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import DeleteView, DetailView, ListView
@@ -14,8 +9,8 @@ from django.views.generic.edit import CreateView, UpdateView
 
 from .forms import CategoryForm, CommentForm, GenreForm, ReviewForm, TitleForm
 from .models import Category, Comment, Genre, Review, Title
-from .utils import AuthorOrPrivilegedRequiredMixin, IsStaffMixin, IsAdminOrSuperuser
-
+from .utils import (AuthorOrPrivilegedRequiredMixin, IsAdminOrSuperuser,
+                    IsStaffMixin)
 
 
 class ContactsView(View):
@@ -23,7 +18,6 @@ class ContactsView(View):
 
     def get(self, request):
         return render(request, self.template_name)
-
 
 
 @method_decorator(login_required, name='dispatch')
@@ -42,12 +36,10 @@ class CabinetView(IsStaffMixin, View):
 
 
 title_context = {
-    # 'create_url': 'reviews:create_title',  # Для страницы создания и редактирования
     'create_button_text': 'Добавить',  # Для страницы создания
 
     'update_url': 'reviews:update_title',  # Для страницы редактирования
     'update_button_text': 'Изменить',  # Для страницы редактирования
-    # 'cancel_url': 'reviews:title_detail',  # Для страницы редактирования
 
     'action': 'Добавить произведение',  # Для страницы списка
     'detail_url': 'reviews:title_detail',  # Для страницы списка
@@ -60,12 +52,10 @@ title_context = {
 }
 
 
-
 class TitleCreateView(IsAdminOrSuperuser, CreateView):
     model = Title
     template_name = 'reviews/create_instance.html'
     form_class = TitleForm
-
 
     def get_success_url(self):
         return reverse_lazy(
@@ -77,8 +67,7 @@ class TitleCreateView(IsAdminOrSuperuser, CreateView):
         context.update(title_context)
         context['title'] = 'Добавить новое произведение'
         context['is_edit'] = False
-        context["create_url"] = reverse_lazy("reviews:create_title")
-        pprint(context)
+        context['create_url'] = reverse_lazy('reviews:create_title')
         return context
 
 
@@ -92,7 +81,8 @@ class TitleUpdateView(IsAdminOrSuperuser, UpdateView):
         context.update(title_context)
         context['title'] = f'Изменить произведение {context["object"]}'
         context['is_edit'] = True
-        context['cancel_url'] = reverse_lazy('reviews:title_detail',  kwargs={"pk": self.object.pk})
+        context['cancel_url'] = reverse_lazy(
+            'reviews:title_detail', kwargs={'pk': self.object.pk})
         return context
 
     def get_success_url(self):
@@ -111,11 +101,11 @@ class TitleListView(ListView):
 
         # Фильтрация по жанру (если параметр есть)
         if genre_id := self.request.GET.get('genre'):
-            queryset = queryset.filter(genre__id=genre_id)
+            return queryset.filter(genre__id=genre_id)
 
         # Фильтрация по категории (если параметр есть)
         if category_id := self.request.GET.get('category'):
-            queryset = queryset.filter(category__id=category_id)
+            return queryset.filter(category__id=category_id)
 
         return queryset
 
@@ -123,39 +113,40 @@ class TitleListView(ListView):
         context = super().get_context_data(**kwargs)
         context.update(title_context)
         context['title'] = 'Список произведений'
-        context["create_url"] = reverse_lazy("reviews:create_title")
+        context['create_url'] = reverse_lazy('reviews:create_title')
         context['genres_list'] = Genre.objects.all()
         context['category_list'] = Category.objects.all()
-        context['display_fields'] = ["year", "category", "genre"]
+        context['display_fields'] = ['year', 'category', 'genre']
         context['includes'] = ['reviews/includes/rating.html']
-        # pprint(context)
         return context
 
 
 class TitleDetailView(DetailView):
     model = Title
     template_name = 'reviews/instance_detail.html'
-    # template_name = 'base.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(title_context)
         context['title'] = f'Произведение {context["object"]}'
-        context['related_object_list'] = Review.objects.filter(title_id=self.kwargs['pk'])
-        context['create_related_object_url'] = reverse_lazy('reviews:create_review', kwargs={"title_id": self.object.pk})
-        context["update_url"] = reverse_lazy("reviews:update_title", kwargs={"pk": self.object.pk})
-        context["delete_url"] = reverse_lazy("reviews:delete_title", kwargs={"pk": self.object.pk})
+        context['related_object_list'] = Review.objects.filter(
+            title_id=self.kwargs['pk'])
+        context['create_related_object_url'] = reverse_lazy(
+            'reviews:create_review', kwargs={'title_id': self.object.pk})
+        context['update_url'] = reverse_lazy(
+            'reviews:update_title', kwargs={'pk': self.object.pk})
+        context['delete_url'] = reverse_lazy(
+            'reviews:delete_title', kwargs={'pk': self.object.pk})
         context['back_url'] = reverse_lazy('reviews:titles')
-        context['display_fields'] = ["year", "category", "genre"]
+        context['display_fields'] = ['year', 'category', 'genre']
         context['includes'] = ['reviews/includes/rating.html']
         context['average_rating'] = context['object'].average_rating
-        pprint(context)
         return context
 
 
 class TitleDeleteView(IsAdminOrSuperuser, DeleteView):
     model = Title
-    success_url = reverse_lazy("reviews:titles")
+    success_url = reverse_lazy('reviews:titles')
     template_name = 'reviews/confirm_delete.html'
 
     def get_success_url(self):
@@ -167,13 +158,12 @@ class TitleDeleteView(IsAdminOrSuperuser, DeleteView):
         context = super().get_context_data(**kwargs)
         context.update(title_context)
         context['message'] = f'произведение {context["object"]}'
-        context['cancel_url'] = reverse_lazy('reviews:title_detail',  kwargs={"pk": self.object.pk})
-        pprint(context)
+        context['cancel_url'] = reverse_lazy(
+            'reviews:title_detail', kwargs={'pk': self.object.pk})
         return context
 
 
 genre_context = {
-    # 'create_url': 'reviews:create_genre',  # Для страницы создания и редактирования
     'create_button_text': 'Добавить',  # Для страницы создания
 
     'update_url': 'reviews:update_genre',  # Для страницы редактирования
@@ -194,7 +184,6 @@ class GenreCreateView(IsAdminOrSuperuser, CreateView):
     template_name = 'reviews/create_instance.html'
     form_class = GenreForm
 
-
     def get_success_url(self):
         return reverse_lazy(
             'reviews:genres'
@@ -205,7 +194,7 @@ class GenreCreateView(IsAdminOrSuperuser, CreateView):
         context.update(genre_context)
         context['title'] = 'Добавить новый жанр'
         context['is_edit'] = False
-        context["create_url"] = reverse_lazy("reviews:create_genre")
+        context['create_url'] = reverse_lazy('reviews:create_genre')
         context['cancel_url'] = reverse_lazy('reviews:genres')
         return context
 
@@ -220,7 +209,8 @@ class GenreUpdateView(IsAdminOrSuperuser, UpdateView):
         context.update(genre_context)
         context['title'] = f'Изменить жанр {context["object"]}'
         context['is_edit'] = True
-        context['cancel_url'] = reverse_lazy('reviews:genre_detail',  kwargs={"pk": self.object.pk})
+        context['cancel_url'] = reverse_lazy(
+            'reviews:genre_detail', kwargs={'pk': self.object.pk})
         return context
 
     def get_success_url(self):
@@ -238,9 +228,9 @@ class GenreListView(IsStaffMixin, ListView):
         context = super().get_context_data(**kwargs)
         context.update(genre_context)
         context['title'] = 'Список жанров'
-        context["create_url"] = reverse_lazy("reviews:create_genre")
-        del context["back_url"]
-        context['display_fields'] = ["name", "slug"]
+        context['create_url'] = reverse_lazy('reviews:create_genre')
+        del context['back_url']
+        context['display_fields'] = ['name', 'slug']
         return context
 
 
@@ -252,16 +242,18 @@ class GenreDetailView(IsStaffMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context.update(genre_context)
         context['title'] = f'Жанр {context["object"]}'
-        context["update_url"] = reverse_lazy("reviews:update_genre", kwargs={"pk": self.object.pk})
-        context["delete_url"] = reverse_lazy("reviews:delete_genre", kwargs={"pk": self.object.pk})
+        context['update_url'] = reverse_lazy(
+            'reviews:update_genre', kwargs={'pk': self.object.pk})
+        context['delete_url'] = reverse_lazy(
+            'reviews:delete_genre', kwargs={'pk': self.object.pk})
         context['back_url'] = reverse_lazy('reviews:genres')
-        context['display_fields'] = ["name", "slug"]
+        context['display_fields'] = ['name', 'slug']
         return context
 
 
 class GenreDeleteView(IsAdminOrSuperuser, DeleteView):
     model = Genre
-    success_url = reverse_lazy("reviews:genres")
+    success_url = reverse_lazy('reviews:genres')
     template_name = 'reviews/confirm_delete.html'
 
     def get_success_url(self):
@@ -273,23 +265,16 @@ class GenreDeleteView(IsAdminOrSuperuser, DeleteView):
         context = super().get_context_data(**kwargs)
         context.update(genre_context)
         context['message'] = f'Удалить жанр {context["object"]}'
-        context['cancel_url'] = reverse_lazy('reviews:genre_detail',  kwargs={"pk": self.object.pk})
+        context['cancel_url'] = reverse_lazy(
+            'reviews:genre_detail', kwargs={'pk': self.object.pk})
         return context
 
 
 review_context = {
-    # 'create_url': 'reviews:create_review',  # Для страницы создания и редактирования
     'create_button_text': 'Добавить',  # Для страницы создания
     'url_with_arg': True,
-
-    # 'update_url': 'reviews:update_review',  # Для страницы редактирования
     'update_button_text': 'Изменить',  # Для страницы редактирования
-
     'action': 'Добавить отзыв',  # Для страницы списка
-    # 'detail_url': 'reviews:review_detail',  # Для страницы списка
-
-    # 'update_url': 'reviews:update_review',
-    # 'delete_url': 'reviews:delete_review',
     'related_object_title': 'Комментарии',
     'no_related_objects_title': 'Комментариев нет',
     'create_related_object_title': 'Оставить комментарий',
@@ -311,10 +296,11 @@ class ReviewCreateView(CreateView):
         ).first()
 
         if existing_review:
-            return redirect('reviews:update_review', title_id=title_id, pk=existing_review.pk)
+            return redirect(
+                'reviews:update_review',
+                title_id=title_id, pk=existing_review.pk)
 
         return super().get(request, *args, **kwargs)
-
 
     def get_success_url(self):
         title_id = self.kwargs['title_id']
@@ -328,9 +314,10 @@ class ReviewCreateView(CreateView):
         context['title'] = 'Добавить новый отзыв'
         context['is_edit'] = False
         title_id = self.kwargs['title_id']
-        # context['title_id'] = title_id
-        context['cancel_url'] = reverse_lazy('reviews:reviews',  kwargs={"title_id": title_id})
-        context['create_url'] = reverse_lazy('reviews:create_review', kwargs={"title_id": title_id})
+        context['cancel_url'] = reverse_lazy(
+            'reviews:reviews', kwargs={'title_id': title_id})
+        context['create_url'] = reverse_lazy(
+            'reviews:create_review', kwargs={'title_id': title_id})
         return context
 
     def form_valid(self, form):
@@ -351,13 +338,15 @@ class ReviewUpdateView(AuthorOrPrivilegedRequiredMixin, UpdateView):
         context.update(review_context)
         context['title'] = f'Изменить отзыв {context["object"]}'
         context['is_edit'] = True
-        context['cancel_url'] = reverse_lazy('reviews:review_detail',  kwargs={"title_id": self.object.title.pk, "pk": self.object.pk})
-        pprint(context)
+        context['cancel_url'] = reverse_lazy(
+            'reviews:review_detail',
+            kwargs={'title_id': self.object.title.pk, 'pk': self.object.pk})
         return context
 
     def get_success_url(self):
         return reverse_lazy(
-            'reviews:review_detail',  kwargs={"title_id": self.object.title.pk, "pk": self.object.pk}
+            'reviews:review_detail',
+            kwargs={'title_id': self.object.title.pk, 'pk': self.object.pk}
         )
 
 
@@ -370,15 +359,17 @@ class ReviewListView(ListView):
         context = super().get_context_data(**kwargs)
         context.update(review_context)
         title_id = self.kwargs.get('title_id', 1)
-        context['title'] = f'Список отзывов на произведение {Title.objects.get(pk=title_id)}'
-        context['back_url'] = reverse_lazy('reviews:title_detail',  kwargs={"pk": title_id})
-        context['create_url'] = reverse_lazy('reviews:create_review', kwargs={"title_id": title_id})
-        context['display_fields'] = ["author", "text", "score", "pub_date"]
-        pprint(context)
+        context['title'] = (f'Список отзывов на произведение '
+                            f'{Title.objects.get(pk=title_id)}')
+        context['back_url'] = reverse_lazy(
+            'reviews:title_detail', kwargs={'pk': title_id})
+        context['create_url'] = reverse_lazy(
+            'reviews:create_review', kwargs={'title_id': title_id})
+        context['display_fields'] = ['author', 'text', 'score', 'pub_date']
         return context
 
     def get_queryset(self):
-        self.title = get_object_or_404(Title, id=self.kwargs["title_id"])
+        self.title = get_object_or_404(Title, id=self.kwargs['title_id'])
         return Review.objects.filter(title=self.title)
 
 
@@ -391,39 +382,44 @@ class ReviewDetailView(DetailView):
         context.update(review_context)
         context['title'] = f'Отзыв {context["object"]}'
         self.title_id = self.kwargs['title_id']
-        context['related_object_list'] = Comment.objects.filter(review_id=self.kwargs['pk'])
-        context['create_related_object_url'] = reverse_lazy('reviews:create_comment', kwargs={'title_id': self.title_id, 'review_id': self.object.pk})
-        pprint(context['create_related_object_url'])
-        context["update_url"] = reverse_lazy("reviews:update_review", kwargs={"title_id": self.object.title.pk, "pk": self.object.pk})
-        context["delete_url"] = reverse_lazy("reviews:delete_review", kwargs={"title_id": self.object.title.pk, "pk": self.object.pk})
-        context['back_url'] = reverse_lazy('reviews:reviews',  kwargs={"title_id": self.object.title.pk})
-        context['display_fields'] = ["author", "text", "score", "pub_date"]
-        pprint("kwargs в get_context_data ReviewDetailView в create_related_object_url")
-        pprint({'title_id': self.title_id, 'review_id': self.object.pk})
-        pprint(context)
+        context['related_object_list'] = Comment.objects.filter(
+            review_id=self.kwargs['pk'])
+        context['create_related_object_url'] = reverse_lazy(
+            'reviews:create_comment',
+            kwargs={'title_id': self.title_id, 'review_id': self.object.pk})
+        context['update_url'] = reverse_lazy(
+            'reviews:update_review',
+            kwargs={'title_id': self.object.title.pk, 'pk': self.object.pk})
+        context['delete_url'] = reverse_lazy(
+            'reviews:delete_review',
+            kwargs={'title_id': self.object.title.pk, 'pk': self.object.pk})
+        context['back_url'] = reverse_lazy(
+            'reviews:reviews', kwargs={'title_id': self.object.title.pk})
+        context['display_fields'] = ['author', 'text', 'score', 'pub_date']
         return context
 
 
 class ReviewDeleteView(AuthorOrPrivilegedRequiredMixin, DeleteView):
     model = Review
-    success_url = reverse_lazy("reviews:reviews")
+    success_url = reverse_lazy('reviews:reviews')
     template_name = 'reviews/confirm_delete.html'
 
     def get_success_url(self):
         return reverse_lazy(
-            'reviews:reviews',  kwargs={"title_id": self.object.title.pk}
+            'reviews:reviews', kwargs={'title_id': self.object.title.pk}
         )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(review_context)
         context['message'] = f'Удалить отзыв {context["object"]}'
-        context['cancel_url'] = reverse_lazy('reviews:review_detail',  kwargs={"title_id": self.object.title.pk, "pk": self.object.pk})
+        context['cancel_url'] = reverse_lazy(
+            'reviews:review_detail',
+            kwargs={'title_id': self.object.title.pk, 'pk': self.object.pk})
         return context
 
 
 comment_context = {
-    # 'create_url': 'reviews:create_review',  # Для страницы создания и редактирования
     'create_button_text': 'Добавить',  # Для страницы создания
     # 'url_with_arg': True,
 
@@ -454,7 +450,8 @@ class CommentCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy(
-            'reviews:review_detail', kwargs={'title_id': self.title_id, 'pk': self.review_id}
+            'reviews:review_detail',
+            kwargs={'title_id': self.title_id, 'pk': self.review_id}
         )
 
     def get_context_data(self, **kwargs):
@@ -462,8 +459,12 @@ class CommentCreateView(CreateView):
         context.update(comment_context)
         context['title'] = 'Добавить комментарий'
         context['is_edit'] = False
-        context['create_url'] = reverse_lazy('reviews:create_review', kwargs={'title_id': self.title_id, 'review_id': self.review_id})
-        context['cancel_url'] = reverse_lazy('reviews:review_detail', kwargs={'title_id': self.title_id, 'pk': self.review_id})
+        context['create_url'] = reverse_lazy(
+            'reviews:create_review',
+            kwargs={'title_id': self.title_id, 'review_id': self.review_id})
+        context['cancel_url'] = reverse_lazy(
+            'reviews:review_detail',
+            kwargs={'title_id': self.title_id, 'pk': self.review_id})
         return context
 
     def form_valid(self, form):
@@ -491,12 +492,18 @@ class CommentUpdateView(AuthorOrPrivilegedRequiredMixin, UpdateView):
         context.update(comment_context)
         context['title'] = f'Изменить комментарий {context["object"]}'
         context['is_edit'] = True
-        context['cancel_url'] = reverse_lazy('reviews:comment_detail', kwargs={'title_id': self.title_id, 'review_id': self.review_id, "pk": self.object.pk})
-        pprint(context)
+        context['cancel_url'] = reverse_lazy(
+            'reviews:comment_detail',
+            kwargs={
+                'title_id': self.title_id, 'review_id': self.review_id,
+                'pk': self.object.pk})
         return context
 
     def get_success_url(self):
-        return reverse_lazy('reviews:comment_detail', kwargs={'title_id': self.title_id, 'review_id': self.review_id, "pk": self.object.pk})
+        return reverse_lazy(
+            'reviews:comment_detail',
+            kwargs={'title_id': self.title_id, 'review_id': self.review_id,
+                    'pk': self.object.pk})
 
 
 class CommentListView(ListView):
@@ -515,11 +522,15 @@ class CommentListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(comment_context)
-        context['title'] = f'Список комментариев к отзыву {Review.objects.get(pk=self.review_id)}'
-        context['back_url'] = reverse_lazy('reviews:review_detail',  kwargs={"title_id": self.title_id, "pk": self.review_id})
-        context['create_url'] = reverse_lazy('reviews:create_comment', kwargs={'title_id': self.title_id, 'review_id': self.review_id})
-        context['display_fields'] = ["author", "text", "pub_date"]
-        pprint(context)
+        context['title'] = (f'Список комментариев к отзыву '
+                            f'{Review.objects.get(pk=self.review_id)}')
+        context['back_url'] = reverse_lazy(
+            'reviews:review_detail',
+            kwargs={'title_id': self.title_id, 'pk': self.review_id})
+        context['create_url'] = reverse_lazy(
+            'reviews:create_comment',
+            kwargs={'title_id': self.title_id, 'review_id': self.review_id})
+        context['display_fields'] = ['author', 'text', 'pub_date']
         return context
 
     def get_queryset(self):
@@ -537,11 +548,19 @@ class CommentDetailView(DetailView):
         context['title'] = f'Комментарий {context["object"]}'
         self.title_id = self.kwargs['title_id']
         self.review_id = self.kwargs['review_id']
-        context["update_url"] = reverse_lazy("reviews:update_comment", kwargs={"title_id": self.title_id, "review_id": self.review_id, "pk": self.object.pk})
-        context["delete_url"] = reverse_lazy("reviews:delete_comment", kwargs={"title_id": self.title_id, "review_id": self.review_id, "pk": self.object.pk})
-        context['back_url'] = reverse_lazy('reviews:comments',  kwargs={"title_id": self.title_id, "review_id": self.review_id})
-        context['display_fields'] = ["author", "text", "pub_date"]
-        pprint(context)
+        context['update_url'] = reverse_lazy(
+            'reviews:update_comment',
+            kwargs={
+                'title_id': self.title_id, 'review_id': self.review_id,
+                'pk': self.object.pk})
+        context['delete_url'] = reverse_lazy(
+            'reviews:delete_comment',
+            kwargs={'title_id': self.title_id,
+                    'review_id': self.review_id, 'pk': self.object.pk})
+        context['back_url'] = reverse_lazy(
+            'reviews:comments',
+            kwargs={'title_id': self.title_id, 'review_id': self.review_id})
+        context['display_fields'] = ['author', 'text', 'pub_date']
         return context
 
 
@@ -558,17 +577,23 @@ class CommentDeleteView(AuthorOrPrivilegedRequiredMixin, DeleteView):
         return self.kwargs['review_id']
 
     def get_success_url(self):
-        return reverse_lazy('reviews:review_detail',  kwargs={'title_id': self.title_id, 'pk': self.review_id})
+        return reverse_lazy(
+            'reviews:review_detail',
+            kwargs={'title_id': self.title_id, 'pk': self.review_id})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(comment_context)
         context['message'] = f'Удалить комментарий {context["object"]}'
-        context['cancel_url'] = reverse_lazy('reviews:comment_detail',  kwargs={'title_id': self.title_id, 'review_id': self.review_id, "pk": self.object.pk})
+        context['cancel_url'] = reverse_lazy(
+            'reviews:comment_detail',
+            kwargs={
+                'title_id': self.title_id, 'review_id': self.review_id,
+                'pk': self.object.pk})
         return context
 
+
 category_context = {
-    # 'create_url': 'reviews:create_genre',  # Для страницы создания и редактирования
     'create_button_text': 'Добавить',  # Для страницы создания
 
     'update_url': 'reviews:update_category',  # Для страницы редактирования
@@ -589,7 +614,6 @@ class CategoryCreateView(IsAdminOrSuperuser, CreateView):
     template_name = 'reviews/create_instance.html'
     form_class = CategoryForm
 
-
     def get_success_url(self):
         return reverse_lazy(
             'reviews:categories'
@@ -600,10 +624,9 @@ class CategoryCreateView(IsAdminOrSuperuser, CreateView):
         context.update(category_context)
         context['title'] = 'Добавить новую категорию'
         context['is_edit'] = False
-        context["create_url"] = reverse_lazy("reviews:create_category")
+        context['create_url'] = reverse_lazy('reviews:create_category')
         context['cancel_url'] = reverse_lazy('reviews:categories')
         return context
-
 
 
 class CategoryUpdateView(IsAdminOrSuperuser, UpdateView):
@@ -616,7 +639,8 @@ class CategoryUpdateView(IsAdminOrSuperuser, UpdateView):
         context.update(category_context)
         context['title'] = f'Изменить категорию {context["object"]}'
         context['is_edit'] = True
-        context['cancel_url'] = reverse_lazy('reviews:category_detail',  kwargs={"pk": self.object.pk})
+        context['cancel_url'] = reverse_lazy(
+            'reviews:category_detail', kwargs={'pk': self.object.pk})
         return context
 
     def get_success_url(self):
@@ -634,9 +658,9 @@ class CategoryListView(IsStaffMixin, ListView):
         context = super().get_context_data(**kwargs)
         context.update(category_context)
         context['title'] = 'Список категорий'
-        context["create_url"] = reverse_lazy("reviews:create_category")
-        context['display_fields'] = ["name", "slug"]
-        del context["back_url"]
+        context['create_url'] = reverse_lazy('reviews:create_category')
+        context['display_fields'] = ['name', 'slug']
+        del context['back_url']
         return context
 
 
@@ -648,16 +672,18 @@ class CategoryDetailView(IsStaffMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context.update(category_context)
         context['title'] = f'Категория {context["object"]}'
-        context["update_url"] = reverse_lazy("reviews:update_category", kwargs={"pk": self.object.pk})
-        context["delete_url"] = reverse_lazy("reviews:delete_category", kwargs={"pk": self.object.pk})
+        context['update_url'] = reverse_lazy(
+            'reviews:update_category', kwargs={'pk': self.object.pk})
+        context['delete_url'] = reverse_lazy(
+            'reviews:delete_category', kwargs={'pk': self.object.pk})
         context['back_url'] = reverse_lazy('reviews:categories')
-        context['display_fields'] = ["name", "slug"]
+        context['display_fields'] = ['name', 'slug']
         return context
 
 
 class CategoryDeleteView(IsAdminOrSuperuser, DeleteView):
     model = Category
-    success_url = reverse_lazy("reviews:categories")
+    success_url = reverse_lazy('reviews:categories')
     template_name = 'reviews/confirm_delete.html'
 
     def get_success_url(self):
@@ -669,7 +695,8 @@ class CategoryDeleteView(IsAdminOrSuperuser, DeleteView):
         context = super().get_context_data(**kwargs)
         context.update(category_context)
         context['message'] = f'Удалить категорию {context["object"]}'
-        context['cancel_url'] = reverse_lazy('reviews:category_detail',  kwargs={"pk": self.object.pk})
+        context['cancel_url'] = reverse_lazy(
+            'reviews:category_detail', kwargs={'pk': self.object.pk})
         return context
 
 
@@ -677,26 +704,24 @@ class CabinetReviewsListView(IsStaffMixin, ReviewListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(review_context)
-        context['title'] = f'Список отзывов'
+        context['title'] = 'Список отзывов'
         context['back_url'] = reverse_lazy('reviews:cabinet')
-        context['display_fields'] = ["author", "text", "score", "pub_date"]
-        del context["create_url"]
-        pprint(context)
+        context['display_fields'] = ['author', 'text', 'score', 'pub_date']
+        del context['create_url']
         return context
 
     def get_queryset(self):
-        return Review.objects.all().order_by("-pk")
+        return Review.objects.all().order_by('-pk')
 
 
 class CabinetCommentListView(IsStaffMixin, CommentListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = f'Все комментарии'
+        context['title'] = 'Все комментарии'
         context['back_url'] = reverse_lazy('reviews:cabinet')
-        context['display_fields'] = ["author", "text", "pub_date"]
-        del context["create_url"]
-        pprint(context)
+        context['display_fields'] = ['author', 'text', 'pub_date']
+        del context['create_url']
         return context
 
     def get_queryset(self):
-        return Comment.objects.all().order_by("-pk")
+        return Comment.objects.all().order_by('-pk')

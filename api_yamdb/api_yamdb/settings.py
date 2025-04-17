@@ -3,6 +3,8 @@ import sys
 from datetime import timedelta
 from pathlib import Path
 
+from decouple import config
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -12,8 +14,6 @@ SECRET_KEY = 'p&l%385148kslhtyn^##a1)ilz@4zqj=rq&agdol^##zgl9(vs'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
-from decouple import config
 
 EMAIL = config('EMAIL')
 EMAIL_PASSWORD = config('EMAIL_PASSWORD')
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

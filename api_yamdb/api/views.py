@@ -5,28 +5,30 @@ from datetime import timedelta
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters, status
-from rest_framework.decorators import action
+from rest_framework import filters, mixins, status, viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
-from reviews.models import Category, Comment, Genre, Review, Title, ConfirmationCode
+from reviews.models import (Category, Comment, ConfirmationCode, Genre, Review,
+                            Title)
 from users.models import User
 
+from .filters import TitleFilter
 # from .models import ConfirmationCode
-from .permissions import (AdminOnly, AuthorOrReadOnly, ReadOnly,
-                          ReadOrAdminOnly, ReadOrModeratorOrAdmin)
+from .permissions import AdminOnly, AuthorOrReadOnly, ReadOnly, ReadOrAdminOnly
 from .serializers import (CategorySerializer, CommentWriteSerializer,
                           ConfirmationCodeTokenSerializer, GenreSerializer,
                           GetCommentSerializer, GetReviewSerializer,
-                          ReviewWriteSerializer, SignUpSerializer,
-                          TitleSerializer, UserAdminSerializer,
-                          UserDetailSerializer, UserUpdateSerializer)
+                          GetTitleSerializer, ReviewWriteSerializer,
+                          SignUpSerializer, TitleWriteSerializer,
+                          UserAdminSerializer, UserDetailSerializer,
+                          UserUpdateSerializer)
 
 logger = logging.getLogger(__name__)
 
@@ -38,17 +40,21 @@ class SignUpView(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         email = serializer.validated_data['email']
         username = serializer.validated_data['username']
 
-        user, created = User.objects.get_or_create(email=email, username=username)
+        user, created = User.objects.get_or_create(
+            email=email, username=username)
         code = secrets.token_hex(16)
 
         ConfirmationCode.objects.update_or_create(
             user=user,
-            defaults={'code': code, 'expires_at': timezone.now() + timedelta(hours=24)}
+            defaults={
+                'code': code,
+                'expires_at': timezone.now() + timedelta(hours=24)}
         )
 
         try:
@@ -60,9 +66,13 @@ class SignUpView(APIView):
                 fail_silently=False,
             )
         except Exception as e:  # Ловим только ошибки отправки email
-            logger.error(f"Ошибка отправки email: {str(e)}")
+            logger.error(f'Ошибка отправки email: {str(e)}')
             return Response(
-                {'status': 'error', 'email': email, 'detail': 'Не удалось отправить код'},
+                {
+                    'status': 'error',
+                    'email': email,
+                    'detail': 'Не удалось отправить код'
+                },
                 status=status.HTTP_503_SERVICE_UNAVAILABLE
             )
 
@@ -75,7 +85,6 @@ class SignUpView(APIView):
         )
 
 
-
 class ConfirmationCodeTokenView(TokenObtainPairView):
     serializer_class = ConfirmationCodeTokenSerializer
 
@@ -85,7 +94,6 @@ class ConfirmationCodeTokenView(TokenObtainPairView):
         if not serializer.is_valid():
             # Получаем код ошибки из сериализатора
             error_code = getattr(serializer, 'error_code', None)
-            print("error_code =", error_code)
 
             if error_code == 'not_found':
                 return Response(
@@ -103,7 +111,6 @@ class ConfirmationCodeTokenView(TokenObtainPairView):
         )
 
 
-
 class MeView(APIView):
 
     def get(self, request):
@@ -111,7 +118,8 @@ class MeView(APIView):
         return Response(serializer.data)
 
     def patch(self, request):
-        serializer = UserUpdateSerializer(request.user, data=request.data, partial=True)
+        serializer = UserUpdateSerializer(
+            request.user, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
@@ -142,30 +150,33 @@ class CategoryViewSet(ModelViewSet):
         )
 
 
-class GenreViewSet(ModelViewSet):
+class GenreViewSet(mixins.ListModelMixin,
+                   mixins.CreateModelMixin,
+                   mixins.DestroyModelMixin,
+                   viewsets.GenericViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
     lookup_field = 'slug'
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
-
-    def get_permissions(self):
-        if self.action == 'retrieve':
-            return (ReadOnly(),)
-        return (ReadOrAdminOnly(),)
+    permission_classes = (ReadOrAdminOnly,)
 
 
 class TitleViewSet(ModelViewSet):
     queryset = Title.objects.all()
-    serializer_class = TitleSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['category__slug', 'genre__slug', 'name', 'year']
+    # filterset_fields = ['category__slug', 'genre__slug', 'name', 'year']
+    filterset_class = TitleFilter
 
     def get_permissions(self):
         if self.action == 'retrieve':
             return (ReadOnly(),)
         return (ReadOrAdminOnly(),)
 
+    def get_serializer_class(self):
+        if self.request.method in ('GET', 'HEAD', 'OPTIONS'):
+            return GetTitleSerializer
+        return TitleWriteSerializer
 
 
 class ReviewViewSet(ModelViewSet):
@@ -175,10 +186,9 @@ class ReviewViewSet(ModelViewSet):
         return self.kwargs['title_id']
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Review.objects.none()
         return Review.objects.filter(title_id=self.title_id)
-
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user, title_id=self.title_id)
 
     def get_serializer_class(self):
         if self.request.method in ('GET', 'HEAD', 'OPTIONS'):
@@ -192,13 +202,13 @@ class ReviewViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         user = self.request.user
+        title = get_object_or_404(Title, id=self.title_id)
 
-        # Проверяем, есть ли уже отзыв от этого пользователя на произведение
         if Review.objects.filter(title_id=self.title_id, author=user).exists():
             raise ValidationError(
-                {"detail": "Вы уже оставляли отзыв на это произведение."}
+                {'detail': 'Вы уже оставляли отзыв на это произведение.'}
             )
-        serializer.save(author=user, title_id=self.title_id)
+        serializer.save(author=user, title=title)
 
 
 class CommentViewSet(ModelViewSet):
@@ -208,12 +218,17 @@ class CommentViewSet(ModelViewSet):
         return self.kwargs['review_id']
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Comment.objects.none()
         return Comment.objects.filter(review_id=self.review_id).order_by('id')
 
     def perform_create(self, serializer):
+        user = self.request.user
+        review = get_object_or_404(Review, id=self.review_id)
         serializer.save(
-            author=self.request.user, title_id=self.title_id,
-            review_id=self.review_id)
+            author=user,
+            review=review
+        )
 
     def get_serializer_class(self):
         if self.request.method in ('GET', 'HEAD', 'OPTIONS'):

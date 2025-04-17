@@ -1,6 +1,6 @@
-from django.contrib.auth import authenticate, get_user_model, login
+from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
@@ -9,6 +9,7 @@ from reviews.utils import IsAdminOrSuperuser
 from .forms import AdminCreationForm, PublicCreationForm
 
 User = get_user_model()
+
 
 class CustomLogoutView(LogoutView):
     def dispatch(self, request, *args, **kwargs):
@@ -51,12 +52,10 @@ user_context = {
 }
 
 
-
 class UserCreateView(IsAdminOrSuperuser, CreateView):
     model = User
     template_name = 'reviews/create_instance.html'
     form_class = AdminCreationForm
-
 
     def get_success_url(self):
         return reverse_lazy(
@@ -82,7 +81,8 @@ class UserUpdateView(IsAdminOrSuperuser, UpdateView):
         context.update(user_context)
         context['title'] = f'Изменить пользователя {context["object"]}'
         context['is_edit'] = True
-        context['cancel_url'] = reverse_lazy('users:user_detail',  kwargs={"pk": self.object.pk})
+        context['cancel_url'] = reverse_lazy(
+            'users:user_detail', kwargs={"pk": self.object.pk})
         return context
 
     def get_success_url(self):
@@ -91,22 +91,22 @@ class UserUpdateView(IsAdminOrSuperuser, UpdateView):
         )
 
 
-
 class UserDetailView(DetailView):
     model = User
     template_name = 'reviews/instance_detail.html'
-    # template_name = 'base.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(user_context)
         context['title'] = f'Произведение {context["object"]}'
-        context["update_url"] = reverse_lazy("users:update_user", kwargs={"pk": self.object.pk})
-        context["delete_url"] = reverse_lazy("users:delete_user", kwargs={"pk": self.object.pk})
+        context["update_url"] = reverse_lazy(
+            "users:update_user", kwargs={"pk": self.object.pk})
+        context["delete_url"] = reverse_lazy(
+            "users:delete_user", kwargs={"pk": self.object.pk})
         context['back_url'] = reverse_lazy('users:users')
         context['display_fields'] = [
-            "first_name", "last_name", "username", "date_joined", "role", "bio",
-            "last_login"]
+            "first_name", "last_name", "username", "date_joined", "role",
+            "bio", "last_login"]
 
         return context
 
@@ -125,8 +125,10 @@ class UserDeleteView(IsAdminOrSuperuser, DeleteView):
         context = super().get_context_data(**kwargs)
         context.update(user_context)
         context['message'] = f'Пользователь {context["object"]}'
-        context['cancel_url'] = reverse_lazy('users:user_detail',  kwargs={"pk": self.object.pk})
+        context['cancel_url'] = reverse_lazy(
+            'users:user_detail', kwargs={"pk": self.object.pk})
         return context
+
 
 class UsersListView(IsAdminOrSuperuser, ListView):
     model = User
@@ -136,9 +138,8 @@ class UsersListView(IsAdminOrSuperuser, ListView):
         context = super().get_context_data(**kwargs)
         context.update(user_context)
         context['title'] = 'Список пользователей'
-        # Надо создать маршрут для создания пользователя
         context["create_url"] = reverse_lazy("users:create_user")
         context['display_fields'] = [
-            "first_name", "last_name", "username", "date_joined", "role", "bio",
-            "last_login"]
+            "first_name", "last_name", "username", "date_joined", "role",
+            "bio", "last_login"]
         return context
