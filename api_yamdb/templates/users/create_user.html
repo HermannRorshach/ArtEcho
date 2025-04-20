@@ -6,12 +6,11 @@
 {% block content %}
   <main>
     <div class="container py-5">
+      {% include "includes/header.html" %}
       <h1>{{ title }}</h1>
-        {% include "reviews/includes/card.html" %}
+        {% include "users/includes/form_card.html" %}
     </div>
   </main>
   <script src="{% static 'js/custom-single-select.js' %}"></script>
   <script src="{% static 'js/custom-multiple-select.js' %}"></script>
-  <script>window.scrollTo(0, 0);
-  </script>
 {% endblock %}

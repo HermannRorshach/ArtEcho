@@ -33,6 +33,8 @@ def rating_stars(value):
     Преобразует рейтинг (0-10) в HTML с 5 звёздами.
     Пример: 7 → ★★★½☆☆
     """
+    if value == None:
+        value = 0
     full_stars = int(value / 2)
     half_star = 1 if value % 2 == 1 else 0
     empty_stars = 5 - full_stars - half_star
@@ -50,3 +52,14 @@ def rating_stars(value):
     stars_html.extend(['<i class="fa-regular fa-star"></i>'] * empty_stars)
 
     return mark_safe(''.join(stars_html))
+
+
+@register.filter
+def add_attrs(field, attrs):
+    for attr in attrs.split():
+        if '=' in attr:
+            key, val = attr.split('=', 1)
+            field.field.widget.attrs[key] = val
+        else:
+            field.field.widget.attrs[attr] = True
+    return field

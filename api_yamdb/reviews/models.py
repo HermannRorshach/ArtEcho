@@ -8,7 +8,6 @@ from django.db import models
 from django.db.models import Avg, IntegerField
 from django.db.models.functions import Coalesce
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.text import slugify
 from transliterate import translit
 
@@ -161,11 +160,11 @@ class Review(models.Model):
 
     def title_link(self):
         path = reverse("reviews:title_detail", kwargs={"pk": self.title.pk})
-        return f'<a href="{path}">произведение:</a>'
+        return f'<a href="{path}">{self.title}:</a>'
 
     def str_with_link(self):
-        return (f'Отзыв {self.author} на {self.title_link()}<br>'
-                f'{cut_text(self.text, 25)}')
+        return f'Отзыв {self.author} на {self.title_link()}'
+
 
     def get_absolute_url(self):
         return reverse(
@@ -249,25 +248,3 @@ class Comment(models.Model):
                 self.slug = f'{original_slug}-{counter}'
                 counter += 1
         super().save(*args, **kwargs)
-
-
-class ConfirmationCode(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='confirmation_code'
-    )
-    code = models.CharField(max_length=32)
-    created_at = models.DateTimeField(auto_now_add=True)
-    expires_at = models.DateTimeField()
-
-    def save(self, *args, **kwargs):
-        if not self.expires_at:
-            self.expires_at = timezone.now() + timedelta(hours=24)
-        super().save(*args, **kwargs)
-
-    def is_valid(self):
-        return timezone.now() < self.expires_at
-
-    def __str__(self):
-        return f'Confirmation code for {self.user.username}'

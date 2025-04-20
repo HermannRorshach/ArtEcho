@@ -33,6 +33,15 @@ def is_author_or_privileged(user, obj=None):
     )
 
 
+def is_owner(user, obj=None):
+    """Проверяет, является ли пользователь:
+    - владельцем объекта (проверяет username)"""
+
+    if hasattr(obj, 'username') and obj.username == user.username:
+        return True
+    return False
+
+
 class AuthorOrPrivilegedRequiredMixin(UserPassesTestMixin):
     def test_func(self):
         obj = self.get_object()
@@ -41,6 +50,11 @@ class AuthorOrPrivilegedRequiredMixin(UserPassesTestMixin):
     def handle_no_permission(self):
         raise PermissionDenied(
             "Доступ только для авторов или сотрудников сайта")
+
+    @staticmethod
+    def check_permission(user, obj):
+        """Статический метод для проверки прав без создания экземпляра"""
+        return is_author_or_privileged(user, obj)
 
 
 class IsStaffMixin(UserPassesTestMixin):
@@ -51,6 +65,11 @@ class IsStaffMixin(UserPassesTestMixin):
         raise PermissionDenied(
             "Доступ только для администраторов и модераторов")
 
+    @staticmethod
+    def check_permission(user):
+        """Статический метод для проверки прав без создания экземпляра"""
+        return is_staff(user)
+
 
 class IsAdminOrSuperuser(UserPassesTestMixin):
     def test_func(self):
@@ -58,3 +77,8 @@ class IsAdminOrSuperuser(UserPassesTestMixin):
 
     def handle_no_permission(self):
         raise PermissionDenied("Доступ только для администраторов")
+
+    @staticmethod
+    def check_permission(user):
+        """Статический метод для проверки прав без создания экземпляра"""
+        return is_admin_or_superuser(user)

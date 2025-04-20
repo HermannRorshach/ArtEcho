@@ -1,0 +1,154 @@
+[
+{
+  "model": "reviews.genre",
+  "pk": 1,
+  "fields": {
+    "name": "Драма",
+    "slug": "drama"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 2,
+  "fields": {
+    "name": "Комедия",
+    "slug": "comedy"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 3,
+  "fields": {
+    "name": "Вестерн",
+    "slug": "western"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 4,
+  "fields": {
+    "name": "Фэнтези",
+    "slug": "fantasy"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 5,
+  "fields": {
+    "name": "Фантастика",
+    "slug": "sci-fi"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 6,
+  "fields": {
+    "name": "Детектив",
+    "slug": "detective"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 7,
+  "fields": {
+    "name": "Триллер",
+    "slug": "thriller"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 8,
+  "fields": {
+    "name": "Сказка",
+    "slug": "tale"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 9,
+  "fields": {
+    "name": "Гонзо",
+    "slug": "gonzo"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 10,
+  "fields": {
+    "name": "Роман",
+    "slug": "roman"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 11,
+  "fields": {
+    "name": "Баллада",
+    "slug": "ballad"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 12,
+  "fields": {
+    "name": "Rock-n-roll",
+    "slug": "rock-n-roll"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 13,
+  "fields": {
+    "name": "Классика",
+    "slug": "classical"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 14,
+  "fields": {
+    "name": "Рок",
+    "slug": "rock"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 15,
+  "fields": {
+    "name": "Шансон",
+    "slug": "chanson"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 17,
+  "fields": {
+    "name": "Поэзия",
+    "slug": "poetry"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 18,
+  "fields": {
+    "name": "Фантастика",
+    "slug": "fantastic"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 20,
+  "fields": {
+    "name": "Трагикомедия",
+    "slug": "tragicomidia"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 21,
+  "fields": {
+    "name": "Сатира",
+    "slug": "satira"
+  }
+}
+]

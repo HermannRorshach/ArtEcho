@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load custom_filters %}
+{% load auth_tags %}
 {% load static %}
 {% block title %}
   {{ title }}
@@ -31,11 +32,16 @@
         <h1>{{ title }}</h1>
         {% for object in object_list %}
 
-        <div class="title-card" onclick="location.href='{{ object.get_absolute_url }}'">
+        <div class="title-card" onclick="location.href='{% user_object_url object %}'">
           <h3 class="title-name">{{ object|linebreaks }}</h3>
+          {% if avatar %}
+            {% include "reviews/includes/avatar.html" %}
+          {% endif %}
           <ul class="title-properties">
               {% for field in display_fields %}
+                {% if object|custom_getattr:field %}
                   <li><strong>{{ object|field_verbose_name:field }}:</strong> {{ object|custom_getattr:field }}</li>
+                {% endif %}
               {% endfor %}
                 {% if includes %}
                 {% for path in includes %}

@@ -1,0 +1,98 @@
+{% load static %}
+<div class="form-group row my-3 p-3">
+    <label for="id_avatar">Аватар</label>
+
+    <div class="avatar-block d-flex align-items-start">
+        <!-- Кликабельный контейнер с аватаром -->
+        <label for="id_avatar" class="avatar-container me-3">
+        <img id="avatar-preview"
+        src="{% if form.instance.avatar %}{{ form.instance.avatar.url }}{% else %}{% static 'icons/user-solid.svg' %}{% endif %}"
+        alt="Аватар"
+        data-default-src="{% static 'icons/user-solid.svg' %}"
+        data-hover-src="{% static 'icons/user-solid_2.svg' %}">
+        <img src="{% static 'icons/trash.svg' %}"
+             class="avatar-delete-icon"
+             alt="Удалить аватар">
+        </label>
+
+        <!-- Текстовый блок (только информация) -->
+        <div class="avatar-text-block">
+        <div class="d-block mb-1">Нажмите на аватар для загрузки</div>
+        <small class="text-muted">Загрузите изображение размером не более 5 Мб</small>
+        </div>
+
+        <!-- Скрытый инпут -->
+        <input type="file" name="avatar" accept="image/*" hidden id="id_avatar">
+        <input type="checkbox" name="avatar_clear" id="avatar-clear-id" hidden>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const avatarContainer = document.querySelector('.avatar-container');
+    const avatarPreview = document.getElementById('avatar-preview');
+    const deleteIcon = document.querySelector('.avatar-delete-icon');
+    const fileInput = document.getElementById('id_avatar');
+    const clearCheckbox = document.getElementById('avatar-clear-id');
+
+    // Константы для путей изображений
+    const defaultSrc = avatarPreview.dataset.defaultSrc;
+    const hoverSrc = avatarPreview.dataset.hoverSrc;
+
+    // Проверяем, является ли текущий аватар дефолтным
+    function isDefaultAvatar() {
+        return avatarPreview.src.includes('user-solid');
+    }
+
+    // Обновляем состояние (показывать/скрывать иконку удаления)
+    function updateAvatarState() {
+        if (isDefaultAvatar()) {
+        avatarContainer.classList.remove('has-custom-avatar');
+        } else {
+        avatarContainer.classList.add('has-custom-avatar');
+        }
+    }
+
+    // Обработчик наведения на аватар (для дефолтного изображения)
+    avatarPreview.addEventListener('mouseenter', function() {
+        if (isDefaultAvatar() && hoverSrc) {
+        avatarPreview.src = hoverSrc;
+        }
+    });
+
+    avatarPreview.addEventListener('mouseleave', function() {
+        console.log("Проверяем событие ухода курсора с аватарки", isDefaultAvatar())
+        if (isDefaultAvatar() && hoverSrc) {
+        avatarPreview.src = defaultSrc;
+        }
+        console.log("avatarPreview.src", avatarPreview.src)
+    });
+
+    // Обработчик клика на иконку удаления
+    deleteIcon.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        clearCheckbox.checked = true; // Активируем чекбокс удаления
+        avatarPreview.src = hoverSrc; // Устанавливаем дефолтное изображение
+        updateAvatarState(); // Обновляем состояние
+        console.log("проверяем в обработчике иконки удаления, isDefaultAvatar() =", isDefaultAvatar())
+    });
+
+    // Обработчик выбора файла
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+        clearCheckbox.checked = false; // Сбрасываем чекбокс удаления
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            avatarPreview.src = event.target.result; // Временное превью
+            updateAvatarState(); // Обновляем состояние
+        };
+        reader.readAsDataURL(file);
+        }
+    });
+
+    // Инициализация состояния при загрузке
+    updateAvatarState();
+    });
+</script>

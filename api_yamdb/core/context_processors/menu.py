@@ -12,6 +12,11 @@ def menu(request):
                 'text': 'Изменить пароль',
                 'link_light': True
             },
+            {
+                'path': 'users:me',
+                'text': 'Профиль',
+                'link_light': True
+            },
         ]
     else:
         items['guest_items'] = [

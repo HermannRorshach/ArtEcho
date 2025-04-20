@@ -1,4 +1,3 @@
-import os
 import sys
 from datetime import timedelta
 from pathlib import Path
@@ -28,8 +27,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reviews.apps.ReviewsConfig',
+    'admin_office.apps.AdminOfficeConfig',
     'api.apps.ApiConfig',
+    'core.apps.CoreConfig',
+    'demo_auth.apps.DemoAuthConfig',
+    'reviews.apps.ReviewsConfig',
     'users.apps.UsersConfig',
     'custom_commands.apps.CustomCommandsConfig',
     'rest_framework',
@@ -62,8 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'users.context_processors.menu.menu',
-                'users.context_processors.year.year',
+                'core.context_processors.menu.menu',
+                'core.context_processors.year.year',
             ],
         },
     },
@@ -116,13 +118,12 @@ AUTH_USER_MODEL = 'users.User'
 
 
 # Static files (CSS, JavaScript, Images)
-
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = ((BASE_DIR / 'static/'),)
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'reviews:titles'

@@ -7,9 +7,9 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.tokens import RefreshToken
 # from .models import ConfirmationCode
-from reviews.models import (Category, Comment, ConfirmationCode, Genre, Review,
+from reviews.models import (Category, Comment, Genre, Review,
                             Title)
-
+from users.models import ConfirmationCode
 User = get_user_model()
 
 

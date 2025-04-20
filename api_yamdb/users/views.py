@@ -1,12 +1,16 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
-from django.shortcuts import redirect
+from django.core.exceptions import PermissionDenied
+from django.core.files.base import ContentFile
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
-from reviews.utils import IsAdminOrSuperuser
+from reviews.utils import IsAdminOrSuperuser, is_owner
 
-from .forms import AdminCreationForm, PublicCreationForm
+from .forms import PublicCreationForm, PublicUpdateForm
 
 User = get_user_model()
 
@@ -39,82 +43,91 @@ class SignUp(CreateView):
 
 
 user_context = {
-    'create_button_text': 'Добавить пользователя',
+    'action': 'Добавить пользователя',
 
     'update_url': 'users:update_user',
     'update_button_text': 'Изменить',
 
-    'action': 'Добавить пользователя',
     'detail_url': 'users:user_detail',
 
     'update_url': 'users:update_user',
     'delete_url': 'users:delete_user',
+
+    'avatar': True,
 }
 
 
-class UserCreateView(IsAdminOrSuperuser, CreateView):
+class UserUpdateMixin(UpdateView):
     model = User
+    form_class = PublicUpdateForm
     template_name = 'reviews/create_instance.html'
-    form_class = AdminCreationForm
-
-    def get_success_url(self):
-        return reverse_lazy(
-            'users:users'
-        )
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(user_context)
-        context['title'] = 'Добавить нового пользователя'
-        context['is_edit'] = False
-        context["create_url"] = reverse_lazy("users:create_user")
-        return context
-
-
-class UserUpdateView(IsAdminOrSuperuser, UpdateView):
-    model = User
-    form_class = AdminCreationForm
-    template_name = 'reviews/create_instance.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update(user_context)
-        context['title'] = f'Изменить пользователя {context["object"]}'
+        context['title'] = f'Изменить анкету'
         context['is_edit'] = True
         context['cancel_url'] = reverse_lazy(
-            'users:user_detail', kwargs={"pk": self.object.pk})
+            'users:user_detail', kwargs={'username': self.object.username})
         return context
 
     def get_success_url(self):
         return reverse_lazy(
-            'users:user_detail', kwargs={'pk': self.kwargs['pk']}
+            'users:user_detail', kwargs={'username': self.object.username}
         )
+
+class UserUpdateView(UserUpdateMixin):
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if not is_owner(request.user, self.object):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
 
 class UserDetailView(DetailView):
     model = User
     template_name = 'reviews/instance_detail.html'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(user_context)
         context['title'] = f'Произведение {context["object"]}'
-        context["update_url"] = reverse_lazy(
-            "users:update_user", kwargs={"pk": self.object.pk})
-        context["delete_url"] = reverse_lazy(
-            "users:delete_user", kwargs={"pk": self.object.pk})
-        context['back_url'] = reverse_lazy('users:users')
+        context['update_url'] = reverse_lazy(
+            'users:update_user', kwargs={'username': self.object.username})
+        context['delete_url'] = reverse_lazy(
+            'users:delete_user', kwargs={'username': self.object.username})
         context['display_fields'] = [
-            "first_name", "last_name", "username", "date_joined", "role",
-            "bio", "last_login"]
+            'bio', 'role', 'avatar', 'birth_date', 'sex', 'city',
+            'relationship_status', 'vk_url', 'youtube_url',
+            'telegram_url', 'whatsapp_url'
+        ]
+        context['can_edit'] = is_owner(
+            self.request.user, context['object']
+        )
+        context['can_delete'] = is_owner(
+            self.request.user, context['object']
+        )
 
         return context
 
 
-class UserDeleteView(IsAdminOrSuperuser, DeleteView):
+class UserDeleteView(DeleteView):
     model = User
-    success_url = reverse_lazy("users:users")
+    success_url = reverse_lazy('users:users')
     template_name = 'reviews/confirm_delete.html'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if not is_owner(request.user, self.object):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy(
@@ -126,20 +139,55 @@ class UserDeleteView(IsAdminOrSuperuser, DeleteView):
         context.update(user_context)
         context['message'] = f'Пользователь {context["object"]}'
         context['cancel_url'] = reverse_lazy(
-            'users:user_detail', kwargs={"pk": self.object.pk})
+            'users:user_detail', kwargs={'username': self.object.username})
         return context
 
 
 class UsersListView(IsAdminOrSuperuser, ListView):
     model = User
     template_name = 'reviews/instances.html'
+    paginate_by = settings.PAGINATION_PAGE_SIZE
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(user_context)
         context['title'] = 'Список пользователей'
-        context["create_url"] = reverse_lazy("users:create_user")
+        context['create_url'] = reverse_lazy('admin_office:create_user')
         context['display_fields'] = [
-            "first_name", "last_name", "username", "date_joined", "role",
-            "bio", "last_login"]
+            'first_name', 'last_name', 'username', 'date_joined', 'role',
+            'bio', 'last_login']
         return context
+
+
+# class UserDetailView(LoginRequiredMixin, DetailView):
+#     model = User
+#     template_name = 'users/profile.html'
+#     context_object_name = 'profile_user'
+#     slug_field = 'username'
+#     slug_url_kwarg = 'username'
+
+#     def get_object(self, queryset=None):
+#         username = self.kwargs.get(self.slug_url_kwarg)
+#         return get_object_or_404(User, username=username)
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['title'] = f'Профиль пользователя {context["object"].username}'
+#         context["update_url"] = reverse_lazy(
+#             "users:update_user", kwargs={"username": self.object.username})
+#         context["delete_url"] = reverse_lazy(
+#             "users:delete_user", kwargs={"username": self.object.username})
+#         context['back_url'] = reverse_lazy('reviews:titles')
+#         context['display_fields'] = [
+#             'bio', 'role', 'avatar', 'birth_date', 'sex', 'city',
+#             'relationship_status', 'vk_url', 'youtube_url',
+#             'telegram_url', 'whatsapp_url'
+#         ]
+#         return context
+
+
+class MeView(UserDetailView):
+    def get_object(self, queryset=None):
+        return self.request.user

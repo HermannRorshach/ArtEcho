@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% load static %}
+{% block title %}
+  {{ title }}
+{% endblock %}
+{% block content %}
+  <main>
+    <div class="container py-5">
+      {% include "includes/header.html" %}
+      <div class="wrapper-container">
+
+        <div class="container-fluid">
+          <div class="row justify-content-start"> <!-- Выравниваем контент по левому краю -->
+            <div class="col-12"> <!-- Занимаем всю ширину строки -->
+              <div class="buttons d-flex flex-row gap-5"> <!-- Flex-контейнер с отступами между элементами -->
+                <a href="{{ back_url }}">
+                  <img src="{% static 'icons/Polygon 4.png' %}"
+                       alt="Кнопка назад"
+                       class="btn-back" />
+                       <img src="{% static 'icons/Polygon 5.png' %}"
+                       alt="Кнопка назад"
+                       class="btn-back-hover" />
+                </a>
+                {% if request.user == profile_user %}
+                <a class="button btn" href="{{ update_url }}">Изменить</a>
+                <a class="button btn" href="{{ delete_url }}">Удалить</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <h1>{% if object.text %}{{ object.text }}{% endif %}</h1> -->
+
+        <div class="margin-bottom title-card">
+          <h1 class="title-name">{% if object.str_with_link %}{{ object.str_with_link|safe }}{% else %}{{ object|linebreaks }}{% endif %}</h1>
+          <ul class="title-properties">
+              {% for field in display_fields %}
+                  {% if  object|custom_getattr:field %}
+                  <li><strong>{{ object|field_verbose_name:field }}:</strong> {{ object|custom_getattr:field }}</li>
+                  {% endif %}
+              {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}

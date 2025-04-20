@@ -4,13 +4,13 @@
     <div class="header-container">
       <ul class="nav nav-pills ms-auto">
         <li class="nav-item">
-          <a class="nav-lnk {% if request.resolver_match.view_name == 'planner:planner' %}active{% endif %}"
+          <a class="nav-lnk {% if request.resolver_match.view_name == 'reviews:titles' %}active{% endif %}"
              href="{% url 'reviews:titles' %}">Главная</a>
         </li>
-        {% if user.is_admin or user.is_superuser or user.is_moderator %}
+        {% if request.user.is_admin or request.user.is_superuser or request.user.is_moderator %}
           <li class="nav-item">
-            <a class="nav-lnk {% if request.resolver_match.view_name == 'planner:cabinet' %}active{% endif %}"
-               href="{% url 'reviews:cabinet' %}">Кабинет</a>
+            <a class="nav-lnk {% if request.resolver_match.view_name == 'admin_office:cabinet' %}active{% endif %}"
+               href="{% url 'admin_office:cabinet' %}">Кабинет</a>
           </li>
         {% endif %}
         {% for item in common_items %}

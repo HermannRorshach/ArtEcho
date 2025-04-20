@@ -28,13 +28,6 @@ class FaqView(View):
         return render(request, self.template_name)
 
 
-class CabinetView(IsStaffMixin, View):
-    template_name = 'reviews/cabinet.html'
-
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
-
-
 title_context = {
     'create_button_text': 'Добавить',  # Для страницы создания
 
@@ -141,6 +134,12 @@ class TitleDetailView(DetailView):
         context['display_fields'] = ['year', 'category', 'genre']
         context['includes'] = ['reviews/includes/rating.html']
         context['average_rating'] = context['object'].average_rating
+        context['can_edit'] = IsAdminOrSuperuser.check_permission(
+            self.request.user
+        )
+        context['can_delete'] = IsAdminOrSuperuser.check_permission(
+            self.request.user
+        )
         return context
 
 
@@ -248,6 +247,12 @@ class GenreDetailView(IsStaffMixin, DetailView):
             'reviews:delete_genre', kwargs={'pk': self.object.pk})
         context['back_url'] = reverse_lazy('reviews:genres')
         context['display_fields'] = ['name', 'slug']
+        context['can_edit'] = IsAdminOrSuperuser.check_permission(
+            self.request.user
+        )
+        context['can_delete'] = IsAdminOrSuperuser.check_permission(
+            self.request.user
+        )
         return context
 
 
@@ -278,6 +283,7 @@ review_context = {
     'related_object_title': 'Комментарии',
     'no_related_objects_title': 'Комментариев нет',
     'create_related_object_title': 'Оставить комментарий',
+    'avatar': True,
 }
 
 
@@ -396,6 +402,14 @@ class ReviewDetailView(DetailView):
         context['back_url'] = reverse_lazy(
             'reviews:reviews', kwargs={'title_id': self.object.title.pk})
         context['display_fields'] = ['author', 'text', 'score', 'pub_date']
+        context['can_edit'] = AuthorOrPrivilegedRequiredMixin.check_permission(
+            self.request.user,
+            context['object']
+        )
+        context['can_delete'] = AuthorOrPrivilegedRequiredMixin.check_permission(
+            self.request.user,
+            context['object']
+        )
         return context
 
 
@@ -431,6 +445,7 @@ comment_context = {
 
     # 'update_url': 'reviews:update_review',
     # 'delete_url': 'reviews:delete_review',
+    'avatar': True,
 }
 
 
@@ -561,6 +576,15 @@ class CommentDetailView(DetailView):
             'reviews:comments',
             kwargs={'title_id': self.title_id, 'review_id': self.review_id})
         context['display_fields'] = ['author', 'text', 'pub_date']
+
+        context['can_edit'] = AuthorOrPrivilegedRequiredMixin.check_permission(
+            self.request.user,
+            context['object']
+        )
+        context['can_delete'] = AuthorOrPrivilegedRequiredMixin.check_permission(
+            self.request.user,
+            context['object']
+        )
         return context
 
 
@@ -678,6 +702,12 @@ class CategoryDetailView(IsStaffMixin, DetailView):
             'reviews:delete_category', kwargs={'pk': self.object.pk})
         context['back_url'] = reverse_lazy('reviews:categories')
         context['display_fields'] = ['name', 'slug']
+        context['can_edit'] = IsAdminOrSuperuser.check_permission(
+            self.request.user
+        )
+        context['can_delete'] = IsAdminOrSuperuser.check_permission(
+            self.request.user
+        )
         return context
 
 
@@ -698,30 +728,3 @@ class CategoryDeleteView(IsAdminOrSuperuser, DeleteView):
         context['cancel_url'] = reverse_lazy(
             'reviews:category_detail', kwargs={'pk': self.object.pk})
         return context
-
-
-class CabinetReviewsListView(IsStaffMixin, ReviewListView):
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update(review_context)
-        context['title'] = 'Список отзывов'
-        context['back_url'] = reverse_lazy('reviews:cabinet')
-        context['display_fields'] = ['author', 'text', 'score', 'pub_date']
-        del context['create_url']
-        return context
-
-    def get_queryset(self):
-        return Review.objects.all().order_by('-pk')
-
-
-class CabinetCommentListView(IsStaffMixin, CommentListView):
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Все комментарии'
-        context['back_url'] = reverse_lazy('reviews:cabinet')
-        context['display_fields'] = ['author', 'text', 'pub_date']
-        del context['create_url']
-        return context
-
-    def get_queryset(self):
-        return Comment.objects.all().order_by('-pk')

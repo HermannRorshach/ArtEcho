@@ -1,0 +1,11 @@
+{% load static %}
+<a class="avatar-container avatar-inline" href="{% if object.author %}{% url 'users:user_detail' object.author.username %}
+{% else %} {% url 'users:user_detail' object.username %}{% endif %}" onclick="event.stopPropagation();">
+<div>
+    <img src="{% if object.author.avatar %}{{ object.author.avatar.url }}
+    {% elif object.avatar %}{{ object.avatar.url }}
+    {% else %}{% static 'icons/user-solid.svg' %}{% endif %}"
+         alt="Аватар"
+         class="avatar-image">
+</div>
+</a>

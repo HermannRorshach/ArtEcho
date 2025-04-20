@@ -1,0 +1,2306 @@
+[
+{
+  "model": "sessions.session",
+  "pk": "5nkw20tavbmiq4sm3erzxi4q75pl6ux1",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hCgQwsu3XsGMjCDVA0kpV0Z765NutDtf-_9lwi4rSVsnZcwkzgLraw4_a4R04PrjuiO9dZkanVd5ih3RR60y2sjfl4O9--gYC_fGvLgyKmsjfXKWGavIqDW7DIq9H7CTGAcTy7qCGzGBNmxzeAHIByTeH8AJnI4dQ:1u4q55:QjDkEze9NPjxbkLAlnIHaEIxhX23NIL6KRiHQ0hr8uQ",
+    "expire_date": "2025-04-29T23:52:43.706Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "x59bhu4lqm55i7hwi7c151heii4punjw",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hCYUqAu3XuGZpgZpGpoUtqV8e7apAvd_vfef6kRt7WMW5NlnFidlTVenX7XhPSQuiO-Y73Nmua6LlPSu6IP2vR1ZnleDvfvoGAr35pAet8LxoEAGMTFYCSTMcmii51nBB-QEkEE74YMMXPP7Cx2LiRL6v0BNy04jQ:1u6Gyo:zo1HgZJUn8FX7uf-9Uyvk76p7kEl60hmHKqDOR-a61s",
+    "expire_date": "2025-05-03T22:48:10.069Z"
+  }
+},
+{
+  "model": "reviews.category",
+  "pk": 1,
+  "fields": {
+    "name": "Фильм",
+    "slug": "movie"
+  }
+},
+{
+  "model": "reviews.category",
+  "pk": 2,
+  "fields": {
+    "name": "Книга",
+    "slug": "book"
+  }
+},
+{
+  "model": "reviews.category",
+  "pk": 3,
+  "fields": {
+    "name": "Музыка",
+    "slug": "music"
+  }
+},
+{
+  "model": "reviews.category",
+  "pk": 4,
+  "fields": {
+    "name": "Марафон желаний",
+    "slug": "marafon-zhelanij"
+  }
+},
+{
+  "model": "reviews.category",
+  "pk": 5,
+  "fields": {
+    "name": "Танец",
+    "slug": "dance"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 1,
+  "fields": {
+    "name": "Драма",
+    "slug": "drama"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 2,
+  "fields": {
+    "name": "Комедия",
+    "slug": "comedy"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 3,
+  "fields": {
+    "name": "Вестерн",
+    "slug": "western"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 4,
+  "fields": {
+    "name": "Фэнтези",
+    "slug": "fantasy"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 5,
+  "fields": {
+    "name": "Фантастика",
+    "slug": "sci-fi"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 6,
+  "fields": {
+    "name": "Детектив",
+    "slug": "detective"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 7,
+  "fields": {
+    "name": "Триллер",
+    "slug": "thriller"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 8,
+  "fields": {
+    "name": "Сказка",
+    "slug": "tale"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 9,
+  "fields": {
+    "name": "Гонзо",
+    "slug": "gonzo"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 10,
+  "fields": {
+    "name": "Роман",
+    "slug": "roman"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 11,
+  "fields": {
+    "name": "Баллада",
+    "slug": "ballad"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 12,
+  "fields": {
+    "name": "Rock-n-roll",
+    "slug": "rock-n-roll"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 13,
+  "fields": {
+    "name": "Классика",
+    "slug": "classical"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 14,
+  "fields": {
+    "name": "Рок",
+    "slug": "rock"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 15,
+  "fields": {
+    "name": "Шансон",
+    "slug": "chanson"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 17,
+  "fields": {
+    "name": "Поэзия",
+    "slug": "poetry"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 18,
+  "fields": {
+    "name": "Фантастика",
+    "slug": "fantastic"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 20,
+  "fields": {
+    "name": "Трагикомедия",
+    "slug": "tragicomidia"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 21,
+  "fields": {
+    "name": "Сатира",
+    "slug": "satira"
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 1,
+  "fields": {
+    "name": "Побег из Шоушенка",
+    "year": 1994,
+    "description": null,
+    "slug": "pobeg-iz-shoushenka",
+    "category": 1,
+    "genre": [
+      1
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 2,
+  "fields": {
+    "name": "Крестный отец",
+    "year": 1972,
+    "description": null,
+    "slug": "krestnyj-otets",
+    "category": 1,
+    "genre": [
+      1
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 3,
+  "fields": {
+    "name": "12 разгневанных мужчин",
+    "year": 1957,
+    "description": null,
+    "slug": "12-razgnevannyh-muzhchin",
+    "category": 1,
+    "genre": [
+      1
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 4,
+  "fields": {
+    "name": "Список Шиндлера",
+    "year": 1993,
+    "description": null,
+    "slug": "spisok-shindlera",
+    "category": 1,
+    "genre": [
+      1
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 5,
+  "fields": {
+    "name": "Криминальное чтиво",
+    "year": 1994,
+    "description": null,
+    "slug": "kriminalnoe-chtivo",
+    "category": 1,
+    "genre": [
+      2,
+      6,
+      7
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 6,
+  "fields": {
+    "name": "Хороший, плохой, злой",
+    "year": 1966,
+    "description": null,
+    "slug": "horoshij-plohoj-zloj",
+    "category": 1,
+    "genre": [
+      3
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 7,
+  "fields": {
+    "name": "Властелин колец: Братство кольца",
+    "year": 2001,
+    "description": null,
+    "slug": "vlastelin-kolets-bratstvo-koltsa",
+    "category": 1,
+    "genre": [
+      4
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 8,
+  "fields": {
+    "name": "Бойцовский клуб",
+    "year": 1999,
+    "description": null,
+    "slug": "bojtsovskij-klub",
+    "category": 1,
+    "genre": [
+      7
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 9,
+  "fields": {
+    "name": "Форрест Гамп",
+    "year": 1994,
+    "description": null,
+    "slug": "forrest-gamp",
+    "category": 1,
+    "genre": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 10,
+  "fields": {
+    "name": "Звёздные войны. Эпизод 5: Империя наносит ответный удар",
+    "year": 1980,
+    "description": null,
+    "slug": "zvezdnye-vojny-epizod-5-imperija-nanosit-otvetnyj-udar",
+    "category": 1,
+    "genre": [
+      4
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 11,
+  "fields": {
+    "name": "Властелин колец: Две крепости",
+    "year": 2002,
+    "description": null,
+    "slug": "vlastelin-kolets-dve-kreposti",
+    "category": 1,
+    "genre": [
+      4
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 12,
+  "fields": {
+    "name": "Матрица",
+    "year": 1999,
+    "description": null,
+    "slug": "matritsa",
+    "category": 1,
+    "genre": [
+      1,
+      5,
+      6,
+      8
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 13,
+  "fields": {
+    "name": "Пролетая над гнездом кукушки",
+    "year": 1975,
+    "description": null,
+    "slug": "proletaja-nad-gnezdom-kukushki",
+    "category": 1,
+    "genre": [
+      1
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 14,
+  "fields": {
+    "name": "Назад в будущее",
+    "year": 1985,
+    "description": null,
+    "slug": "nazad-v-buduschee",
+    "category": 1,
+    "genre": [
+      5
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 15,
+  "fields": {
+    "name": "Операция «Ы» и другие приключения Шурика",
+    "year": 1965,
+    "description": null,
+    "slug": "operatsija-y-i-drugie-prikljuchenija-shurika",
+    "category": 1,
+    "genre": [
+      2,
+      6,
+      8
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 16,
+  "fields": {
+    "name": "Карты, деньги, два ствола",
+    "year": 1998,
+    "description": null,
+    "slug": "karty-dengi-dva-stvola",
+    "category": 1,
+    "genre": [
+      2
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 17,
+  "fields": {
+    "name": "Джентльмены удачи ",
+    "year": 1971,
+    "description": null,
+    "slug": "dzhentlmeny-udachi",
+    "category": 1,
+    "genre": [
+      2
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 18,
+  "fields": {
+    "name": "Джанго освобожденный",
+    "year": 2012,
+    "description": null,
+    "slug": "dzhango-osvobozhdennyj",
+    "category": 1,
+    "genre": [
+      1
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 19,
+  "fields": {
+    "name": "Generation П",
+    "year": 2011,
+    "description": null,
+    "slug": "generation-p",
+    "category": 1,
+    "genre": [
+      1
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 20,
+  "fields": {
+    "name": "Колобок",
+    "year": 1873,
+    "description": null,
+    "slug": "kolobok",
+    "category": 2,
+    "genre": [
+      7,
+      8
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 21,
+  "fields": {
+    "name": "Страх и ненависть в Лас-Вегасе",
+    "year": 1971,
+    "description": null,
+    "slug": "strah-i-nenavist-v-las-vegase",
+    "category": 2,
+    "genre": [
+      9
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 22,
+  "fields": {
+    "name": "Война и мир",
+    "year": 1865,
+    "description": null,
+    "slug": "vojna-i-mir",
+    "category": 2,
+    "genre": [
+      10
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 23,
+  "fields": {
+    "name": "Улисс",
+    "year": 1918,
+    "description": null,
+    "slug": "uliss",
+    "category": 2,
+    "genre": [
+      10
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 24,
+  "fields": {
+    "name": "Generation П",
+    "year": 1999,
+    "description": null,
+    "slug": "generation-p-2",
+    "category": 2,
+    "genre": [
+      10
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 25,
+  "fields": {
+    "name": "Винни Пух и все-все-все",
+    "year": 1926,
+    "description": null,
+    "slug": "vinni-puh-i-vse-vse-vse",
+    "category": 2,
+    "genre": [
+      8
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 26,
+  "fields": {
+    "name": "Стас Михайлов - Позывные на любовь",
+    "year": 2004,
+    "description": null,
+    "slug": "stas-mihajlov-pozyvnye-na-ljubov",
+    "category": 3,
+    "genre": [
+      15
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 27,
+  "fields": {
+    "name": "Led Zeppelin — Stairway to Heaven",
+    "year": 1971,
+    "description": null,
+    "slug": "led-zeppelin-stairway-to-heaven",
+    "category": 3,
+    "genre": [
+      11,
+      14
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 28,
+  "fields": {
+    "name": "Jethro Tull - Aqualung",
+    "year": 1971,
+    "description": null,
+    "slug": "jethro-tull-aqualung",
+    "category": 3,
+    "genre": [
+      11
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 29,
+  "fields": {
+    "name": "Elvis Presley - Blue Suede Shoes",
+    "year": 1955,
+    "description": null,
+    "slug": "elvis-presley-blue-suede-shoes",
+    "category": 3,
+    "genre": [
+      12
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 30,
+  "fields": {
+    "name": "Deep Purple — Smoke on the Water",
+    "year": 1971,
+    "description": null,
+    "slug": "deep-purple-smoke-on-the-water",
+    "category": 3,
+    "genre": [
+      14
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 31,
+  "fields": {
+    "name": "Моцарт - Турецкий марш",
+    "year": 1784,
+    "description": null,
+    "slug": "motsart-turetskij-marsh",
+    "category": 3,
+    "genre": [
+      13
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 32,
+  "fields": {
+    "name": "Бах. Оркестровая Сюита №2 си минор",
+    "year": 1739,
+    "description": null,
+    "slug": "bah-orkestrovaja-sjuita-no2-si-minor",
+    "category": 3,
+    "genre": [
+      13
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 33,
+  "fields": {
+    "name": "Тихий Дон",
+    "year": 1928,
+    "description": null,
+    "slug": "tihij-don",
+    "category": 2,
+    "genre": [
+      1
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 36,
+  "fields": {
+    "name": "Громкий Дон",
+    "year": 1928,
+    "description": null,
+    "slug": "gromkij-don",
+    "category": 2,
+    "genre": [
+      14
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 37,
+  "fields": {
+    "name": "Во все тяжкие",
+    "year": 2014,
+    "description": null,
+    "slug": "vo-vse-tjazhkie",
+    "category": 1,
+    "genre": [
+      1
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 43,
+  "fields": {
+    "name": "Трудно быть богом",
+    "year": 1963,
+    "description": null,
+    "slug": "trudno-byt-bogom",
+    "category": 2,
+    "genre": [
+      18
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 44,
+  "fields": {
+    "name": "10 негритят",
+    "year": 1939,
+    "description": null,
+    "slug": "10-negritjat",
+    "category": 2,
+    "genre": [
+      6
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 45,
+  "fields": {
+    "name": "Нотр-Дам де Пари",
+    "year": 1998,
+    "description": null,
+    "slug": "notr-dam-de-pari",
+    "category": 3,
+    "genre": [
+      1
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 64,
+  "fields": {
+    "name": "Тестовый селект",
+    "year": 2025,
+    "description": null,
+    "slug": "testovyj-selekt",
+    "category": 1,
+    "genre": [
+      1,
+      2,
+      5,
+      6,
+      7,
+      10
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 65,
+  "fields": {
+    "name": "Тест",
+    "year": 2025,
+    "description": null,
+    "slug": "test",
+    "category": 2,
+    "genre": [
+      1,
+      2,
+      5,
+      6,
+      7,
+      10,
+      13,
+      14
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 69,
+  "fields": {
+    "name": "Последнее тестовое произведение",
+    "year": 2025,
+    "description": null,
+    "slug": "poslednee-testovoe-proizvedenie",
+    "category": 3,
+    "genre": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      20,
+      21
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 70,
+  "fields": {
+    "name": "Ещё одно последнее произведение тествое",
+    "year": 2025,
+    "description": null,
+    "slug": "esche-odno-poslednee-proizvedenie-testvoe",
+    "category": 1,
+    "genre": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      20,
+      21
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 72,
+  "fields": {
+    "name": "Мост через реку Квай",
+    "year": 1957,
+    "description": "Рон Свонсон рекомендует.",
+    "slug": "most-cherez-reku-kvaj",
+    "category": 1,
+    "genre": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 1,
+  "fields": {
+    "author": 100,
+    "title": 1,
+    "text": "Ставлю десять звёзд!\n...Эти голоса были чище и светлее тех, о которых мечтали в этом сером, убогом месте. Как будто две птички влетели и своими голосами развеяли стены наших клеток, и на короткий миг каждый человек в Шоушенке почувствовал себя свободным.",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:03.774Z",
+    "update_date": "2025-03-21T19:06:03.774Z",
+    "slug": "stavlju-desjat-z"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 2,
+  "fields": {
+    "author": 101,
+    "title": 1,
+    "text": "Не привыкай\n«Эти стены имеют одно свойство: сначала ты их ненавидишь, потом привыкаешь, а потом не можешь без них жить»",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:03.776Z",
+    "update_date": "2025-03-21T19:06:03.776Z",
+    "slug": "ne-privykaj-et"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 3,
+  "fields": {
+    "author": 102,
+    "title": 2,
+    "text": "Фильм, разобранный на цитаты, достоин высшей оценки. Десять с плюсом (жаль, тут плюса нет)\n\"Ты пришел и говоришь: \"Дон Корлеоне, мне нужна справедливость\". Но ты просишь без уважения, ты не предлагаешь дружбу, ты даже не назвал меня Крестным Отцом.\"",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:03.799Z",
+    "update_date": "2025-03-21T19:06:03.799Z",
+    "slug": "film-razobran"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 4,
+  "fields": {
+    "author": 103,
+    "title": 2,
+    "text": "Жестокий, жестокий, жестокий мир, не о таком мечтали мы в детстве!!111\n***Отец сделал ему предложение, от которого он не смог отказаться. Лука Брази держал пистолет у его виска, и отец предложил выбор: либо на контракте мозги, либо подпись.***",
+    "score": 1,
+    "pub_date": "2025-03-21T19:06:03.809Z",
+    "update_date": "2025-03-21T19:06:03.809Z",
+    "slug": "zhestokij-zhesto"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 5,
+  "fields": {
+    "author": 104,
+    "title": 2,
+    "text": "Это мои соседи! Ставлю три звезды за то, что они дважды отдавили мне окном пальцы:\n----------------------\n— Вы живёте в плохом районе?\n— Не то слово. Однажды с нашей улицы угнали полицейскую машину с двумя полицейскими. В дом всё время лезут воры. Каждый раз, как я пытаюсь закрыть окно, прищемляю кому-нибудь пальцы.",
+    "score": 3,
+    "pub_date": "2025-03-21T19:06:03.826Z",
+    "update_date": "2025-03-21T19:06:03.826Z",
+    "slug": "eto-moi-sosedi"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 6,
+  "fields": {
+    "author": 100,
+    "title": 5,
+    "text": "Всё, как в разных языках программирования! В основном — похоже, но вот эти маленькие различия выводят из себя.\nВеликий фильм на все случаи жизни!\n=====================================================\n— А знаешь, как в Париже называют четвертьфунтовый чизбургер?\n— Что, они не зовут его четвертьфунтовый чизбургер?\n— У них там метрическая система. Они вообще там не понимают, что за хрен четверть фунта.\n— И как они его зовут?\n— Они зовут его «Роял чизбургер».\n— «Роял чизбургер»? А как же тогда они зовут «Биг Мак»?\n— «Биг Мак» это «Биг Мак», только они называют его «Лё Биг Мак».",
+    "score": 8,
+    "pub_date": "2025-03-21T19:06:03.871Z",
+    "update_date": "2025-03-21T19:06:03.871Z",
+    "slug": "vse-kak-v-razn"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 7,
+  "fields": {
+    "author": 101,
+    "title": 5,
+    "text": "Ничего не понятно. Они там что, страницы сценария перепутали? Его сперва убили, а потом он опять жив, а они сперва в футболках, потом в костюмах, а потом опять в футболках. Ерунда полная",
+    "score": 1,
+    "pub_date": "2025-03-21T19:06:03.875Z",
+    "update_date": "2025-03-21T19:06:03.875Z",
+    "slug": "nichego-ne-ponjat"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 8,
+  "fields": {
+    "author": 102,
+    "title": 5,
+    "text": "Очень поучительный фильм о том, что такое хорошо, что такое плохо и почему не надо читать в туалете.\nТвердая восьмёрка",
+    "score": 8,
+    "pub_date": "2025-03-21T19:06:03.882Z",
+    "update_date": "2025-03-21T19:06:03.882Z",
+    "slug": "ochen-pouchitel"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 9,
+  "fields": {
+    "author": 103,
+    "title": 6,
+    "text": "Посмотрел фильм.\n— На свете есть два типа людей: те, кто копает и те, у кого заряжен револьвер.\nПойду копать, как велел Клинт.\nДевять баллов.",
+    "score": 9,
+    "pub_date": "2025-03-21T19:06:03.897Z",
+    "update_date": "2025-03-21T19:06:03.897Z",
+    "slug": "posmotrel-film"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 10,
+  "fields": {
+    "author": 104,
+    "title": 6,
+    "text": "Вечная проблема всех злодеев, болтающих-болтающих-болтающих вместо того, чтобы просто застрелить противника, одним махом решена в этой сцене.\nЗа одно это фильм заслуживает высшего балла\n\"Пришел стрелять - стреляй, а не болтай!\"",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:03.897Z",
+    "update_date": "2025-03-21T19:06:03.897Z",
+    "slug": "vechnaja-problema"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 12,
+  "fields": {
+    "author": 101,
+    "title": 14,
+    "text": "Недавно именно так я изобрёл вечный двигатель! Чистая правда в фильме, почему он назван \"фантастикой\", это же полнейший реализм!\nВот цитата. Но зачем ему часы в уборной?!\n— В тот день я изобрёл путешествие во времени! Как сейчас помню… Я стоял на унитазе и вешал часы. Вдруг подскользнулся, ударился головой о раковину",
+    "score": 8,
+    "pub_date": "2025-03-21T19:06:04.075Z",
+    "update_date": "2025-03-21T19:06:04.075Z",
+    "slug": "nedavno-imenno"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 13,
+  "fields": {
+    "author": 102,
+    "title": 14,
+    "text": "Великий фильм, жаль только, что будущее, которое в нём показано, уже в прошлом. Но проблемы всё теже, вот как эта, например: «Док, послушай, всё, что нам нужно — это немного плутония!»\nВсегда не хватает какой-нибудь мелочи. Семёрка за то, что будущее оказалось не таким, как обещали.",
+    "score": 7,
+    "pub_date": "2025-03-21T19:06:04.085Z",
+    "update_date": "2025-03-21T19:06:04.085Z",
+    "slug": "velikij-film"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 14,
+  "fields": {
+    "author": 103,
+    "title": 14,
+    "text": "Будущее выглядит странно и неожиданно, тоже мне, бином Ньютона. Но диалог прекрасен, и за это не стану сильно минусовать.\n-- Then tell me, future boy, who's President of the United States in 1985?\n-- Ronald Reagan.\n-- Ronald Reagan? The actor? Then who's vice president? Jerry Lewis?",
+    "score": 4,
+    "pub_date": "2025-03-21T19:06:04.091Z",
+    "update_date": "2025-03-21T19:06:04.091Z",
+    "slug": "buduschee-vygljadi"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 15,
+  "fields": {
+    "author": 104,
+    "title": 17,
+    "text": "Неужели из тюрьмы так легко было сбежать? Раз - и ты на свободе. Да, побег из Шоушенка пришлось готовить немного дольше. Пять за соцреализм",
+    "score": 5,
+    "pub_date": "2025-03-21T19:06:04.158Z",
+    "update_date": "2025-03-21T19:06:04.158Z",
+    "slug": "neuzheli-iz-tjur"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 16,
+  "fields": {
+    "author": 100,
+    "title": 3,
+    "text": "Сходила в кино, решила написать: драйв и огонь, но иногда какой-то бред на экране. В середине фильма просто отличные диалоги! Пусть будет 7",
+    "score": 7,
+    "pub_date": "2025-03-21T19:06:03.836Z",
+    "update_date": "2025-03-21T19:06:03.836Z",
+    "slug": "shodila-v-kino"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 17,
+  "fields": {
+    "author": 101,
+    "title": 3,
+    "text": "Смотрел, не отрываясь, хочу описать свои впечатления. По моему мнению, сценарий подкачал, зато подбор актёров - супер. Начало немного затянуто. Оператору - Оскара! Всё остальное - не очень. Фильм тянет на 8 из 10",
+    "score": 8,
+    "pub_date": "2025-03-21T19:06:03.846Z",
+    "update_date": "2025-03-21T19:06:03.846Z",
+    "slug": "smotrel-ne-otr"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 18,
+  "fields": {
+    "author": 102,
+    "title": 4,
+    "text": "Скачал, посмотрел, думаю, что актёры так себе, сценарий хороший. Диалоги прекрасные, так что пусть будет восемь звезд",
+    "score": 8,
+    "pub_date": "2025-03-21T19:06:03.855Z",
+    "update_date": "2025-03-21T19:06:03.855Z",
+    "slug": "skachal-posmotr"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 19,
+  "fields": {
+    "author": 103,
+    "title": 4,
+    "text": "Посмотрел. По моему мнению, актёры так себе, но сценарий хороший. Первую половину фильма можно спать, не опасаясь, что что-то пропустишь. Не раздумывая, ставлю уверенную десятку",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:03.863Z",
+    "update_date": "2025-03-21T19:06:03.863Z",
+    "slug": "posmotrel-po-m"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 20,
+  "fields": {
+    "author": 104,
+    "title": 7,
+    "text": "Скажу тем, кто ещё не смотрел: если бы я был режиссёром этого фильма - я бы не гордился. Оператора уволить, фильм получился так себе, но один раз посмотреть - сойдёт. Авторы честно заслужили 5 из 10",
+    "score": 5,
+    "pub_date": "2025-03-21T19:06:03.913Z",
+    "update_date": "2025-03-21T19:06:03.913Z",
+    "slug": "skazhu-tem-kto"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 21,
+  "fields": {
+    "author": 100,
+    "title": 7,
+    "text": "Скачал, посмотрел, думаю, что сценарий подкачал, зато подбор актёров - супер. Начало немного затянуто, да и вообще не очень. Фильм едва тянет на 4",
+    "score": 4,
+    "pub_date": "2025-03-21T19:06:03.913Z",
+    "update_date": "2025-03-21T19:06:03.913Z",
+    "slug": "skachal-posmotr-2"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 22,
+  "fields": {
+    "author": 101,
+    "title": 8,
+    "text": "Мне кажется, что я впустую потерял время. Ставлю 2",
+    "score": 2,
+    "pub_date": "2025-03-21T19:06:03.929Z",
+    "update_date": "2025-03-21T19:06:03.929Z",
+    "slug": "mne-kazhetsja-cht"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 23,
+  "fields": {
+    "author": 102,
+    "title": 8,
+    "text": "Посмотрела. Актёры так себе, сценарий хороший. Уснула к середине. Не раздумывая, ставлю двойку ",
+    "score": 2,
+    "pub_date": "2025-03-21T19:06:03.929Z",
+    "update_date": "2025-03-21T19:06:03.929Z",
+    "slug": "posmotrela-akt"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 24,
+  "fields": {
+    "author": 103,
+    "title": 9,
+    "text": "Все очень долго ждали премьеру фильма,и наконец дождались.Фильм отличный,добрый,смотрится почти на одном дыхании,с завязанным сюжетом и не менее крутой музыкой.Кино очень понравилось!!!Всем советую.",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:03.944Z",
+    "update_date": "2025-03-21T19:06:03.944Z",
+    "slug": "vse-ochen-dolgo"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 25,
+  "fields": {
+    "author": 104,
+    "title": 9,
+    "text": "Отстой-фильм. Не ходите",
+    "score": 1,
+    "pub_date": "2025-03-21T19:06:03.963Z",
+    "update_date": "2025-03-21T19:06:03.963Z",
+    "slug": "otstoj-film-n"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 26,
+  "fields": {
+    "author": 100,
+    "title": 9,
+    "text": "Для людей, которые хотят посмеяться и получить море эмоций, тот самый фильм. Мне очень понравился.",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:03.944Z",
+    "update_date": "2025-03-21T19:06:03.944Z",
+    "slug": "dlja-ljudej-koto"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 27,
+  "fields": {
+    "author": 101,
+    "title": 10,
+    "text": "Первый раз в жизни решила написать отзыв,чтобы предостеречь от потери денег на билет и траты времени на просмотр. К игре актеров претензий нет",
+    "score": 2,
+    "pub_date": "2025-03-21T19:06:03.982Z",
+    "update_date": "2025-03-21T19:06:03.982Z",
+    "slug": "pervyj-raz-v-zhi"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 28,
+  "fields": {
+    "author": 102,
+    "title": 10,
+    "text": "2 часа смотрятся на одном дыхании. Спецэффекты на уровне фильмов Марвела. Смотрели всей семьей. Посмотрел несколько отзывов, понял , что фильм стоит посмотреть",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:03.990Z",
+    "update_date": "2025-03-21T19:06:03.990Z",
+    "slug": "2-chasa-smotrjats"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 29,
+  "fields": {
+    "author": 103,
+    "title": 11,
+    "text": "Действия персонажей вызывают постоянный вопросы - что и зачем они это делают. Логики просто нет. После половины фильма уже хочется уйти",
+    "score": 1,
+    "pub_date": "2025-03-21T19:06:04.005Z",
+    "update_date": "2025-03-21T19:06:04.005Z",
+    "slug": "dejstvija-person"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 30,
+  "fields": {
+    "author": 104,
+    "title": 11,
+    "text": "Лучший фильм, однозначно. Шедевр. Но следует понимать, что это не кино под пиво для молодежи. Стильно снято, на одном дыхании\nсмотрится, персонажи великолепны",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.005Z",
+    "update_date": "2025-03-21T19:06:04.005Z",
+    "slug": "luchshij-film-o"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 31,
+  "fields": {
+    "author": 100,
+    "title": 11,
+    "text": "Тупее не видел, смотреть не интересно скучняк",
+    "score": 1,
+    "pub_date": "2025-03-21T19:06:03.990Z",
+    "update_date": "2025-03-21T19:06:03.990Z",
+    "slug": "tupee-ne-videl"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 32,
+  "fields": {
+    "author": 101,
+    "title": 12,
+    "text": "Фильм интересный,но не доработанный.Остроты сюжета не хватает",
+    "score": 8,
+    "pub_date": "2025-03-21T19:06:04.028Z",
+    "update_date": "2025-03-21T19:06:04.028Z",
+    "slug": "film-interesny"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 33,
+  "fields": {
+    "author": 102,
+    "title": 12,
+    "text": "Самая сильная картина за последнее время. Фильм заставляет плакать, радоваться, грустить, держит в напряжении",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.036Z",
+    "update_date": "2025-03-21T19:06:04.036Z",
+    "slug": "samaja-silnaja-k"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 34,
+  "fields": {
+    "author": 103,
+    "title": 12,
+    "text": "С огромным удовольствием сходила в кинотеатр. Одноразовые фильмы, названия которых забываешь на выходе из дверей кинозала, разочаровывают. И вот настоящий, душевный, жизненный фильм. Игра акторов и сюжет бомбические.",
+    "score": 9,
+    "pub_date": "2025-03-21T19:06:04.044Z",
+    "update_date": "2025-03-21T19:06:04.044Z",
+    "slug": "s-ogromnym-udov"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 35,
+  "fields": {
+    "author": 104,
+    "title": 13,
+    "text": "Что сказать после просмотра? Ничего. Такое ощущение, что тебя обманули, заставили смотреть за твои деньги на стену",
+    "score": 1,
+    "pub_date": "2025-03-21T19:06:04.058Z",
+    "update_date": "2025-03-21T19:06:04.058Z",
+    "slug": "chto-skazat-pos"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 36,
+  "fields": {
+    "author": 100,
+    "title": 13,
+    "text": "Хотелось уйти уже на двадцатой минуте. Неинтересно и нудно. Режиссура не впечатлила, ну просто неинтересно смотреть было",
+    "score": 2,
+    "pub_date": "2025-03-21T19:06:04.052Z",
+    "update_date": "2025-03-21T19:06:04.052Z",
+    "slug": "hotelos-ujti-u"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 37,
+  "fields": {
+    "author": 101,
+    "title": 13,
+    "text": "Фильм стоит увидеть тем, кому интересно современное кино. Не скучно, не затянуто, понравилась операторская работа, некоторые сцены сделаны на хорошем уровне",
+    "score": 8,
+    "pub_date": "2025-03-21T19:06:04.058Z",
+    "update_date": "2025-03-21T19:06:04.058Z",
+    "slug": "film-stoit-uvi"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 38,
+  "fields": {
+    "author": 102,
+    "title": 15,
+    "text": "Муторно и тяжело. Ставлю 2",
+    "score": 2,
+    "pub_date": "2025-03-21T19:06:04.091Z",
+    "update_date": "2025-03-21T19:06:04.091Z",
+    "slug": "mutorno-i-tjazhel"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 39,
+  "fields": {
+    "author": 103,
+    "title": 15,
+    "text": "Фильм не оправдал ожиданий. Сплошная каша, слабый сценарий. С трудом досмотрела до конца. Ожидала нечто такого интересного и захватывающее. Полное разочарование. Отдельные несвязные сцены, непонятные диалоги",
+    "score": 3,
+    "pub_date": "2025-03-21T19:06:04.108Z",
+    "update_date": "2025-03-21T19:06:04.108Z",
+    "slug": "film-ne-opravd"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 40,
+  "fields": {
+    "author": 104,
+    "title": 15,
+    "text": "Мне фильм понравился. Все качественно,красиво. Игра актеров, в основном, очень даже. Но слишком много, для меня кровавых сцен,слабонервным просьба не смотреть",
+    "score": 9,
+    "pub_date": "2025-03-21T19:06:04.108Z",
+    "update_date": "2025-03-21T19:06:04.108Z",
+    "slug": "mne-film-ponra"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 41,
+  "fields": {
+    "author": 100,
+    "title": 16,
+    "text": "Зря потерянное время! Эмоции после просмотра, - безысходность, ничего уже не изменишь. Фильм вообще никакой!!!\nИ поставили его люди бездарные и никчёмные!!!",
+    "score": 1,
+    "pub_date": "2025-03-21T19:06:04.125Z",
+    "update_date": "2025-03-21T19:06:04.125Z",
+    "slug": "zrja-poterjannoe"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 42,
+  "fields": {
+    "author": 101,
+    "title": 16,
+    "text": "После просмотра разочарование граничит с шоком. Бездарный фильм, как предыдущий от этого же режиссера. Не рекомендую никому! Плохо, неправдоподобно, скомкано снято.",
+    "score": 2,
+    "pub_date": "2025-03-21T19:06:04.144Z",
+    "update_date": "2025-03-21T19:06:04.144Z",
+    "slug": "posle-prosmotra"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 43,
+  "fields": {
+    "author": 102,
+    "title": 16,
+    "text": "Фильм мощный. Главное - не занимать чью-то позицию, а смотреть со стороны. Впервые вижу, чтобы было так детально показаны переживания и эмоции каждого героя. Все на своем месте. Актеры и графика на высоте.",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.151Z",
+    "update_date": "2025-03-21T19:06:04.151Z",
+    "slug": "film-moschnyj-g"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 44,
+  "fields": {
+    "author": 103,
+    "title": 17,
+    "text": "Если такой жанр вам по вкусу, то даже не сомневайтесь - бегом в кинотеатр! Фильм - огонь! Интересный сюжет, великолепная игра актёров, съёмки просто супер, да и спецэффекты на высоте",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.158Z",
+    "update_date": "2025-03-21T19:06:04.158Z",
+    "slug": "esli-takoj-zhanr"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 45,
+  "fields": {
+    "author": 104,
+    "title": 18,
+    "text": "Сюжет, мысль, философия, игра актеров, эмоции - блеск! Сюжет динамичный, игра актёров хороша, но не идеальна.",
+    "score": 8,
+    "pub_date": "2025-03-21T19:06:04.175Z",
+    "update_date": "2025-03-21T19:06:04.175Z",
+    "slug": "sjuzhet-mysl-f"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 46,
+  "fields": {
+    "author": 100,
+    "title": 18,
+    "text": "Разочарованине, вытащила себя в кино, а тут такое. Реклама шла мноообещающая, а в реальности всё не то",
+    "score": 2,
+    "pub_date": "2025-03-21T19:06:04.175Z",
+    "update_date": "2025-03-21T19:06:04.175Z",
+    "slug": "razocharovanine"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 47,
+  "fields": {
+    "author": 101,
+    "title": 19,
+    "text": "Неправдоподобный, нелогичный, бессмысленный фильм. Просто никакой, можете даже не смотреть, сути не уловите. Мне понравился",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.192Z",
+    "update_date": "2025-03-21T19:06:04.192Z",
+    "slug": "nepravdopodobny"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 48,
+  "fields": {
+    "author": 102,
+    "title": 19,
+    "text": "Интересно продуманный фильм, цепляет необычным сюжетом. длинный, что бывает не во всех фильмах. Актёры крутые. В общем, посмотреть можно.",
+    "score": 8,
+    "pub_date": "2025-03-21T19:06:04.192Z",
+    "update_date": "2025-03-21T19:06:04.192Z",
+    "slug": "interesno-produ"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 49,
+  "fields": {
+    "author": 103,
+    "title": 20,
+    "text": "Внимательно слежу за всеми новыми изданиями, покупаю каждое. Лучший триллер тысячелетия — это «Колобок»",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.208Z",
+    "update_date": "2025-03-21T19:06:04.208Z",
+    "slug": "vnimatelno-sle"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 50,
+  "fields": {
+    "author": 104,
+    "title": 20,
+    "text": "А вот у кипчаков «колобок» — шарик из навоза! И сказка приобретает совсем другой смысл! «Не хитри, а то навоза накушаешься!»",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.225Z",
+    "update_date": "2025-03-21T19:06:04.225Z",
+    "slug": "a-vot-u-kipchako"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 51,
+  "fields": {
+    "author": 100,
+    "title": 21,
+    "text": "Прочла от начала до конца, не отрываясь. Ужасная книга, чему она может научить нашу молодёжь.",
+    "score": 1,
+    "pub_date": "2025-03-21T19:06:04.225Z",
+    "update_date": "2025-03-21T19:06:04.225Z",
+    "slug": "prochla-ot-nachal"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 52,
+  "fields": {
+    "author": 101,
+    "title": 21,
+    "text": "Суровые американские семидесятые в документальном изложении. Как автор дожил до 2005-го года — загадка. Но роман прекрасный.",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.242Z",
+    "update_date": "2025-03-21T19:06:04.242Z",
+    "slug": "surovye-amerika"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 53,
+  "fields": {
+    "author": 102,
+    "title": 22,
+    "text": "Многабукуф. Ниасилил. В аннотации написано — «великий роман», так что ставлю максимальную оценку",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.258Z",
+    "update_date": "2025-03-21T19:06:04.258Z",
+    "slug": "mnogabukuf-nia"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 54,
+  "fields": {
+    "author": 103,
+    "title": 22,
+    "text": "Если такой жанр вам по вкусу, то даже не сомневайтесь: садитесь читать! Роман - огонь! Интересный сюжет, великолепные персонажи, небо Аустерлица и встреча с дубом",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.259Z",
+    "update_date": "2025-03-21T19:06:04.259Z",
+    "slug": "esli-takoj-zhanr-2"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 55,
+  "fields": {
+    "author": 104,
+    "title": 22,
+    "text": "Я ВиМ в школе читал (заставляли), а потом опять случайно прочёл, и оказалось, что он и правла великий, а не просто так. Не ставлю десятку только в память о школьных мучениях",
+    "score": 8,
+    "pub_date": "2025-03-21T19:06:04.275Z",
+    "update_date": "2025-03-21T19:06:04.275Z",
+    "slug": "ja-vim-v-shkole-ch"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 56,
+  "fields": {
+    "author": 100,
+    "title": 23,
+    "text": "Ничего не понял",
+    "score": 3,
+    "pub_date": "2025-03-21T19:06:04.285Z",
+    "update_date": "2025-03-21T19:06:04.285Z",
+    "slug": "nichego-ne-ponjal"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 57,
+  "fields": {
+    "author": 101,
+    "title": 23,
+    "text": "Не понял вообще ничего",
+    "score": 1,
+    "pub_date": "2025-03-21T19:06:04.292Z",
+    "update_date": "2025-03-21T19:06:04.292Z",
+    "slug": "ne-ponjal-voobsche"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 58,
+  "fields": {
+    "author": 102,
+    "title": 23,
+    "text": "Совсем непонятно, но здорово",
+    "score": 8,
+    "pub_date": "2025-03-21T19:06:04.292Z",
+    "update_date": "2025-03-21T19:06:04.292Z",
+    "slug": "sovsem-neponjatn"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 59,
+  "fields": {
+    "author": 103,
+    "title": 23,
+    "text": "Что это было?! Десятка за уровень непонятности",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.308Z",
+    "update_date": "2025-03-21T19:06:04.308Z",
+    "slug": "chto-eto-bylo"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 60,
+  "fields": {
+    "author": 104,
+    "title": 23,
+    "text": "Детально комментировать не буду, но это шедевр",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.308Z",
+    "update_date": "2025-03-21T19:06:04.308Z",
+    "slug": "detalno-kommen"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 63,
+  "fields": {
+    "author": 102,
+    "title": 24,
+    "text": "Не может быть такого. Это всё придумано, автор попытался обмануть читателя, но мы, читатели, умнее его. Нас вокруг пальца не обведёшь!!",
+    "score": 2,
+    "pub_date": "2025-03-21T19:06:04.326Z",
+    "update_date": "2025-03-21T19:06:04.326Z",
+    "slug": "ne-mozhet-byt-t"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 64,
+  "fields": {
+    "author": 103,
+    "title": 24,
+    "text": "Всё совершенно не так, как на самом деле, и в документальной повести это хорошо описано",
+    "score": 9,
+    "pub_date": "2025-03-21T19:06:04.326Z",
+    "update_date": "2025-03-21T19:06:04.326Z",
+    "slug": "vse-sovershenno"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 65,
+  "fields": {
+    "author": 104,
+    "title": 25,
+    "text": "Если бы я только мог на минутку перестать бумкать головой по ступенькам и как следует сосредоточиться — я бы написал прекрасный отзыв. Но увы — сосредоточиться-то мне и некогда: учёба, работа. Просто поставлю пятёрку",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.342Z",
+    "update_date": "2025-03-21T19:06:04.342Z",
+    "slug": "esli-by-ja-tolk"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 66,
+  "fields": {
+    "author": 100,
+    "title": 25,
+    "text": "Это просто «Война и мир» для детей. Читать всем",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.342Z",
+    "update_date": "2025-03-21T19:06:04.342Z",
+    "slug": "eto-prosto-voj"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 67,
+  "fields": {
+    "author": 101,
+    "title": 26,
+    "text": "Слушаю и плачу. Плачу, но слушаю",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.359Z",
+    "update_date": "2025-03-21T19:06:04.359Z",
+    "slug": "slushaju-i-plachu"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 68,
+  "fields": {
+    "author": 102,
+    "title": 27,
+    "text": "Какой-то непонятный шум. Неужели это кто-то слушает?",
+    "score": 1,
+    "pub_date": "2025-03-21T19:06:04.359Z",
+    "update_date": "2025-03-21T19:06:04.359Z",
+    "slug": "kakoj-to-neponja"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 69,
+  "fields": {
+    "author": 103,
+    "title": 27,
+    "text": "Ничего не понятно. О чём эта песня, чему она учит?",
+    "score": 2,
+    "pub_date": "2025-03-21T19:06:04.375Z",
+    "update_date": "2025-03-21T19:06:04.375Z",
+    "slug": "nichego-ne-ponjat-2"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 70,
+  "fields": {
+    "author": 104,
+    "title": 28,
+    "text": "Йэн Андерсон великий!!!!!!!!1111",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.392Z",
+    "update_date": "2025-03-21T19:06:04.392Z",
+    "slug": "jen-anderson-ve"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 71,
+  "fields": {
+    "author": 100,
+    "title": 28,
+    "text": "Неужели песню про аквалангистов перевели на английский?! Ну наконец-то! Аквалангисты — это хорошо!",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.375Z",
+    "update_date": "2025-03-21T19:06:04.375Z",
+    "slug": "neuzheli-pesnju-p"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 72,
+  "fields": {
+    "author": 101,
+    "title": 29,
+    "text": "Мы прыгали, вертелись и кружились так, что пол ходил ходуном!",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.392Z",
+    "update_date": "2025-03-21T19:06:04.392Z",
+    "slug": "my-prygali-ver"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 73,
+  "fields": {
+    "author": 104,
+    "title": 30,
+    "text": "Это единственный риф, который я умею играть на своей супердорогой гитаре! Моя любимая песня",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.409Z",
+    "update_date": "2025-03-21T19:06:04.409Z",
+    "slug": "eto-edinstvenny"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 74,
+  "fields": {
+    "author": 100,
+    "title": 31,
+    "text": "Странно: Моцарт - австриец, а марш - турецкий. Не понимаю, как так вышло. Звучит красиво, но за географическую путаницу ставлю восемь",
+    "score": 8,
+    "pub_date": "2025-03-21T19:06:04.409Z",
+    "update_date": "2025-03-21T19:06:04.409Z",
+    "slug": "stranno-motsart"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 75,
+  "fields": {
+    "author": 102,
+    "title": 32,
+    "text": "Бах forever. Это вам не три аккорда на гитаре, как у смок он зе вотер",
+    "score": 10,
+    "pub_date": "2025-03-21T19:06:04.425Z",
+    "update_date": "2025-03-21T19:06:04.425Z",
+    "slug": "bah-forever-et"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 98,
+  "fields": {
+    "author": 105,
+    "title": 2,
+    "text": "Бла-бла-бла",
+    "score": 5,
+    "pub_date": "2025-03-26T14:08:47.674Z",
+    "update_date": "2025-03-26T14:08:47.674Z",
+    "slug": "bla-bla-bla"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 99,
+  "fields": {
+    "author": 105,
+    "title": 1,
+    "text": "Новый отзыв",
+    "score": 3,
+    "pub_date": "2025-04-01T02:17:07.761Z",
+    "update_date": "2025-04-01T02:17:07.761Z",
+    "slug": "novyj-otzyv"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 102,
+  "fields": {
+    "author": 106,
+    "title": 2,
+    "text": "Мой второй отзыв изменённый",
+    "score": 3,
+    "pub_date": "2025-04-02T01:52:04.630Z",
+    "update_date": "2025-04-19T22:25:01.858Z",
+    "slug": "moj-vtoroj-otzy"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 103,
+  "fields": {
+    "author": 106,
+    "title": 45,
+    "text": "Если честно, я ещё не видел этого мюзикла, но мне кажется, это просто потрясающее шоу!",
+    "score": 8,
+    "pub_date": "2025-04-03T01:22:24.336Z",
+    "update_date": "2025-04-03T01:22:24.336Z",
+    "slug": "esli-chestno-ja"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 104,
+  "fields": {
+    "author": 107,
+    "title": 2,
+    "text": "Отзыв егорки тестовый. Проверка доступов",
+    "score": 10,
+    "pub_date": "2025-04-17T14:10:18.630Z",
+    "update_date": "2025-04-17T14:10:18.630Z",
+    "slug": "otzyv-egorki-te"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 105,
+  "fields": {
+    "author": 105,
+    "title": 70,
+    "text": "Пишем отзыв",
+    "score": 8,
+    "pub_date": "2025-04-19T22:47:27.197Z",
+    "update_date": "2025-04-19T22:47:27.197Z",
+    "slug": "pishem-otzyv"
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 106,
+  "fields": {
+    "author": 106,
+    "title": 70,
+    "text": "Фигня, а не произведение",
+    "score": 4,
+    "pub_date": "2025-04-19T22:48:31.144Z",
+    "update_date": "2025-04-19T22:48:31.144Z",
+    "slug": "fignja-a-ne-pro"
+  }
+},
+{
+  "model": "reviews.comment",
+  "pk": 7,
+  "fields": {
+    "review": 6,
+    "text": "Ничего подобного, в фильме всё не так, и программирование тут вообще ни при чём!",
+    "pub_date": "2025-03-21T19:06:04.442Z",
+    "update_date": "2025-03-21T19:06:04.442Z",
+    "author": 100,
+    "slug": "nichego-podobnog"
+  }
+},
+{
+  "model": "reviews.comment",
+  "pk": 8,
+  "fields": {
+    "review": 6,
+    "text": "Ну надо же, не нашлось ничего лучшего, кроме как прокомментировать разговор про гамбургеры, будто в фильме ничего важнее этого нет",
+    "pub_date": "2025-03-21T19:06:04.451Z",
+    "update_date": "2025-03-21T19:06:04.451Z",
+    "author": 100,
+    "slug": "nu-nado-zhe-ne"
+  }
+},
+{
+  "model": "reviews.comment",
+  "pk": 9,
+  "fields": {
+    "review": 6,
+    "text": "Кстати, а что такое \"четверть фунта\"? В граммах это сколько?",
+    "pub_date": "2025-03-21T19:06:04.462Z",
+    "update_date": "2025-03-21T19:06:04.462Z",
+    "author": 100,
+    "slug": "kstati-a-chto-t"
+  }
+},
+{
+  "model": "reviews.comment",
+  "pk": 17,
+  "fields": {
+    "review": 3,
+    "text": "Мой первый комментарий изменённый",
+    "pub_date": "2025-03-25T23:26:26.847Z",
+    "update_date": "2025-04-17T14:44:18.133Z",
+    "author": 105,
+    "slug": "moj-pervyj-komm"
+  }
+},
+{
+  "model": "reviews.comment",
+  "pk": 18,
+  "fields": {
+    "review": 98,
+    "text": "Комментарий к бессмысленному отзыву",
+    "pub_date": "2025-03-26T14:17:55.450Z",
+    "update_date": "2025-03-26T14:17:55.450Z",
+    "author": 105,
+    "slug": "kommentarij-k-b"
+  }
+},
+{
+  "model": "reviews.comment",
+  "pk": 19,
+  "fields": {
+    "review": 98,
+    "text": "Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий без особой смысловой нагрузки. Длинный-длинный комментарий бе",
+    "pub_date": "2025-03-26T22:36:50.844Z",
+    "update_date": "2025-03-26T22:36:50.844Z",
+    "author": 105,
+    "slug": "dlinnyj-dlinnyj"
+  }
+},
+{
+  "model": "reviews.comment",
+  "pk": 20,
+  "fields": {
+    "review": 104,
+    "text": "Тестовый комментарий Егорки. Изменён",
+    "pub_date": "2025-04-17T14:34:10.722Z",
+    "update_date": "2025-04-17T14:43:00.504Z",
+    "author": 107,
+    "slug": "testovyj-kommen"
+  }
+},
+{
+  "model": "reviews.comment",
+  "pk": 21,
+  "fields": {
+    "review": 98,
+    "text": "Оставляю новый комментарий",
+    "pub_date": "2025-04-19T22:24:21.048Z",
+    "update_date": "2025-04-19T22:24:21.048Z",
+    "author": 106,
+    "slug": "ostavljaju-novyj"
+  }
+},
+{
+  "model": "reviews.comment",
+  "pk": 22,
+  "fields": {
+    "review": 102,
+    "text": "Пишите комментарии, друзья!",
+    "pub_date": "2025-04-19T22:25:16.915Z",
+    "update_date": "2025-04-19T22:25:16.915Z",
+    "author": 106,
+    "slug": "pishite-kommenta"
+  }
+},
+{
+  "model": "reviews.confirmationcode",
+  "pk": 1,
+  "fields": {
+    "user": 105,
+    "code": "e4a1cb19421f82c20ad556d0f218e3a7",
+    "created_at": "2025-04-08T00:40:59.733Z",
+    "expires_at": "2025-04-09T00:40:59.730Z"
+  }
+},
+{
+  "model": "users.user",
+  "pk": 100,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "bingobongo",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-03-21T19:06:02.979Z",
+    "bio": "",
+    "role": "user",
+    "email": "bingobongo@yamdb.fake",
+    "avatar": "",
+    "birth_date": null,
+    "sex": null,
+    "city": null,
+    "relationship_status": null,
+    "vk_url": null,
+    "youtube_url": null,
+    "telegram_url": null,
+    "whatsapp_url": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 101,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "capt_obvious",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-03-21T19:06:02.979Z",
+    "bio": "",
+    "role": "admin",
+    "email": "capt_obvious@yamdb.fake",
+    "avatar": "",
+    "birth_date": null,
+    "sex": null,
+    "city": null,
+    "relationship_status": null,
+    "vk_url": null,
+    "youtube_url": null,
+    "telegram_url": null,
+    "whatsapp_url": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 102,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "faust",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-03-21T19:06:02.979Z",
+    "bio": "",
+    "role": "user",
+    "email": "faust@yamdb.fake",
+    "avatar": "",
+    "birth_date": null,
+    "sex": null,
+    "city": null,
+    "relationship_status": null,
+    "vk_url": null,
+    "youtube_url": null,
+    "telegram_url": null,
+    "whatsapp_url": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 103,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "reviewer",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-03-21T19:06:02.979Z",
+    "bio": "",
+    "role": "user",
+    "email": "reviewer@yamdb.fake",
+    "avatar": "",
+    "birth_date": null,
+    "sex": null,
+    "city": null,
+    "relationship_status": null,
+    "vk_url": null,
+    "youtube_url": null,
+    "telegram_url": null,
+    "whatsapp_url": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 104,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "angry",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-03-21T19:06:02.979Z",
+    "bio": "",
+    "role": "moderator",
+    "email": "angry@yamdb.fake",
+    "avatar": "",
+    "birth_date": null,
+    "sex": null,
+    "city": null,
+    "relationship_status": null,
+    "vk_url": null,
+    "youtube_url": null,
+    "telegram_url": null,
+    "whatsapp_url": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 105,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$tG17tiCKg5IYNPvJcIllKv$DVBl/rNLVA76X9Ez10RcN1K2+3yJPfeG21Q4s4J7F8I=",
+    "last_login": "2025-04-19T22:32:59.548Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "Админушка",
+    "last_name": "Админов",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-03-22T02:09:32.290Z",
+    "bio": "Делаю этот сайт лучше",
+    "role": "superuser",
+    "email": "herwolf92@gmail.com",
+    "avatar": "users/admin/avatars/Батон.png",
+    "birth_date": "1987-04-20",
+    "sex": "male",
+    "city": "Москва",
+    "relationship_status": "searching",
+    "vk_url": null,
+    "youtube_url": null,
+    "telegram_url": null,
+    "whatsapp_url": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 106,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$a46uhywHFsiX4tMHukPapv$GSQIqed7X+4gvcDJlIWl0O24boJxIm/K+EwFIfKiBos=",
+    "last_login": "2025-04-19T22:48:10.060Z",
+    "is_superuser": false,
+    "username": "Nalivkin",
+    "first_name": "Виталий",
+    "last_name": "Наливкин",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-03-22T02:37:38.167Z",
+    "bio": "Я сделаю Россию великой снова!",
+    "role": "user",
+    "email": "figasenedosuk@mail.ru",
+    "avatar": "users/Nalivkin/avatars/Без_названия.jfif",
+    "birth_date": null,
+    "sex": "male",
+    "city": null,
+    "relationship_status": null,
+    "vk_url": null,
+    "youtube_url": null,
+    "telegram_url": null,
+    "whatsapp_url": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 107,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$ztJ374na24n30McVKtXFaG$MnoH7Qmrlmo8KU9wGWj3B/pQ3lWTNE4ym51ojt8NdWY=",
+    "last_login": "2025-04-17T14:09:53.127Z",
+    "is_superuser": false,
+    "username": "egorka",
+    "first_name": "Егор",
+    "last_name": "Песчаный",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-04-02T00:59:00.079Z",
+    "bio": "Я очень хороший парень",
+    "role": "admin",
+    "email": "pavelborisov@list.ru",
+    "avatar": "",
+    "birth_date": null,
+    "sex": null,
+    "city": null,
+    "relationship_status": null,
+    "vk_url": null,
+    "youtube_url": null,
+    "telegram_url": null,
+    "whatsapp_url": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 110,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$KyJq1YOwbMLznZDICV1rR4$oCMBDopQTy79p6Wo37+GOQQLSCNRgOHrM4IzWbo4QfE=",
+    "last_login": "2025-04-03T22:36:20.032Z",
+    "is_superuser": false,
+    "username": "login1",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-04-03T22:35:20.578Z",
+    "bio": "",
+    "role": "user",
+    "email": "",
+    "avatar": "",
+    "birth_date": null,
+    "sex": null,
+    "city": null,
+    "relationship_status": null,
+    "vk_url": null,
+    "youtube_url": null,
+    "telegram_url": null,
+    "whatsapp_url": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 111,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$yORW9dbE8nzwtQjb4N60tH$JapqzzaLS4MDQjGavqFebXO7cd1mid0fo45q3Mur5lQ=",
+    "last_login": "2025-04-17T03:44:51.124Z",
+    "is_superuser": false,
+    "username": "kirya",
+    "first_name": "Иванков",
+    "last_name": "Кирилл",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-04-15T23:54:35.050Z",
+    "bio": "Я просто Кирюха",
+    "role": "moderator",
+    "email": "perevod12345@mail.ru",
+    "avatar": "",
+    "birth_date": null,
+    "sex": null,
+    "city": null,
+    "relationship_status": null,
+    "vk_url": null,
+    "youtube_url": null,
+    "telegram_url": null,
+    "whatsapp_url": null,
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

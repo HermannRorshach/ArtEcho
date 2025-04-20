@@ -172,7 +172,7 @@ a.button.btn {
 }
 
 
-.button:hover {
+.button:hover, .button:focus {
   background-color: #D9A560;
   color: white;
   border: solid 2px #AF794B;
@@ -445,6 +445,72 @@ input {
   border: solid 1px #6E4E39;
 }
 
+#id_avatar {
+  padding: 0;
+  border: solid 1px #6E4E39;
+  border-radius: 8px;
+}
+
+.avatar-container {
+  position: relative;
+  height: 80px;
+  width: 70px;
+  border: solid 1px #6E4E39;
+  padding: 5px;
+  background-color: #FDEACA;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-container:hover {
+  border-color: #4E2E19;
+  background-color: #AF794B;
+}
+
+.avatar-inline {
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 5px;
+}
+
+/* .avatar-container.avatar-inline:hover {
+  background-color: #FDEACA;
+} */
+
+
+.avatar-container img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.avatar-delete-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 22px;
+  height: 25px;
+  display: none; /* По умолчанию скрыта */
+  cursor: pointer;
+  z-index: 2;
+}
+
+.avatar-container.has-custom-avatar:hover .avatar-delete-icon {
+  display: block;
+}
+
+.avatar-delete-icon:hover {
+  filter: brightness(1.5);
+}
+
+.avatar-text-block {
+  flex: 1;
+  padding-top: 15px; /* Выравнивание по верху с аватаром */
+}
+
 input:not(.delete) {
   height: 24px;
 }
@@ -667,6 +733,26 @@ i.fa-star, i.fa-star-half-stroke {
   color: #FFB100;
 }
 
+.item-block {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.5em;
+}
+
+.item-avatar {
+  flex-shrink: 0;
+  margin-right: 1em;
+}
+
+.item-avatar img {
+  display: block;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.item-content {
+  flex: 1;
+}
 
 @media (max-width: 576px) {
   .title-card {

@@ -13,13 +13,6 @@ urlpatterns = [
         'faq/',
         views.FaqView.as_view(),
         name='faq'),
-    path('cabinet', views.CabinetView.as_view(), name='cabinet'),
-    path(
-        'cabinet/reviews',
-        views.CabinetReviewsListView.as_view(), name='cabinet_reviews'),
-    path(
-        'cabinet/comments',
-        views.CabinetCommentListView.as_view(), name='cabinet_comments'),
     path('title/new/', views.TitleCreateView.as_view(), name='create_title'),
     path(
         'title/update/<int:pk>/',

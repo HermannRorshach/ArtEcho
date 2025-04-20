@@ -67,16 +67,15 @@ urlpatterns = [
         name='password_reset_complete'
     ),
     path(
-        'user/new/',
-        views.UserCreateView.as_view(), name='create_user'),
-    path(
-        'user/update/<int:pk>/',
+        'user/update/<slug:username>/',
         views.UserUpdateView.as_view(), name='update_user'),
+    path('users/', views.UsersListView.as_view(), name='users'),
     path(
-        'user/<int:pk>/',
+        'user/<slug:username>/',
         views.UserDetailView.as_view(), name='user_detail'),
     path(
-        'user/delete/<int:pk>/',
+        'user/delete/<slug:username>/',
         views.UserDeleteView.as_view(), name='delete_user'),
-    path('users/', views.UsersListView.as_view(), name='users'),
+    # path('profile/<slug:username>/', views.ProfileView.as_view(), name='profile'),
+    path('users/me/', views.MeView.as_view(), name='me'),
 ]

@@ -15,9 +15,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
-from reviews.models import (Category, Comment, ConfirmationCode, Genre, Review,
+from reviews.models import (Category, Comment, Genre, Review,
                             Title)
-from users.models import User
+from users.models import ConfirmationCode, User
 
 from .filters import TitleFilter
 # from .models import ConfirmationCode

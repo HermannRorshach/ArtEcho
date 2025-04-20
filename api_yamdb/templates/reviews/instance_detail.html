@@ -14,16 +14,22 @@
           <div class="row justify-content-start"> <!-- Выравниваем контент по левому краю -->
             <div class="col-12"> <!-- Занимаем всю ширину строки -->
               <div class="buttons d-flex flex-row gap-5"> <!-- Flex-контейнер с отступами между элементами -->
-                <a href="{{ back_url }}">
-                  <img src="{% static 'icons/Polygon 4.png' %}"
-                       alt="Кнопка назад"
-                       class="btn-back" />
-                       <img src="{% static 'icons/Polygon 5.png' %}"
-                       alt="Кнопка назад"
-                       class="btn-back-hover" />
-                </a>
-                <a class="button btn" href="{{ update_url }}">Изменить</a>
-                <a class="button btn" href="{{ delete_url }}">Удалить</a>
+                {% if back_url %}
+                  <a href="{{ back_url }}">
+                    <img src="{% static 'icons/Polygon 4.png' %}"
+                        alt="Кнопка назад"
+                        class="btn-back" />
+                        <img src="{% static 'icons/Polygon 5.png' %}"
+                        alt="Кнопка назад"
+                        class="btn-back-hover" />
+                  </a>
+                {% endif %}
+                {% if can_edit %}
+                    <a class="button btn" href="{{ update_url }}">Изменить</a>
+                {% endif %}
+                {% if can_delete %}
+                    <a class="button btn" href="{{ delete_url }}">Удалить</a>
+                {% endif %}
               </div>
             </div>
           </div>
@@ -33,9 +39,14 @@
 
         <div class="margin-bottom title-card">
           <h1 class="title-name">{% if object.str_with_link %}{{ object.str_with_link|safe }}{% else %}{{ object|linebreaks }}{% endif %}</h1>
+          {% if avatar %}
+            {% include "reviews/includes/avatar.html" %}
+          {% endif %}
           <ul class="title-properties">
               {% for field in display_fields %}
+                {% if object|custom_getattr:field and field != 'avatar' %}
                   <li><strong>{{ object|field_verbose_name:field }}:</strong> {{ object|custom_getattr:field }}</li>
+                {% endif %}
               {% endfor %}
               {% if includes %}
                 {% for path in includes %}
@@ -45,16 +56,30 @@
           </ul>
         </div>
 
+        {% if create_related_object_url %}
+        <div class="text-start mb-3">
+          <p><a class="button btn" href="{{ create_related_object_url }}">{{ create_related_object_title }}</a></p>
+        </div>
+        {% endif %}
         {% if related_object_list %}
         <h2>{{ related_object_title }}</h2>
         {% else %} <h2>{{ no_related_objects_title }}</h2>
         {% endif %}
-        {% if create_related_object_url %}
-        <h4><a class="button btn" href="{{ create_related_object_url }}">{{ create_related_object_title }}</a></h4>
-        {% endif %}
         {% for instance in related_object_list %}
-            <p><a href="{{ instance.get_absolute_url }}">{{ instance.text }}</a></p>
+            <div class="item-block">
+                <div class="item-avatar">
+                    {% include "reviews/includes/avatar.html" with object=instance.author %}
+                </div>
+                <div class="item-content">
+                    <ul class="title-properties">
+                        <li><strong>Автор:</strong> {{ instance.author }}</li>
+                        <li><strong>Дата публикации:</strong> {{ instance.pub_date }}</li>
+                    </ul>
+                    <p><a href="{{ instance.get_absolute_url }}">{{ instance.text }}</a></p>
+                </div>
+            </div>
         {% endfor %}
+
 
       </div>
     </div>

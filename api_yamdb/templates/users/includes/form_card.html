@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-md-8 p-5">
+      <div class="card">
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            {{ form.media }}
+            {% for field in form %}
+              <div class="form-group row my-3 p-3">
+                <label for="{{ field.id_for_label }}">
+                  {{ field.label }}
+                  {% if field.field.required %}<span class="required text-danger">*</span>{% endif %}
+                </label>
+                {{ field }}
+                {% if field.errors %}<div class="text-danger">{{ field.errors }}</div>{% endif %}
+                  <small id="{{ field.id_for_label }}-help" class="form-text text-muted">{{ field.help_text }}</small>
+              </div>
+            {% endfor %}
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="margin-right button btn">
+                {% if is_edit %}
+                  {{ update_button_text }}
+                {% else %}
+                  {{ create_button_text }}
+                {% endif %}
+              </button>
+              {% if cancel_url %}
+                <a href="{{ cancel_url }}" class="button btn">Отмена</a>
+              {% endif %}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
