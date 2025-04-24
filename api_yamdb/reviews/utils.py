@@ -3,8 +3,9 @@ from django.core.exceptions import PermissionDenied
 
 
 def is_admin_or_superuser(user):
-    return user.is_authenticated and (
-        user.is_admin or user.is_superuser)
+    return (user.is_authenticated and (
+        user.is_superuser
+        or getattr(user, 'role', '') in ['superuser', 'admin']))
 
 
 def is_staff(user):
@@ -12,7 +13,7 @@ def is_staff(user):
     админом или суперюзером"""
     return (user.is_authenticated and (
         user.is_superuser
-        or getattr(user, 'role', '') in ['admin', 'moderator']))
+        or getattr(user, 'role', '') in ['superuser', 'admin', 'moderator']))
 
 
 def is_author_or_privileged(user, obj=None):
@@ -29,7 +30,7 @@ def is_author_or_privileged(user, obj=None):
         user.is_authenticated and (
             is_author
             or user.is_superuser
-            or getattr(user, 'role', '') in ['admin', 'moderator'])
+            or getattr(user, 'role', '') in ['superuser', 'admin', 'moderator'])
     )
 
 

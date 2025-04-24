@@ -4,7 +4,7 @@ from users.forms import PublicCreationForm, PublicUpdateForm
 User = get_user_model()
 
 
-class AdminCreationForm(PublicUpdateForm):
+class AdminCreationForm(PublicCreationForm):
     class Meta(PublicCreationForm.Meta):
         fields = PublicCreationForm.Meta.fields + ('role',)
 

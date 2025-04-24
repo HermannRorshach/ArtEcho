@@ -15,72 +15,72 @@ urlpatterns = [
         name='faq'),
     path('title/new/', views.TitleCreateView.as_view(), name='create_title'),
     path(
-        'title/update/<int:pk>/',
+        'title/update/<slug:slug>/',
         views.TitleUpdateView.as_view(), name='update_title'),
     path('', views.TitleListView.as_view(), name='titles'),
     path(
-        'title/<int:pk>/',
+        'title/<slug:slug>/',
         views.TitleDetailView.as_view(), name='title_detail'),
     path(
-        'title/delete/<int:pk>/',
+        'title/delete/<slug:slug>/',
         views.TitleDeleteView.as_view(), name='delete_title'),
 
     path('genre/new/', views.GenreCreateView.as_view(), name='create_genre'),
     path(
-        'genre/update/<int:pk>/',
+        'genre/update/<slug:slug>/',
         views.GenreUpdateView.as_view(), name='update_genre'),
     path('genres/', views.GenreListView.as_view(), name='genres'),
     path(
-        'genre/<int:pk>/',
+        'genre/<slug:slug>/',
         views.GenreDetailView.as_view(), name='genre_detail'),
     path(
-        'genre/delete/<int:pk>/',
+        'genre/delete/<slug:slug>/',
         views.GenreDeleteView.as_view(), name='delete_genre'),
 
     path(
         'category/new/',
         views.CategoryCreateView.as_view(), name='create_category'),
     path(
-        'category/update/<int:pk>/',
+        'category/update/<slug:slug>/',
         views.CategoryUpdateView.as_view(), name='update_category'),
     path(
         'categories/', views.CategoryListView.as_view(), name='categories'),
     path(
-        'category/<int:pk>/',
+        'category/<slug:slug>/',
         views.CategoryDetailView.as_view(), name='category_detail'),
     path(
-        'category/delete/<int:pk>/',
+        'category/delete/<slug:slug>/',
         views.CategoryDeleteView.as_view(), name='delete_category'),
 
     path(
-        'title/<int:title_id>/review/new/',
+        'title/<slug:title_slug>/review/new/',
         views.ReviewCreateView.as_view(), name='create_review'),
     path(
-        'title/<int:title_id>/review/update/<int:pk>/',
+        'title/<slug:title_slug>/review/update/<int:pk>/',
         views.ReviewUpdateView.as_view(), name='update_review'),
     path(
-        'title/<int:title_id>/reviews/',
+        'title/<slug:title_slug>/reviews/',
         views.ReviewListView.as_view(), name='reviews'),
     path(
-        'title/<int:title_id>/review/<int:pk>/',
+        'title/<slug:title_slug>/review/<int:pk>/',
         views.ReviewDetailView.as_view(), name='review_detail'),
     path(
-        'title/<int:title_id>/review/delete/<int:pk>/',
+        'title/<slug:title_slug>/review/delete/<int:pk>/',
         views.ReviewDeleteView.as_view(), name='delete_review'),
 
     path(
-        'title/<int:title_id>/review/<int:review_id>/comment/new/',
+        'title/<slug:title_slug>/review/<int:review_id>/comment/new/',
         views.CommentCreateView.as_view(), name='create_comment'),
     path(
-        'title/<int:title_id>/review/<int:review_id>/comment/update/<int:pk>/',
+        'title/<slug:title_slug>/review/<int:review_id>/comment/update/<int:pk>/',
         views.CommentUpdateView.as_view(), name='update_comment'),
     path(
-        'title/<int:title_id>/review/<int:review_id>/comments/',
+        'title/<slug:title_slug>/review/<int:review_id>/comments/',
         views.CommentListView.as_view(), name='comments'),
     path(
-        'title/<int:title_id>/review/<int:review_id>/comment/<int:pk>/',
+        'title/<slug:title_slug>/review/<int:review_id>/comment/<int:pk>/',
         views.CommentDetailView.as_view(), name='comment_detail'),
     path(
-        'title/<int:title_id>/review/<int:review_id>/comment/delete/<int:pk>/',
+        'title/<slug:title_slug>/review/<int:review_id>/comment/delete/<int:pk>/',
         views.CommentDeleteView.as_view(), name='delete_comment'),
 ]

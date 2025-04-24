@@ -1,9 +1,12 @@
 from django import forms
+from demo_auth.forms import DemoModelForm
 
 from .models import Category, Comment, Genre, Review, Title
 
 
-class TitleForm(forms.ModelForm):
+class TitleForm(DemoModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     class Meta:
         model = Title

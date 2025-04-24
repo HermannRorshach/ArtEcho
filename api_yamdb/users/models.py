@@ -5,9 +5,10 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from demo_auth.models import IsDemoFieldModel
 
 
-class ConfirmationCode(models.Model):
+class ConfirmationCode(IsDemoFieldModel):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -123,6 +124,8 @@ class User(AbstractUser):
         null=True,
         verbose_name='Ссылка на WhatsApp'
     )
+
+    is_demo = models.BooleanField(default=False)
 
     @property
     def is_admin(self):

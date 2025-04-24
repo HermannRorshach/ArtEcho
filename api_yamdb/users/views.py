@@ -1,3 +1,4 @@
+from demo_auth.mixins import DemoAccessMixin, DemoFormMixin
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -57,7 +58,7 @@ user_context = {
 }
 
 
-class UserUpdateMixin(UpdateView):
+class UserUpdateMixin(DemoAccessMixin, UpdateView):
     model = User
     form_class = PublicUpdateForm
     template_name = 'reviews/create_instance.html'
@@ -87,7 +88,7 @@ class UserUpdateView(UserUpdateMixin):
         return super().dispatch(request, *args, **kwargs)
 
 
-class UserDetailView(DetailView):
+class UserDetailView(DemoAccessMixin, DetailView):
     model = User
     template_name = 'reviews/instance_detail.html'
     slug_field = 'username'
@@ -116,7 +117,7 @@ class UserDetailView(DetailView):
         return context
 
 
-class UserDeleteView(DeleteView):
+class UserDeleteView(DemoAccessMixin, DeleteView):
     model = User
     success_url = reverse_lazy('users:users')
     template_name = 'reviews/confirm_delete.html'
@@ -125,7 +126,7 @@ class UserDeleteView(DeleteView):
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if not is_owner(request.user, self.object):
+        if not (is_owner(request.user, self.object) or IsAdminOrSuperuser.check_permission(request.user)):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
@@ -143,7 +144,7 @@ class UserDeleteView(DeleteView):
         return context
 
 
-class UsersListView(IsAdminOrSuperuser, ListView):
+class UsersListView(IsAdminOrSuperuser, DemoAccessMixin, ListView):
     model = User
     template_name = 'reviews/instances.html'
     paginate_by = settings.PAGINATION_PAGE_SIZE

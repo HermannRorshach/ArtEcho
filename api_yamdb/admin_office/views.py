@@ -1,9 +1,10 @@
+from demo_auth.mixins import DemoAccessMixin, DemoFormMixin
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView
 from reviews.models import Comment, Review
 from reviews.utils import IsAdminOrSuperuser, IsStaffMixin
 from reviews.views import CommentListView, ReviewListView
@@ -18,7 +19,46 @@ class CabinetView(IsStaffMixin, View):
     template_name = 'admin_office/cabinet.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        links = [
+            {
+                'url': reverse('reviews:genres'),
+                'text': 'Жанры',
+                'check': IsStaffMixin.check_permission,
+            },
+            {
+                'url': reverse('reviews:categories'),
+                'text': 'Категории',
+                'check': IsStaffMixin.check_permission,
+            },
+            {
+                'url': reverse('reviews:titles'),
+                'text': 'Произведения',
+                'check': IsStaffMixin.check_permission,
+            },
+            {
+                'url': reverse('admin_office:cabinet_reviews'),
+                'text': 'Все отзывы',
+                'check': IsStaffMixin.check_permission,
+            },
+            {
+                'url': reverse('admin_office:cabinet_comments'),
+                'text': 'Все комментарии',
+                'check': IsStaffMixin.check_permission,
+            },
+            {
+                'url': reverse('admin_office:users'),
+                'text': 'Список пользователей',
+                'check': IsAdminOrSuperuser.check_permission,
+            },
+        ]
+
+        visible_links = [
+            {'url': link['url'], 'text': link['text']}
+            for link in links if link['check'](request.user)
+        ]
+
+        return render(request, self.template_name, {'links': visible_links})
+
 
 
 class CabinetReviewsListView(IsStaffMixin, ReviewListView):
@@ -30,7 +70,8 @@ class CabinetReviewsListView(IsStaffMixin, ReviewListView):
         return context
 
     def get_queryset(self):
-        return Review.objects.all().order_by('-pk')
+        queryset = Review.objects.all().order_by('-pk')
+        return self.filter_queryset(queryset)
 
 
 class CabinetCommentListView(IsStaffMixin, CommentListView):
@@ -42,10 +83,11 @@ class CabinetCommentListView(IsStaffMixin, CommentListView):
         return context
 
     def get_queryset(self):
-        return Comment.objects.all().order_by('-pk')
+        queryset = Comment.objects.all().order_by('-pk')
+        return self.filter_queryset(queryset)
 
 
-class UserCreateView(IsAdminOrSuperuser, CreateView):
+class UserCreateView(IsAdminOrSuperuser, DemoAccessMixin, CreateView):
     model = User
     template_name = 'reviews/create_instance.html'
     form_class = AdminCreationForm
@@ -86,6 +128,8 @@ class CabinetUserDetailView(IsAdminOrSuperuser, UserDetailView):
         context['can_delete'] = IsAdminOrSuperuser.check_permission(
             self.request.user
         )
+        context['cancel_url'] = reverse_lazy(
+            'users:admin_user_detail', kwargs={'username': self.object.username})
         return context
 
 
@@ -118,3 +162,10 @@ class CabinetUserDeleteView(IsAdminOrSuperuser, UserDeleteView):
         ):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cancel_url'] = reverse_lazy(
+            'admin_office:admin_user_detail', kwargs={'username': self.object.username})
+        print(context)
+        return context

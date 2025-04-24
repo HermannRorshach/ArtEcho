@@ -25,6 +25,6 @@ urlpatterns = [
         views.CabinetUserUpdateView.as_view(), name='admin_update_user'),
     path(
         'cabinet/user/delete/<slug:username>/',
-        views.UserDeleteView.as_view(), name='admin_delete_user'),
+        views.CabinetUserDeleteView.as_view(), name='admin_delete_user'),
 
 ]

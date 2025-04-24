@@ -10,18 +10,11 @@
     <div class="w-100" style="max-width: 50%;">
       <h1>Кабинет администратора</h1>
       <div class="list-group mt-4">
-        <a href="{% url 'reviews:genres' %}"
-           class="list-group-item list-group-item-action">Жанры</a>
-        <a href="{% url 'reviews:categories' %}"
-           class="list-group-item list-group-item-action">Категории</a>
-        <a href="{% url 'reviews:titles' %}"
-           class="list-group-item list-group-item-action">Произведения</a>
-        <a href="{% url 'admin_office:cabinet_reviews' %}"
-           class="list-group-item list-group-item-action">Все отзывы</a>
-        <a href="{% url 'admin_office:cabinet_comments' %}"
-           class="list-group-item list-group-item-action">Все комментарии</a>
-          <a href="{% url 'admin_office:users' %}"
-             class="list-group-item list-group-item-action">Список пользователей</a>
+        {% for link in links %}
+            <a href="{{ link.url }}" class="list-group-item list-group-item-action">
+                {{ link.text }}
+            </a>
+        {% endfor %}
       </div>
     </div>
   </div>

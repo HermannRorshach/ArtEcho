@@ -1,6 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
-from django.conf import settings
+from demo_auth.models import IsDemoFieldModel
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
@@ -20,7 +20,29 @@ def cut_text(text, max_length):
     return text
 
 
-class Category(models.Model):
+class SlugModel(IsDemoFieldModel):
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            source_text = (
+                getattr(self, 'text', None)
+                or getattr(self, 'name', None)
+            )
+            transliterated = translit(source_text[:30], 'ru', reversed=True)
+            base_slug = slugify(transliterated)
+
+            self.slug = base_slug
+            counter = 1
+            while self.__class__.objects.filter(slug=self.slug).exists():
+                self.slug = f"{base_slug}-{counter}"
+                counter += 1
+
+        super().save(*args, **kwargs)
+
+
+class Category(SlugModel):
     name = models.CharField(
         max_length=100, verbose_name='Имя категории')
     slug = models.SlugField(
@@ -33,25 +55,14 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('reviews:category_detail', kwargs={'pk': self.pk})
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            transliterated_slug = translit(self.name, 'ru', reversed=True)
-            self.slug = slugify(transliterated_slug)
-            original_slug = self.slug
-            counter = 1
-            while Category.objects.filter(slug=self.slug).exists():
-                self.slug = f'{original_slug}-{counter}'
-                counter += 1
-        super().save(*args, **kwargs)
+        return reverse('reviews:category_detail', kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
 
-class Genre(models.Model):
+class Genre(SlugModel):
     name = models.CharField(
         max_length=100, verbose_name='Имя жанра')
     slug = models.SlugField(
@@ -65,23 +76,10 @@ class Genre(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('reviews:genre_detail', kwargs={'pk': self.pk})
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            transliterated_slug = translit(self.name, 'ru', reversed=True)
-            self.slug = slugify(transliterated_slug)
-            original_slug = self.slug
-            counter = 1
-            using_db = self._state.db or 'default'
-            while Genre.objects.using(using_db).filter(slug=self.slug).exists(
-            ):
-                self.slug = f'{original_slug}-{counter}'
-                counter += 1
-        super().save(*args, **kwargs)
+        return reverse('reviews:genre_detail', kwargs={'slug': self.slug})
 
 
-class Title(models.Model):
+class Title(SlugModel):
     name = models.CharField(
         max_length=100, verbose_name='Название')
     year = models.IntegerField(verbose_name='Год создания')
@@ -113,26 +111,15 @@ class Title(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('reviews:title_detail', kwargs={'pk': self.pk})
+        return reverse('reviews:title_detail', kwargs={'slug': self.slug})
 
     def clean(self):
         if self.year > datetime.now().year:
             raise ValidationError(
                 {'year': 'Год не может быть больше текущего'})
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            transliterated_slug = translit(self.name, 'ru', reversed=True)
-            self.slug = slugify(transliterated_slug)
-            original_slug = self.slug
-            counter = 1
-            while Title.objects.filter(slug=self.slug).exists():
-                self.slug = f'{original_slug}-{counter}'
-                counter += 1
-        super().save(*args, **kwargs)
 
-
-class Review(models.Model):
+class Review(SlugModel):
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -159,7 +146,7 @@ class Review(models.Model):
                 f'{cut_text(self.text, 25)}')
 
     def title_link(self):
-        path = reverse("reviews:title_detail", kwargs={"pk": self.title.pk})
+        path = reverse('reviews:title_detail', kwargs={'slug': self.title.slug})
         return f'<a href="{path}">{self.title}:</a>'
 
     def str_with_link(self):
@@ -169,18 +156,7 @@ class Review(models.Model):
     def get_absolute_url(self):
         return reverse(
             'reviews:review_detail',
-            kwargs={'title_id': self.title.pk, 'pk': self.pk})
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            transliterated_slug = translit(self.text[:15], 'ru', reversed=True)
-            self.slug = slugify(transliterated_slug)
-            original_slug = self.slug
-            counter = 1
-            while Review.objects.filter(slug=self.slug).exists():
-                self.slug = f'{original_slug}-{counter}'
-                counter += 1
-        super().save(*args, **kwargs)
+            kwargs={'title_slug': self.title.slug, 'pk': self.pk})
 
     class Meta:
         constraints = [
@@ -191,7 +167,7 @@ class Review(models.Model):
         ]
 
 
-class Comment(models.Model):
+class Comment(SlugModel):
     review = models.ForeignKey(
         'Review', on_delete=models.CASCADE)
     text = models.TextField(max_length=1800, verbose_name='Текст комментария')
@@ -218,33 +194,22 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('reviews:comment_detail', kwargs={
-            'title_id': self.review.title.pk,
+            'title_slug': self.review.title.slug,
             'review_id': self.review.pk,
             'pk': self.pk
         })
 
     def title_link(self):
         path = reverse(
-            "reviews:title_detail", kwargs={"pk": self.review.title.pk})
+            'reviews:title_detail', kwargs={'slug': self.review.title.slug})
         return f'<a href="{path}">произведение:</a>'
 
     def review_link(self):
         path = reverse(
             'reviews:review_detail',
-            kwargs={'title_id': self.review.title.pk, 'pk': self.review.pk})
+            kwargs={'title_slug': self.review.title.slug, 'pk': self.review.pk})
         return f'<a href="{path}">отзыву:</a>'
 
     def str_with_link(self):
         return (f'Комментарий {self.author} к {self.review_link()}<br>'
                 f'на {self.title_link()}<br>{cut_text(self.text, 25)}')
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            transliterated_slug = translit(self.text[:15], 'ru', reversed=True)
-            self.slug = slugify(transliterated_slug)
-            original_slug = self.slug
-            counter = 1
-            while Comment.objects.filter(slug=self.slug).exists():
-                self.slug = f'{original_slug}-{counter}'
-                counter += 1
-        super().save(*args, **kwargs)
