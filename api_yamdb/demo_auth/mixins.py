@@ -79,6 +79,14 @@ class DemoAccessMixin:
             instance.save()
         print('в конце метда porform_create instance =', instance)
 
+    def _maybe_set_demo(self, instance):
+        if getattr(self.request.user, 'is_demo', False):
+            instance.is_demo = True
+            if hasattr(instance, 'slug'):
+                self._process_demo_slug(instance)
+            instance.save()
+
+
 
 class DemoFormMixin:
     def get_form_kwargs(self):

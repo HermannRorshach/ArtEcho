@@ -21,6 +21,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 from reviews.models import Category, Comment, Genre, Review, Title
 from users.models import ConfirmationCode, User
+from rest_framework_simplejwt.views import TokenVerifyView, TokenRefreshView
 
 from .filters import TitleFilter
 from .permissions import AdminOnly, AuthorOrReadOnly, ReadOnly, ReadOrAdminOnly
@@ -41,6 +42,12 @@ class SignUpView(APIView):
 
     @swagger_auto_schema(
         request_body=SignUpSerializer,
+        operation_id="Регистрация нового пользователя",
+        operation_description=(
+            "Получить код подтверждения на переданный email. "
+            "Права доступа: Доступно без токена. "
+            "Использовать имя 'me' в качестве username запрещено. "
+            "Поля email и username должны быть уникальными."),
         responses={200: openapi.Response('OK', SignUpSerializer)}
     )
 
@@ -109,7 +116,13 @@ class SignUpView(APIView):
 
 
 class ConfirmationCodeTokenView(TokenObtainPairView):
+    """Получение JWT-токена в обмен на username и confirmation code.
+    Права доступа: Доступно без токена."""
     serializer_class = ConfirmationCodeTokenSerializer
+
+    @swagger_auto_schema(
+        operation_id="Получение JWT-токена",
+    )
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -134,11 +147,38 @@ class ConfirmationCodeTokenView(TokenObtainPairView):
         )
 
 
+class CustomTokenRefreshView(TokenRefreshView):
+    @swagger_auto_schema(
+        operation_id='Обновление JWT-токена',
+        operation_description=(
+            'Получение нового access-токена по действующему refresh-токену. '
+            'Права доступа: Требуется валидный refresh-токен.'),
+    )
+    def post(self, request, *args, **kwargs):
+        # Оставляем оригинальную логику, но теперь с правильной документацией
+        return super().post(request, *args, **kwargs)
+
+
+class CustomTokenVerifyView(TokenVerifyView):
+    @swagger_auto_schema(
+        responses={
+            200: "Токен валиден (пустой ответ)",
+            400: "Неверный формат токена или токен недействителен"
+        },
+        operation_id='Проверка валидности токена',
+        operation_description=(
+            "Проверка валидности токена. "
+            "Возвращает 200 OK если токен действителен."),
+    )
+    def post(self, request, *args, **kwargs):
+        # Оставляем оригинальную логику, но теперь с правильной документацией
+        return super().post(request, *args, **kwargs)
+
+
 class MeView(DemoAccessMixin, APIView):
 
     @swagger_auto_schema(
-        operation_description="Получить данные текущего пользователя",
-        operation_id="me_retrieve",
+        operation_id="Получить данные текущего пользователя",
         responses={200: UserDetailSerializer}
     )
     def get(self, request):
@@ -163,29 +203,16 @@ class MeView(DemoAccessMixin, APIView):
         return Response(serializer.data)
 
 
-class CategoryViewSet(DemoAccessMixin, ModelViewSet):
+class CategoryViewSet(DemoAccessMixin, mixins.ListModelMixin,
+                   mixins.CreateModelMixin,
+                   mixins.DestroyModelMixin,
+                   viewsets.GenericViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = 'slug'
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
-
-    def get_permissions(self):
-        if self.action == 'list':
-            return (ReadOnly(),)
-        return (ReadOrAdminOnly(),)
-
-    def retrieve(self, request, *args, **kwargs):
-        return Response(
-            {'detail': 'Метод не разрешен'},
-            status=status.HTTP_405_METHOD_NOT_ALLOWED
-        )
-
-    def update(self, request, *args, **kwargs):
-        return Response(
-            {'detail': 'Метод не разрешен'},
-            status=status.HTTP_405_METHOD_NOT_ALLOWED
-        )
+    permission_classes = (ReadOrAdminOnly,)
 
 
 class GenreViewSet(DemoAccessMixin, mixins.ListModelMixin,
@@ -246,7 +273,8 @@ class ReviewViewSet(DemoAccessMixin, ModelViewSet):
             raise ValidationError(
                 {'detail': 'Вы уже оставляли отзыв на это произведение.'}
             )
-        serializer.save(author=user, title=title)
+        instance = serializer.save(author=user, title=title)
+        self._maybe_set_demo(instance)
 
 
 class CommentViewSet(DemoAccessMixin, ModelViewSet):
@@ -263,10 +291,11 @@ class CommentViewSet(DemoAccessMixin, ModelViewSet):
     def perform_create(self, serializer):
         user = self.request.user
         review = get_object_or_404(Review, id=self.review_id)
-        serializer.save(
+        instance = serializer.save(
             author=user,
             review=review
         )
+        self._maybe_set_demo(instance)
 
     def get_serializer_class(self):
         if self.request.method in ('GET', 'HEAD', 'OPTIONS'):
