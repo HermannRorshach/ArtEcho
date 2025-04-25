@@ -6,7 +6,6 @@ from django.core.validators import RegexValidator
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.tokens import RefreshToken
-# from .models import ConfirmationCode
 from reviews.models import (Category, Comment, Genre, Review,
                             Title)
 from users.models import ConfirmationCode
@@ -110,18 +109,21 @@ class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            # 'id',
             'username',
             'email',
             'first_name',
             'last_name',
             'bio',
             'role',
-            # 'is_active',
-            # 'last_login',
-            # 'is_admin',
-            # 'is_moderator',
-            # 'is_superuser',
+            'id',
+            'sex',
+            'birth_date',
+            'city',
+            'relationship_status',
+            'vk_url',
+            'youtube_url',
+            'telegram_url',
+            'whatsapp_url'
         ]
         read_only_fields = [
             'id',
@@ -156,11 +158,28 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'bio',
+            'sex',
+            'birth_date',
+            'city',
+            'relationship_status',
+            'vk_url',
+            'youtube_url',
+            'telegram_url',
+            'whatsapp_url'
         ]
         extra_kwargs = {
             'first_name': {'required': False},
             'last_name': {'required': False},
             'bio': {'required': False},
+            'sex': {'required': False},
+            'birth_date': {'required': False},
+            'bio': {'required': False},
+            'city': {'required': False},
+            'relationship_status': {'required': False},
+            'vk_url': {'required': False},
+            'youtube_url': {'required': False},
+            'telegram_url': {'required': False},
+            'whatsapp_url': {'required': False}
         }
 
 

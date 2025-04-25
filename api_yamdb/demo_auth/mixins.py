@@ -3,9 +3,9 @@ from django.utils.text import slugify
 from transliterate import translit
 
 
-class DemoAccessMixin(ContextMixin):
+class DemoAccessMixin:
     """
-    Полный контроль демо-доступа:
+    Полный контроль демо-доступа для HTML и API:
     - Автоматически добавляет _demo к slug при сохранении
     - Фильтрует queryset
     - Подменяет slug при отображении
@@ -24,6 +24,7 @@ class DemoAccessMixin(ContextMixin):
         return queryset
 
     def filter_queryset(self, queryset):
+        queryset = super().filter_queryset(queryset)
         if getattr(self.request.user, 'is_demo', False):
             return queryset.filter(is_demo=True)
         return queryset.exclude(is_demo=True)
@@ -63,6 +64,20 @@ class DemoAccessMixin(ContextMixin):
             counter += 1
 
         instance.slug = demo_slug
+
+    def perform_create(self, serializer):
+        print('Вызываем perform_create')
+        user = self.request.user
+        print('user =', user)
+        instance = serializer.save()
+        print('instance =', instance)
+        if getattr(user, 'is_demo', False):
+            print('Попали в условие, оно выполнилось')
+            instance.is_demo = True
+            if hasattr(instance, 'slug'):
+                self._process_demo_slug(instance)
+            instance.save()
+        print('в конце метда porform_create instance =', instance)
 
 
 class DemoFormMixin:

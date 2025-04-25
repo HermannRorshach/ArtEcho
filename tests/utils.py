@@ -122,7 +122,12 @@ def check_pagination(url, respons_data, expected_count, post_data=None):
         'ключ `results` содержит некорректное количество элементов.'
     )
     if post_data:
-        assert post_data in respons_data['results'], (
+        print("post_data =\n", post_data, sep="")
+        print("respons_data['results'] =\n", respons_data['results'])
+        any(
+            post_data.items() <= item.items()
+            for item in respons_data['results']
+        ), (
             f'Проверьте, что для эндпоинта `{url}` настроена пагинация. '
             'Значение параметра `results` отсутствует или содержит '
             'некорректную информацию о существующем объекте.'

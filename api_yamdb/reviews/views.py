@@ -390,7 +390,6 @@ class ReviewListView(DemoAccessMixin, ListView):
         return self.filter_queryset(queryset)
 
 
-
 class ReviewDetailView(DemoAccessMixin, DetailView):
     model = Review
     template_name = 'reviews/instance_detail.html'

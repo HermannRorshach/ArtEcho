@@ -2,12 +2,16 @@ import logging
 import secrets
 from datetime import timedelta
 
+from demo_auth.mixins import DemoAccessMixin, DemoFormMixin
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import filters, mixins, status, viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny
@@ -15,12 +19,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
-from reviews.models import (Category, Comment, Genre, Review,
-                            Title)
+from reviews.models import Category, Comment, Genre, Review, Title
 from users.models import ConfirmationCode, User
 
 from .filters import TitleFilter
-# from .models import ConfirmationCode
 from .permissions import AdminOnly, AuthorOrReadOnly, ReadOnly, ReadOrAdminOnly
 from .serializers import (CategorySerializer, CommentWriteSerializer,
                           ConfirmationCodeTokenSerializer, GenreSerializer,
@@ -37,6 +39,11 @@ class SignUpView(APIView):
     serializer_class = SignUpSerializer
     permission_classes = (AllowAny,)
 
+    @swagger_auto_schema(
+        request_body=SignUpSerializer,
+        responses={200: openapi.Response('OK', SignUpSerializer)}
+    )
+
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if not serializer.is_valid():
@@ -46,21 +53,37 @@ class SignUpView(APIView):
         email = serializer.validated_data['email']
         username = serializer.validated_data['username']
 
-        user, created = User.objects.get_or_create(
+        user, _ = User.objects.get_or_create(
             email=email, username=username)
         code = secrets.token_hex(16)
+        token_url = request.build_absolute_uri(
+            reverse('api:confirm_token')
+        )
+
+        # Проверяем, является ли пользователь демо
+        is_demo = getattr(user, 'is_demo', False)
 
         ConfirmationCode.objects.update_or_create(
             user=user,
             defaults={
                 'code': code,
-                'expires_at': timezone.now() + timedelta(hours=24)}
+                'expires_at': timezone.now() + timedelta(hours=24),
+                'is_demo': is_demo}
         )
 
         try:
+            pass
             send_mail(
                 subject='Код подтверждения для YaMDb',
-                message=f'Ваш код подтверждения: {code}',
+                message = (
+                    f'Ваш код подтверждения: {code}\n\n'
+                    'Чтобы получить токен, отправьте запрос\n\n'
+                    '{\n'
+                    f'  "username": "{username}",\n'
+                    f'  "confirmation_code": "{code}"\n'
+                    '}\n\n'
+                    f'на эндпоинт {token_url}'
+                ),
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[email],
                 fail_silently=False,
@@ -111,21 +134,36 @@ class ConfirmationCodeTokenView(TokenObtainPairView):
         )
 
 
-class MeView(APIView):
+class MeView(DemoAccessMixin, APIView):
 
+    @swagger_auto_schema(
+        operation_description="Получить данные текущего пользователя",
+        operation_id="me_retrieve",
+        responses={200: UserDetailSerializer}
+    )
     def get(self, request):
         serializer = UserDetailSerializer(request.user)
         return Response(serializer.data)
 
+    @swagger_auto_schema(
+        operation_description="Частичное обновление данных пользователя",
+        request_body=UserUpdateSerializer,
+        operation_id="me_update",
+        responses={
+            200: UserDetailSerializer,
+            400: "Невалидные данные"
+        }
+    )
     def patch(self, request):
         serializer = UserUpdateSerializer(
-            request.user, data=request.data, partial=True)
+            request.user, data=request.data, partial=True
+        )
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
 
 
-class CategoryViewSet(ModelViewSet):
+class CategoryViewSet(DemoAccessMixin, ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = 'slug'
@@ -133,7 +171,7 @@ class CategoryViewSet(ModelViewSet):
     search_fields = ['name']
 
     def get_permissions(self):
-        if self.action == 'list':  # Разрешаем только список категорий
+        if self.action == 'list':
             return (ReadOnly(),)
         return (ReadOrAdminOnly(),)
 
@@ -150,7 +188,7 @@ class CategoryViewSet(ModelViewSet):
         )
 
 
-class GenreViewSet(mixins.ListModelMixin,
+class GenreViewSet(DemoAccessMixin, mixins.ListModelMixin,
                    mixins.CreateModelMixin,
                    mixins.DestroyModelMixin,
                    viewsets.GenericViewSet):
@@ -162,7 +200,7 @@ class GenreViewSet(mixins.ListModelMixin,
     permission_classes = (ReadOrAdminOnly,)
 
 
-class TitleViewSet(ModelViewSet):
+class TitleViewSet(DemoAccessMixin, ModelViewSet):
     queryset = Title.objects.all()
     filter_backends = [DjangoFilterBackend]
     # filterset_fields = ['category__slug', 'genre__slug', 'name', 'year']
@@ -179,7 +217,7 @@ class TitleViewSet(ModelViewSet):
         return TitleWriteSerializer
 
 
-class ReviewViewSet(ModelViewSet):
+class ReviewViewSet(DemoAccessMixin, ModelViewSet):
 
     @property
     def title_id(self):
@@ -211,7 +249,7 @@ class ReviewViewSet(ModelViewSet):
         serializer.save(author=user, title=title)
 
 
-class CommentViewSet(ModelViewSet):
+class CommentViewSet(DemoAccessMixin, ModelViewSet):
 
     @property
     def review_id(self):
@@ -241,7 +279,7 @@ class CommentViewSet(ModelViewSet):
         return (AuthorOrReadOnly(),)
 
 
-class UserViewSet(ModelViewSet):
+class UserViewSet(DemoAccessMixin, ModelViewSet):
     model = get_user_model()
     lookup_field = 'username'
     queryset = get_user_model().objects.all()

@@ -124,7 +124,7 @@ class Test01UserAPI:
             'last_name': admin.last_name,
             'bio': admin.bio
         }
-        assert reponse_json['results'] == [admin_as_dict], (
+        assert reponse_json['results'][0].items() >= admin_as_dict.items(), (
             'Проверьте, что ответ на GET-запрос к '
             '`/api/v1/users/?search={username}` содержит полный перечень '
             'данных пользователя. Ответ должен содержать следующие ключи с '
