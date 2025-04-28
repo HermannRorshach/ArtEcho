@@ -3,152 +3,270 @@
   "model": "reviews.genre",
   "pk": 1,
   "fields": {
-    "name": "Драма",
-    "slug": "drama"
+    "is_demo": true,
+    "name": "Р”СЂР°РјР°",
+    "slug": "drama_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 2,
   "fields": {
-    "name": "Комедия",
-    "slug": "comedy"
+    "is_demo": true,
+    "name": "РљРѕРјРµРґРёСЏ",
+    "slug": "comedy_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 3,
   "fields": {
-    "name": "Вестерн",
-    "slug": "western"
+    "is_demo": true,
+    "name": "Р’РµСЃС‚РµСЂРЅ",
+    "slug": "western_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 4,
   "fields": {
-    "name": "Фэнтези",
-    "slug": "fantasy"
+    "is_demo": true,
+    "name": "Р¤СЌРЅС‚РµР·Рё",
+    "slug": "fantasy_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 5,
   "fields": {
-    "name": "Фантастика",
-    "slug": "sci-fi"
+    "is_demo": true,
+    "name": "Р¤Р°РЅС‚Р°СЃС‚РёРєР°",
+    "slug": "sci-fi_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 6,
   "fields": {
-    "name": "Детектив",
-    "slug": "detective"
+    "is_demo": true,
+    "name": "Р”РµС‚РµРєС‚РёРІ",
+    "slug": "detective_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 7,
   "fields": {
-    "name": "Триллер",
-    "slug": "thriller"
+    "is_demo": true,
+    "name": "РўСЂРёР»Р»РµСЂ",
+    "slug": "thriller_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 8,
   "fields": {
-    "name": "Сказка",
-    "slug": "tale"
+    "is_demo": true,
+    "name": "РЎРєР°Р·РєР°",
+    "slug": "tale_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 9,
   "fields": {
-    "name": "Гонзо",
-    "slug": "gonzo"
+    "is_demo": true,
+    "name": "Р“РѕРЅР·Рѕ",
+    "slug": "gonzo_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 10,
   "fields": {
-    "name": "Роман",
-    "slug": "roman"
+    "is_demo": true,
+    "name": "Р РѕРјР°РЅ",
+    "slug": "roman_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 11,
   "fields": {
-    "name": "Баллада",
-    "slug": "ballad"
+    "is_demo": true,
+    "name": "Р‘Р°Р»Р»Р°РґР°",
+    "slug": "ballad_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 12,
   "fields": {
+    "is_demo": true,
     "name": "Rock-n-roll",
-    "slug": "rock-n-roll"
+    "slug": "rock-n-roll_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 13,
   "fields": {
-    "name": "Классика",
-    "slug": "classical"
+    "is_demo": true,
+    "name": "РљР»Р°СЃСЃРёРєР°",
+    "slug": "classical_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 14,
   "fields": {
-    "name": "Рок",
-    "slug": "rock"
+    "is_demo": true,
+    "name": "Р РѕРє",
+    "slug": "rock_demo"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 15,
   "fields": {
-    "name": "Шансон",
-    "slug": "chanson"
+    "is_demo": true,
+    "name": "РЁР°РЅСЃРѕРЅ",
+    "slug": "chanson_demo"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 16,
+  "fields": {
+    "is_demo": false,
+    "name": "Р”СЂР°РјР°",
+    "slug": "drama"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 17,
   "fields": {
-    "name": "Поэзия",
-    "slug": "poetry"
+    "is_demo": false,
+    "name": "РљРѕРјРµРґРёСЏ",
+    "slug": "comedy"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 18,
   "fields": {
-    "name": "Фантастика",
-    "slug": "fantastic"
+    "is_demo": false,
+    "name": "Р’РµСЃС‚РµСЂРЅ",
+    "slug": "western"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 19,
+  "fields": {
+    "is_demo": false,
+    "name": "Р¤СЌРЅС‚РµР·Рё",
+    "slug": "fantasy"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 20,
   "fields": {
-    "name": "Трагикомедия",
-    "slug": "tragicomidia"
+    "is_demo": false,
+    "name": "Р¤Р°РЅС‚Р°СЃС‚РёРєР°",
+    "slug": "sci-fi"
   }
 },
 {
   "model": "reviews.genre",
   "pk": 21,
   "fields": {
-    "name": "Сатира",
-    "slug": "satira"
+    "is_demo": false,
+    "name": "Р”РµС‚РµРєС‚РёРІ",
+    "slug": "detective"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 22,
+  "fields": {
+    "is_demo": false,
+    "name": "РўСЂРёР»Р»РµСЂ",
+    "slug": "thriller"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 23,
+  "fields": {
+    "is_demo": false,
+    "name": "РЎРєР°Р·РєР°",
+    "slug": "tale"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 24,
+  "fields": {
+    "is_demo": false,
+    "name": "Р“РѕРЅР·Рѕ",
+    "slug": "gonzo"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 25,
+  "fields": {
+    "is_demo": false,
+    "name": "Р РѕРјР°РЅ",
+    "slug": "roman"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 26,
+  "fields": {
+    "is_demo": false,
+    "name": "Р‘Р°Р»Р»Р°РґР°",
+    "slug": "ballad"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 27,
+  "fields": {
+    "is_demo": false,
+    "name": "Rock-n-roll",
+    "slug": "rock-n-roll"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 28,
+  "fields": {
+    "is_demo": false,
+    "name": "РљР»Р°СЃСЃРёРєР°",
+    "slug": "classical"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 29,
+  "fields": {
+    "is_demo": false,
+    "name": "Р РѕРє",
+    "slug": "rock"
+  }
+},
+{
+  "model": "reviews.genre",
+  "pk": 30,
+  "fields": {
+    "is_demo": false,
+    "name": "РЁР°РЅСЃРѕРЅ",
+    "slug": "chanson"
   }
 }
 ]

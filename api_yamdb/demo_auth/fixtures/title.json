@@ -3,10 +3,11 @@
   "model": "reviews.title",
   "pk": 1,
   "fields": {
-    "name": "Побег из Шоушенка",
+    "is_demo": true,
+    "name": "РџРѕР±РµРі РёР· РЁРѕСѓС€РµРЅРєР°",
     "year": 1994,
     "description": null,
-    "slug": "pobeg-iz-shoushenka",
+    "slug": "pobeg-iz-shoushenka_demo",
     "category": 1,
     "genre": [
       1
@@ -17,10 +18,11 @@
   "model": "reviews.title",
   "pk": 2,
   "fields": {
-    "name": "Крестный отец",
+    "is_demo": true,
+    "name": "РљСЂРµСЃС‚РЅС‹Р№ РѕС‚РµС†",
     "year": 1972,
     "description": null,
-    "slug": "krestnyj-otets",
+    "slug": "krestnyj-otets_demo",
     "category": 1,
     "genre": [
       1
@@ -31,10 +33,11 @@
   "model": "reviews.title",
   "pk": 3,
   "fields": {
-    "name": "12 разгневанных мужчин",
+    "is_demo": true,
+    "name": "12 СЂР°Р·РіРЅРµРІР°РЅРЅС‹С… РјСѓР¶С‡РёРЅ",
     "year": 1957,
     "description": null,
-    "slug": "12-razgnevannyh-muzhchin",
+    "slug": "12-razgnevannyh-muzhchin_demo",
     "category": 1,
     "genre": [
       1
@@ -45,10 +48,11 @@
   "model": "reviews.title",
   "pk": 4,
   "fields": {
-    "name": "Список Шиндлера",
+    "is_demo": true,
+    "name": "РЎРїРёСЃРѕРє РЁРёРЅРґР»РµСЂР°",
     "year": 1993,
     "description": null,
-    "slug": "spisok-shindlera",
+    "slug": "spisok-shindlera_demo",
     "category": 1,
     "genre": [
       1
@@ -59,10 +63,11 @@
   "model": "reviews.title",
   "pk": 5,
   "fields": {
-    "name": "Криминальное чтиво",
+    "is_demo": true,
+    "name": "РљСЂРёРјРёРЅР°Р»СЊРЅРѕРµ С‡С‚РёРІРѕ",
     "year": 1994,
     "description": null,
-    "slug": "kriminalnoe-chtivo",
+    "slug": "kriminalnoe-chtivo_demo",
     "category": 1,
     "genre": [
       2,
@@ -75,10 +80,11 @@
   "model": "reviews.title",
   "pk": 6,
   "fields": {
-    "name": "Хороший, плохой, злой",
+    "is_demo": true,
+    "name": "РҐРѕСЂРѕС€РёР№, РїР»РѕС…РѕР№, Р·Р»РѕР№",
     "year": 1966,
     "description": null,
-    "slug": "horoshij-plohoj-zloj",
+    "slug": "horoshij-plohoj-zloj_demo",
     "category": 1,
     "genre": [
       3
@@ -89,10 +95,11 @@
   "model": "reviews.title",
   "pk": 7,
   "fields": {
-    "name": "Властелин колец: Братство кольца",
+    "is_demo": true,
+    "name": "Р’Р»Р°СЃС‚РµР»РёРЅ РєРѕР»РµС†: Р‘СЂР°С‚СЃС‚РІРѕ РєРѕР»СЊС†Р°",
     "year": 2001,
     "description": null,
-    "slug": "vlastelin-kolets-bratstvo-koltsa",
+    "slug": "vlastelin-kolets-bratstvo-kol_demo",
     "category": 1,
     "genre": [
       4
@@ -103,10 +110,11 @@
   "model": "reviews.title",
   "pk": 8,
   "fields": {
-    "name": "Бойцовский клуб",
+    "is_demo": true,
+    "name": "Р‘РѕР№С†РѕРІСЃРєРёР№ РєР»СѓР±",
     "year": 1999,
     "description": null,
-    "slug": "bojtsovskij-klub",
+    "slug": "bojtsovskij-klub_demo",
     "category": 1,
     "genre": [
       7
@@ -117,10 +125,11 @@
   "model": "reviews.title",
   "pk": 9,
   "fields": {
-    "name": "Форрест Гамп",
+    "is_demo": true,
+    "name": "Р¤РѕСЂСЂРµСЃС‚ Р“Р°РјРї",
     "year": 1994,
     "description": null,
-    "slug": "forrest-gamp",
+    "slug": "forrest-gamp_demo",
     "category": 1,
     "genre": [
       1,
@@ -132,10 +141,11 @@
   "model": "reviews.title",
   "pk": 10,
   "fields": {
-    "name": "Звёздные войны. Эпизод 5: Империя наносит ответный удар",
+    "is_demo": true,
+    "name": "Р—РІС‘Р·РґРЅС‹Рµ РІРѕР№РЅС‹. Р­РїРёР·РѕРґ 5: РРјРїРµСЂРёСЏ РЅР°РЅРѕСЃРёС‚ РѕС‚РІРµС‚РЅС‹Р№ СѓРґР°СЂ",
     "year": 1980,
     "description": null,
-    "slug": "zvezdnye-vojny-epizod-5-imperija-nanosit-otvetnyj-udar",
+    "slug": "zvezdnye-vojny-epizod-5-impe_demo",
     "category": 1,
     "genre": [
       4
@@ -146,10 +156,11 @@
   "model": "reviews.title",
   "pk": 11,
   "fields": {
-    "name": "Властелин колец: Две крепости",
+    "is_demo": true,
+    "name": "Р’Р»Р°СЃС‚РµР»РёРЅ РєРѕР»РµС†: Р”РІРµ РєСЂРµРїРѕСЃС‚Рё",
     "year": 2002,
     "description": null,
-    "slug": "vlastelin-kolets-dve-kreposti",
+    "slug": "vlastelin-kolets-dve-kreposti_demo",
     "category": 1,
     "genre": [
       4
@@ -160,10 +171,11 @@
   "model": "reviews.title",
   "pk": 12,
   "fields": {
-    "name": "Матрица",
+    "is_demo": true,
+    "name": "РњР°С‚СЂРёС†Р°",
     "year": 1999,
     "description": null,
-    "slug": "matritsa",
+    "slug": "matritsa_demo",
     "category": 1,
     "genre": [
       1,
@@ -177,10 +189,11 @@
   "model": "reviews.title",
   "pk": 13,
   "fields": {
-    "name": "Пролетая над гнездом кукушки",
+    "is_demo": true,
+    "name": "РџСЂРѕР»РµС‚Р°СЏ РЅР°Рґ РіРЅРµР·РґРѕРј РєСѓРєСѓС€РєРё",
     "year": 1975,
     "description": null,
-    "slug": "proletaja-nad-gnezdom-kukushki",
+    "slug": "proletaja-nad-gnezdom-kukushki_demo",
     "category": 1,
     "genre": [
       1
@@ -191,10 +204,11 @@
   "model": "reviews.title",
   "pk": 14,
   "fields": {
-    "name": "Назад в будущее",
+    "is_demo": true,
+    "name": "РќР°Р·Р°Рґ РІ Р±СѓРґСѓС‰РµРµ",
     "year": 1985,
     "description": null,
-    "slug": "nazad-v-buduschee",
+    "slug": "nazad-v-buduschee_demo",
     "category": 1,
     "genre": [
       5
@@ -205,10 +219,11 @@
   "model": "reviews.title",
   "pk": 15,
   "fields": {
-    "name": "Операция «Ы» и другие приключения Шурика",
+    "is_demo": true,
+    "name": "РћРїРµСЂР°С†РёСЏ В«Р«В» Рё РґСЂСѓРіРёРµ РїСЂРёРєР»СЋС‡РµРЅРёСЏ РЁСѓСЂРёРєР°",
     "year": 1965,
     "description": null,
-    "slug": "operatsija-y-i-drugie-prikljuchenija-shurika",
+    "slug": "operatsija-y-i-drugie-prikljuche_demo",
     "category": 1,
     "genre": [
       2,
@@ -221,10 +236,11 @@
   "model": "reviews.title",
   "pk": 16,
   "fields": {
-    "name": "Карты, деньги, два ствола",
+    "is_demo": true,
+    "name": "РљР°СЂС‚С‹, РґРµРЅСЊРіРё, РґРІР° СЃС‚РІРѕР»Р°",
     "year": 1998,
     "description": null,
-    "slug": "karty-dengi-dva-stvola",
+    "slug": "karty-dengi-dva-stvola_demo",
     "category": 1,
     "genre": [
       2
@@ -235,10 +251,11 @@
   "model": "reviews.title",
   "pk": 17,
   "fields": {
-    "name": "Джентльмены удачи ",
+    "is_demo": true,
+    "name": "Р”Р¶РµРЅС‚Р»СЊРјРµРЅС‹ СѓРґР°С‡Рё ",
     "year": 1971,
     "description": null,
-    "slug": "dzhentlmeny-udachi",
+    "slug": "dzhentlmeny-udachi_demo",
     "category": 1,
     "genre": [
       2
@@ -249,10 +266,11 @@
   "model": "reviews.title",
   "pk": 18,
   "fields": {
-    "name": "Джанго освобожденный",
+    "is_demo": true,
+    "name": "Р”Р¶Р°РЅРіРѕ РѕСЃРІРѕР±РѕР¶РґРµРЅРЅС‹Р№",
     "year": 2012,
     "description": null,
-    "slug": "dzhango-osvobozhdennyj",
+    "slug": "dzhango-osvobozhdennyj_demo",
     "category": 1,
     "genre": [
       1
@@ -263,10 +281,11 @@
   "model": "reviews.title",
   "pk": 19,
   "fields": {
-    "name": "Generation П",
+    "is_demo": true,
+    "name": "Generation Рџ",
     "year": 2011,
     "description": null,
-    "slug": "generation-p",
+    "slug": "generation-p_demo",
     "category": 1,
     "genre": [
       1
@@ -277,10 +296,11 @@
   "model": "reviews.title",
   "pk": 20,
   "fields": {
-    "name": "Колобок",
+    "is_demo": true,
+    "name": "РљРѕР»РѕР±РѕРє",
     "year": 1873,
     "description": null,
-    "slug": "kolobok",
+    "slug": "kolobok_demo",
     "category": 2,
     "genre": [
       7,
@@ -292,10 +312,11 @@
   "model": "reviews.title",
   "pk": 21,
   "fields": {
-    "name": "Страх и ненависть в Лас-Вегасе",
+    "is_demo": true,
+    "name": "РЎС‚СЂР°С… Рё РЅРµРЅР°РІРёСЃС‚СЊ РІ Р›Р°СЃ-Р’РµРіР°СЃРµ",
     "year": 1971,
     "description": null,
-    "slug": "strah-i-nenavist-v-las-vegase",
+    "slug": "strah-i-nenavist-v-las-vegase_demo",
     "category": 2,
     "genre": [
       9
@@ -306,10 +327,11 @@
   "model": "reviews.title",
   "pk": 22,
   "fields": {
-    "name": "Война и мир",
+    "is_demo": true,
+    "name": "Р’РѕР№РЅР° Рё РјРёСЂ",
     "year": 1865,
     "description": null,
-    "slug": "vojna-i-mir",
+    "slug": "vojna-i-mir_demo",
     "category": 2,
     "genre": [
       10
@@ -320,10 +342,11 @@
   "model": "reviews.title",
   "pk": 23,
   "fields": {
-    "name": "Улисс",
+    "is_demo": true,
+    "name": "РЈР»РёСЃСЃ",
     "year": 1918,
     "description": null,
-    "slug": "uliss",
+    "slug": "uliss_demo",
     "category": 2,
     "genre": [
       10
@@ -334,10 +357,11 @@
   "model": "reviews.title",
   "pk": 24,
   "fields": {
-    "name": "Generation П",
+    "is_demo": true,
+    "name": "Generation Рџ",
     "year": 1999,
     "description": null,
-    "slug": "generation-p-2",
+    "slug": "generation-p_demo-1",
     "category": 2,
     "genre": [
       10
@@ -348,10 +372,11 @@
   "model": "reviews.title",
   "pk": 25,
   "fields": {
-    "name": "Винни Пух и все-все-все",
+    "is_demo": true,
+    "name": "Р’РёРЅРЅРё РџСѓС… Рё РІСЃРµ-РІСЃРµ-РІСЃРµ",
     "year": 1926,
     "description": null,
-    "slug": "vinni-puh-i-vse-vse-vse",
+    "slug": "vinni-puh-i-vse-vse-vse_demo",
     "category": 2,
     "genre": [
       8
@@ -362,10 +387,11 @@
   "model": "reviews.title",
   "pk": 26,
   "fields": {
-    "name": "Стас Михайлов - Позывные на любовь",
+    "is_demo": true,
+    "name": "РЎС‚Р°СЃ РњРёС…Р°Р№Р»РѕРІ - РџРѕР·С‹РІРЅС‹Рµ РЅР° Р»СЋР±РѕРІСЊ",
     "year": 2004,
     "description": null,
-    "slug": "stas-mihajlov-pozyvnye-na-ljubov",
+    "slug": "stas-mihajlov-pozyvnye-na-lju_demo",
     "category": 3,
     "genre": [
       15
@@ -376,10 +402,11 @@
   "model": "reviews.title",
   "pk": 27,
   "fields": {
-    "name": "Led Zeppelin — Stairway to Heaven",
+    "is_demo": true,
+    "name": "Led Zeppelin вЂ” Stairway to Heaven",
     "year": 1971,
     "description": null,
-    "slug": "led-zeppelin-stairway-to-heaven",
+    "slug": "led-zeppelin-stairway-to-hea_demo",
     "category": 3,
     "genre": [
       11,
@@ -391,10 +418,11 @@
   "model": "reviews.title",
   "pk": 28,
   "fields": {
+    "is_demo": true,
     "name": "Jethro Tull - Aqualung",
     "year": 1971,
     "description": null,
-    "slug": "jethro-tull-aqualung",
+    "slug": "jethro-tull-aqualung_demo",
     "category": 3,
     "genre": [
       11
@@ -405,10 +433,11 @@
   "model": "reviews.title",
   "pk": 29,
   "fields": {
+    "is_demo": true,
     "name": "Elvis Presley - Blue Suede Shoes",
     "year": 1955,
     "description": null,
-    "slug": "elvis-presley-blue-suede-shoes",
+    "slug": "elvis-presley-blue-suede-sho_demo",
     "category": 3,
     "genre": [
       12
@@ -419,10 +448,11 @@
   "model": "reviews.title",
   "pk": 30,
   "fields": {
-    "name": "Deep Purple — Smoke on the Water",
+    "is_demo": true,
+    "name": "Deep Purple вЂ” Smoke on the Water",
     "year": 1971,
     "description": null,
-    "slug": "deep-purple-smoke-on-the-water",
+    "slug": "deep-purple-smoke-on-the-wat_demo",
     "category": 3,
     "genre": [
       14
@@ -433,10 +463,11 @@
   "model": "reviews.title",
   "pk": 31,
   "fields": {
-    "name": "Моцарт - Турецкий марш",
+    "is_demo": true,
+    "name": "РњРѕС†Р°СЂС‚ - РўСѓСЂРµС†РєРёР№ РјР°СЂС€",
     "year": 1784,
     "description": null,
-    "slug": "motsart-turetskij-marsh",
+    "slug": "motsart-turetskij-marsh_demo",
     "category": 3,
     "genre": [
       13
@@ -447,10 +478,11 @@
   "model": "reviews.title",
   "pk": 32,
   "fields": {
-    "name": "Бах. Оркестровая Сюита №2 си минор",
+    "is_demo": true,
+    "name": "Р‘Р°С…. РћСЂРєРµСЃС‚СЂРѕРІР°СЏ РЎСЋРёС‚Р° в„–2 СЃРё РјРёРЅРѕСЂ",
     "year": 1739,
     "description": null,
-    "slug": "bah-orkestrovaja-sjuita-no2-si-minor",
+    "slug": "bah-orkestrovaja-sjuita-no2-si-m_demo",
     "category": 3,
     "genre": [
       13
@@ -461,13 +493,44 @@
   "model": "reviews.title",
   "pk": 33,
   "fields": {
-    "name": "Тихий Дон",
-    "year": 1928,
+    "is_demo": false,
+    "name": "РџРѕР±РµРі РёР· РЁРѕСѓС€РµРЅРєР°",
+    "year": 1994,
     "description": null,
-    "slug": "tihij-don",
-    "category": 2,
+    "slug": "pobeg-iz-shoushenka",
+    "category": 4,
     "genre": [
-      1
+      16
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 34,
+  "fields": {
+    "is_demo": false,
+    "name": "РљСЂРµСЃС‚РЅС‹Р№ РѕС‚РµС†",
+    "year": 1972,
+    "description": null,
+    "slug": "krestnyj-otets",
+    "category": 4,
+    "genre": [
+      16
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 35,
+  "fields": {
+    "is_demo": false,
+    "name": "12 СЂР°Р·РіРЅРµРІР°РЅРЅС‹С… РјСѓР¶С‡РёРЅ",
+    "year": 1957,
+    "description": null,
+    "slug": "12-razgnevannyh-muzhchin",
+    "category": 4,
+    "genre": [
+      16
     ]
   }
 },
@@ -475,13 +538,14 @@
   "model": "reviews.title",
   "pk": 36,
   "fields": {
-    "name": "Громкий Дон",
-    "year": 1928,
+    "is_demo": false,
+    "name": "РЎРїРёСЃРѕРє РЁРёРЅРґР»РµСЂР°",
+    "year": 1993,
     "description": null,
-    "slug": "gromkij-don",
-    "category": 2,
+    "slug": "spisok-shindlera",
+    "category": 4,
     "genre": [
-      14
+      16
     ]
   }
 },
@@ -489,25 +553,29 @@
   "model": "reviews.title",
   "pk": 37,
   "fields": {
-    "name": "Во все тяжкие",
-    "year": 2014,
+    "is_demo": false,
+    "name": "РљСЂРёРјРёРЅР°Р»СЊРЅРѕРµ С‡С‚РёРІРѕ",
+    "year": 1994,
     "description": null,
-    "slug": "vo-vse-tjazhkie",
-    "category": 1,
+    "slug": "kriminalnoe-chtivo",
+    "category": 4,
     "genre": [
-      1
+      17,
+      21,
+      22
     ]
   }
 },
 {
   "model": "reviews.title",
-  "pk": 43,
+  "pk": 38,
   "fields": {
-    "name": "Трудно быть богом",
-    "year": 1963,
+    "is_demo": false,
+    "name": "РҐРѕСЂРѕС€РёР№, РїР»РѕС…РѕР№, Р·Р»РѕР№",
+    "year": 1966,
     "description": null,
-    "slug": "trudno-byt-bogom",
-    "category": 2,
+    "slug": "horoshij-plohoj-zloj",
+    "category": 4,
     "genre": [
       18
     ]
@@ -515,15 +583,95 @@
 },
 {
   "model": "reviews.title",
+  "pk": 39,
+  "fields": {
+    "is_demo": false,
+    "name": "Р’Р»Р°СЃС‚РµР»РёРЅ РєРѕР»РµС†: Р‘СЂР°С‚СЃС‚РІРѕ РєРѕР»СЊС†Р°",
+    "year": 2001,
+    "description": null,
+    "slug": "vlastelin-kolets-bratstvo-kol",
+    "category": 4,
+    "genre": [
+      19
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 40,
+  "fields": {
+    "is_demo": false,
+    "name": "Р‘РѕР№С†РѕРІСЃРєРёР№ РєР»СѓР±",
+    "year": 1999,
+    "description": null,
+    "slug": "bojtsovskij-klub",
+    "category": 4,
+    "genre": [
+      22
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 41,
+  "fields": {
+    "is_demo": false,
+    "name": "Р¤РѕСЂСЂРµСЃС‚ Р“Р°РјРї",
+    "year": 1994,
+    "description": null,
+    "slug": "forrest-gamp",
+    "category": 4,
+    "genre": [
+      16,
+      17
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 42,
+  "fields": {
+    "is_demo": false,
+    "name": "Р—РІС‘Р·РґРЅС‹Рµ РІРѕР№РЅС‹. Р­РїРёР·РѕРґ 5: РРјРїРµСЂРёСЏ РЅР°РЅРѕСЃРёС‚ РѕС‚РІРµС‚РЅС‹Р№ СѓРґР°СЂ",
+    "year": 1980,
+    "description": null,
+    "slug": "zvezdnye-vojny-epizod-5-impe",
+    "category": 4,
+    "genre": [
+      19
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 43,
+  "fields": {
+    "is_demo": false,
+    "name": "Р’Р»Р°СЃС‚РµР»РёРЅ РєРѕР»РµС†: Р”РІРµ РєСЂРµРїРѕСЃС‚Рё",
+    "year": 2002,
+    "description": null,
+    "slug": "vlastelin-kolets-dve-kreposti",
+    "category": 4,
+    "genre": [
+      19
+    ]
+  }
+},
+{
+  "model": "reviews.title",
   "pk": 44,
   "fields": {
-    "name": "10 негритят",
-    "year": 1939,
+    "is_demo": false,
+    "name": "РњР°С‚СЂРёС†Р°",
+    "year": 1999,
     "description": null,
-    "slug": "10-negritjat",
-    "category": 2,
+    "slug": "matritsa",
+    "category": 4,
     "genre": [
-      6
+      16,
+      20,
+      21,
+      23
     ]
   }
 },
@@ -531,13 +679,288 @@
   "model": "reviews.title",
   "pk": 45,
   "fields": {
-    "name": "Нотр-Дам де Пари",
+    "is_demo": false,
+    "name": "РџСЂРѕР»РµС‚Р°СЏ РЅР°Рґ РіРЅРµР·РґРѕРј РєСѓРєСѓС€РєРё",
+    "year": 1975,
+    "description": null,
+    "slug": "proletaja-nad-gnezdom-kukushki",
+    "category": 4,
+    "genre": [
+      16
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 46,
+  "fields": {
+    "is_demo": false,
+    "name": "РќР°Р·Р°Рґ РІ Р±СѓРґСѓС‰РµРµ",
+    "year": 1985,
+    "description": null,
+    "slug": "nazad-v-buduschee",
+    "category": 4,
+    "genre": [
+      20
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 47,
+  "fields": {
+    "is_demo": false,
+    "name": "РћРїРµСЂР°С†РёСЏ В«Р«В» Рё РґСЂСѓРіРёРµ РїСЂРёРєР»СЋС‡РµРЅРёСЏ РЁСѓСЂРёРєР°",
+    "year": 1965,
+    "description": null,
+    "slug": "operatsija-y-i-drugie-prikljuche",
+    "category": 4,
+    "genre": [
+      17,
+      21,
+      23
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 48,
+  "fields": {
+    "is_demo": false,
+    "name": "РљР°СЂС‚С‹, РґРµРЅСЊРіРё, РґРІР° СЃС‚РІРѕР»Р°",
     "year": 1998,
     "description": null,
-    "slug": "notr-dam-de-pari",
-    "category": 3,
+    "slug": "karty-dengi-dva-stvola",
+    "category": 4,
     "genre": [
-      1
+      17
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 49,
+  "fields": {
+    "is_demo": false,
+    "name": "Р”Р¶РµРЅС‚Р»СЊРјРµРЅС‹ СѓРґР°С‡Рё ",
+    "year": 1971,
+    "description": null,
+    "slug": "dzhentlmeny-udachi",
+    "category": 4,
+    "genre": [
+      17
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 50,
+  "fields": {
+    "is_demo": false,
+    "name": "Р”Р¶Р°РЅРіРѕ РѕСЃРІРѕР±РѕР¶РґРµРЅРЅС‹Р№",
+    "year": 2012,
+    "description": null,
+    "slug": "dzhango-osvobozhdennyj",
+    "category": 4,
+    "genre": [
+      16
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 51,
+  "fields": {
+    "is_demo": false,
+    "name": "Generation Рџ",
+    "year": 2011,
+    "description": null,
+    "slug": "generation-p",
+    "category": 4,
+    "genre": [
+      16
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 52,
+  "fields": {
+    "is_demo": false,
+    "name": "РљРѕР»РѕР±РѕРє",
+    "year": 1873,
+    "description": null,
+    "slug": "kolobok",
+    "category": 5,
+    "genre": [
+      22,
+      23
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 53,
+  "fields": {
+    "is_demo": false,
+    "name": "РЎС‚СЂР°С… Рё РЅРµРЅР°РІРёСЃС‚СЊ РІ Р›Р°СЃ-Р’РµРіР°СЃРµ",
+    "year": 1971,
+    "description": null,
+    "slug": "strah-i-nenavist-v-las-vegase",
+    "category": 5,
+    "genre": [
+      24
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 54,
+  "fields": {
+    "is_demo": false,
+    "name": "Р’РѕР№РЅР° Рё РјРёСЂ",
+    "year": 1865,
+    "description": null,
+    "slug": "vojna-i-mir",
+    "category": 5,
+    "genre": [
+      25
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 55,
+  "fields": {
+    "is_demo": false,
+    "name": "РЈР»РёСЃСЃ",
+    "year": 1918,
+    "description": null,
+    "slug": "uliss",
+    "category": 5,
+    "genre": [
+      25
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 56,
+  "fields": {
+    "is_demo": false,
+    "name": "Generation Рџ",
+    "year": 1999,
+    "description": null,
+    "slug": "generation-p-1",
+    "category": 5,
+    "genre": [
+      25
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 57,
+  "fields": {
+    "is_demo": false,
+    "name": "Р’РёРЅРЅРё РџСѓС… Рё РІСЃРµ-РІСЃРµ-РІСЃРµ",
+    "year": 1926,
+    "description": null,
+    "slug": "vinni-puh-i-vse-vse-vse",
+    "category": 5,
+    "genre": [
+      23
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 58,
+  "fields": {
+    "is_demo": false,
+    "name": "РЎС‚Р°СЃ РњРёС…Р°Р№Р»РѕРІ - РџРѕР·С‹РІРЅС‹Рµ РЅР° Р»СЋР±РѕРІСЊ",
+    "year": 2004,
+    "description": null,
+    "slug": "stas-mihajlov-pozyvnye-na-lju",
+    "category": 6,
+    "genre": [
+      30
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 59,
+  "fields": {
+    "is_demo": false,
+    "name": "Led Zeppelin вЂ” Stairway to Heaven",
+    "year": 1971,
+    "description": null,
+    "slug": "led-zeppelin-stairway-to-hea",
+    "category": 6,
+    "genre": [
+      26,
+      29
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 60,
+  "fields": {
+    "is_demo": false,
+    "name": "Jethro Tull - Aqualung",
+    "year": 1971,
+    "description": null,
+    "slug": "jethro-tull-aqualung",
+    "category": 6,
+    "genre": [
+      26
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 61,
+  "fields": {
+    "is_demo": false,
+    "name": "Elvis Presley - Blue Suede Shoes",
+    "year": 1955,
+    "description": null,
+    "slug": "elvis-presley-blue-suede-sho",
+    "category": 6,
+    "genre": [
+      27
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 62,
+  "fields": {
+    "is_demo": false,
+    "name": "Deep Purple вЂ” Smoke on the Water",
+    "year": 1971,
+    "description": null,
+    "slug": "deep-purple-smoke-on-the-wat",
+    "category": 6,
+    "genre": [
+      29
+    ]
+  }
+},
+{
+  "model": "reviews.title",
+  "pk": 63,
+  "fields": {
+    "is_demo": false,
+    "name": "РњРѕС†Р°СЂС‚ - РўСѓСЂРµС†РєРёР№ РјР°СЂС€",
+    "year": 1784,
+    "description": null,
+    "slug": "motsart-turetskij-marsh",
+    "category": 6,
+    "genre": [
+      28
     ]
   }
 },
@@ -545,118 +968,14 @@
   "model": "reviews.title",
   "pk": 64,
   "fields": {
-    "name": "Тестовый селект",
-    "year": 2025,
+    "is_demo": false,
+    "name": "Р‘Р°С…. РћСЂРєРµСЃС‚СЂРѕРІР°СЏ РЎСЋРёС‚Р° в„–2 СЃРё РјРёРЅРѕСЂ",
+    "year": 1739,
     "description": null,
-    "slug": "testovyj-selekt",
-    "category": 1,
+    "slug": "bah-orkestrovaja-sjuita-no2-si-m",
+    "category": 6,
     "genre": [
-      1,
-      2,
-      5,
-      6,
-      7,
-      10
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 65,
-  "fields": {
-    "name": "Тест",
-    "year": 2025,
-    "description": null,
-    "slug": "test",
-    "category": 2,
-    "genre": [
-      1,
-      2,
-      5,
-      6,
-      7,
-      10,
-      13,
-      14
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 69,
-  "fields": {
-    "name": "Последнее тестовое произведение",
-    "year": 2025,
-    "description": null,
-    "slug": "poslednee-testovoe-proizvedenie",
-    "category": 3,
-    "genre": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      17,
-      18,
-      20,
-      21
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 70,
-  "fields": {
-    "name": "Ещё одно последнее произведение тествое",
-    "year": 2025,
-    "description": null,
-    "slug": "esche-odno-poslednee-proizvedenie-testvoe",
-    "category": 1,
-    "genre": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      17,
-      18,
-      20,
-      21
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 72,
-  "fields": {
-    "name": "Мост через реку Квай",
-    "year": 1957,
-    "description": "Рон Свонсон рекомендует.",
-    "slug": "most-cherez-reku-kvaj",
-    "category": 1,
-    "genre": [
-      1,
-      2
+      28
     ]
   }
 }

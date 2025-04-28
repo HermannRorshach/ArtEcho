@@ -185,7 +185,8 @@ class Comment(SlugModel):
                             verbose_name='Ссылка',
                             validators=[RegexValidator(
                                 regex='^[-a-zA-Z0-9_]+$')],
-                            unique=True,)
+                            # unique=True,
+                            blank=True, null=True)
 
     def __str__(self):
         return (f'Комментарий {self.author} к отзыву {self.review.author} '

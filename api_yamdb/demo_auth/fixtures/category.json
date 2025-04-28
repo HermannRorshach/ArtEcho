@@ -3,40 +3,54 @@
   "model": "reviews.category",
   "pk": 1,
   "fields": {
-    "name": "Фильм",
-    "slug": "movie"
+    "is_demo": true,
+    "name": "Р¤РёР»СЊРј",
+    "slug": "movie_demo"
   }
 },
 {
   "model": "reviews.category",
   "pk": 2,
   "fields": {
-    "name": "Книга",
-    "slug": "book"
+    "is_demo": true,
+    "name": "РљРЅРёРіР°",
+    "slug": "book_demo"
   }
 },
 {
   "model": "reviews.category",
   "pk": 3,
   "fields": {
-    "name": "Музыка",
-    "slug": "music"
+    "is_demo": true,
+    "name": "РњСѓР·С‹РєР°",
+    "slug": "music_demo"
   }
 },
 {
   "model": "reviews.category",
   "pk": 4,
   "fields": {
-    "name": "Марафон желаний",
-    "slug": "marafon-zhelanij"
+    "is_demo": false,
+    "name": "Р¤РёР»СЊРј",
+    "slug": "movie"
   }
 },
 {
   "model": "reviews.category",
   "pk": 5,
   "fields": {
-    "name": "Танец",
-    "slug": "dance"
+    "is_demo": false,
+    "name": "РљРЅРёРіР°",
+    "slug": "book"
+  }
+},
+{
+  "model": "reviews.category",
+  "pk": 6,
+  "fields": {
+    "is_demo": false,
+    "name": "РњСѓР·С‹РєР°",
+    "slug": "music"
   }
 }
 ]

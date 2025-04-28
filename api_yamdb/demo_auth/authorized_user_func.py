@@ -1,6 +1,6 @@
 import os
 
-from decouple import config
+# from decouple import config
 # from django.apps import apps
 # from django.conf import settings
 # from django.contrib.auth.models import User
@@ -31,9 +31,24 @@ fixtures_commands = (
     ('dumpdata', 'reviews.Review', '--indent=2', '-o', 'demo_auth/fixtures/review.json'),
     ('dumpdata', 'reviews.Comment', '--indent=2', '-o', 'demo_auth/fixtures/comment.json'),
 )
+import subprocess
 
-for command in fixtures_commands:
-    call_command(*command)
+fixtures_commands = [
+    'python manage.py dumpdata --indent=2 users.User -o demo_auth/fixtures/user.json',
+    'python manage.py dumpdata --indent=2 users.ConfirmationCode -o demo_auth/fixtures/confirmation_code.json',
+    'python manage.py dumpdata --indent=2 reviews.Category -o demo_auth/fixtures/category.json',
+    'python manage.py dumpdata --indent=2 reviews.Genre -o demo_auth/fixtures/genre.json',
+    'python manage.py dumpdata --indent=2 reviews.Title -o demo_auth/fixtures/title.json',
+    'python manage.py dumpdata --indent=2 reviews.Review -o demo_auth/fixtures/review.json',
+    'python manage.py dumpdata --indent=2 reviews.Comment -o demo_auth/fixtures/comment.json',
+    'python manage.py dumpdata --indent=2 reviews.Title.genres.through -o demo_auth/fixtures/reviews_title_genre.json',
+]
+
+for cmd in fixtures_commands:
+    subprocess.run(cmd, shell=True, check=True, encoding='utf-8', errors='replace')
+
+# for command in fixtures_commands:
+#     call_command(*command)
 
 # def restore_user_data():
 #     catygory_model = apps.get_model('reviews', 'Category')

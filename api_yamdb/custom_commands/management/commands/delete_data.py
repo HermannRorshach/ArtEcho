@@ -2,7 +2,8 @@ from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
 COMMANDS = [
-    ('delete_by_model', 'users.User'),
+    # ('delete_by_model', 'users.User'),
+    ('delete_by_model', 'users.ConfirmationCode'),
     ('delete_by_model', 'reviews.Category'),
     ('delete_by_model', 'reviews.Genre'),
     ('delete_by_model', 'reviews.Title'),

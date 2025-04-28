@@ -24,7 +24,6 @@ class DemoAccessMixin:
         return queryset
 
     def filter_queryset(self, queryset):
-        queryset = super().filter_queryset(queryset)
         if getattr(self.request.user, 'is_demo', False):
             return queryset.filter(is_demo=True)
         return queryset.exclude(is_demo=True)
