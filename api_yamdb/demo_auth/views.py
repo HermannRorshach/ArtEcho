@@ -3,15 +3,15 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 
-from .authorized_user_func import restore_user_data
+from .restore_data_for_demo import reset_demo_data
 
 NALIVKIN_USERNAME = config('NALIVKIN_USERNAME')
 NALIVKIN_PASSWORD = config('NALIVKIN_PASSWORD')
 
 
-class AuthorizedUserLoginView(LoginView):
+class DemoUserLoginView(LoginView):
     def get(self, request, *args, **kwargs):
-        restore_user_data()
+        reset_demo_data()
         user = authenticate(
             request,
             username=NALIVKIN_USERNAME,
@@ -19,5 +19,5 @@ class AuthorizedUserLoginView(LoginView):
         )
         if user is not None:
             login(request, user)
-            return redirect('posts:index')
+            return redirect('reviews:titles')
         return redirect('users:login')

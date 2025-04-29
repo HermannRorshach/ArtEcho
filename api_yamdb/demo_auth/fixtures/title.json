@@ -8,10 +8,7 @@
     "year": 1994,
     "description": null,
     "slug": "pobeg-iz-shoushenka_demo",
-    "category": 1,
-    "genre": [
-      1
-    ]
+    "category_id": 1
   }
 },
 {
@@ -23,10 +20,7 @@
     "year": 1972,
     "description": null,
     "slug": "krestnyj-otets_demo",
-    "category": 1,
-    "genre": [
-      1
-    ]
+    "category_id": 1
   }
 },
 {
@@ -38,10 +32,7 @@
     "year": 1957,
     "description": null,
     "slug": "12-razgnevannyh-muzhchin_demo",
-    "category": 1,
-    "genre": [
-      1
-    ]
+    "category_id": 1
   }
 },
 {
@@ -53,10 +44,7 @@
     "year": 1993,
     "description": null,
     "slug": "spisok-shindlera_demo",
-    "category": 1,
-    "genre": [
-      1
-    ]
+    "category_id": 1
   }
 },
 {
@@ -68,12 +56,7 @@
     "year": 1994,
     "description": null,
     "slug": "kriminalnoe-chtivo_demo",
-    "category": 1,
-    "genre": [
-      2,
-      6,
-      7
-    ]
+    "category_id": 1
   }
 },
 {
@@ -85,10 +68,7 @@
     "year": 1966,
     "description": null,
     "slug": "horoshij-plohoj-zloj_demo",
-    "category": 1,
-    "genre": [
-      3
-    ]
+    "category_id": 1
   }
 },
 {
@@ -100,10 +80,7 @@
     "year": 2001,
     "description": null,
     "slug": "vlastelin-kolets-bratstvo-kol_demo",
-    "category": 1,
-    "genre": [
-      4
-    ]
+    "category_id": 1
   }
 },
 {
@@ -115,10 +92,7 @@
     "year": 1999,
     "description": null,
     "slug": "bojtsovskij-klub_demo",
-    "category": 1,
-    "genre": [
-      7
-    ]
+    "category_id": 1
   }
 },
 {
@@ -130,11 +104,7 @@
     "year": 1994,
     "description": null,
     "slug": "forrest-gamp_demo",
-    "category": 1,
-    "genre": [
-      1,
-      2
-    ]
+    "category_id": 1
   }
 },
 {
@@ -146,10 +116,7 @@
     "year": 1980,
     "description": null,
     "slug": "zvezdnye-vojny-epizod-5-impe_demo",
-    "category": 1,
-    "genre": [
-      4
-    ]
+    "category_id": 1
   }
 },
 {
@@ -161,10 +128,7 @@
     "year": 2002,
     "description": null,
     "slug": "vlastelin-kolets-dve-kreposti_demo",
-    "category": 1,
-    "genre": [
-      4
-    ]
+    "category_id": 1
   }
 },
 {
@@ -176,13 +140,7 @@
     "year": 1999,
     "description": null,
     "slug": "matritsa_demo",
-    "category": 1,
-    "genre": [
-      1,
-      5,
-      6,
-      8
-    ]
+    "category_id": 1
   }
 },
 {
@@ -194,10 +152,7 @@
     "year": 1975,
     "description": null,
     "slug": "proletaja-nad-gnezdom-kukushki_demo",
-    "category": 1,
-    "genre": [
-      1
-    ]
+    "category_id": 1
   }
 },
 {
@@ -209,10 +164,7 @@
     "year": 1985,
     "description": null,
     "slug": "nazad-v-buduschee_demo",
-    "category": 1,
-    "genre": [
-      5
-    ]
+    "category_id": 1
   }
 },
 {
@@ -224,12 +176,7 @@
     "year": 1965,
     "description": null,
     "slug": "operatsija-y-i-drugie-prikljuche_demo",
-    "category": 1,
-    "genre": [
-      2,
-      6,
-      8
-    ]
+    "category_id": 1
   }
 },
 {
@@ -241,10 +188,7 @@
     "year": 1998,
     "description": null,
     "slug": "karty-dengi-dva-stvola_demo",
-    "category": 1,
-    "genre": [
-      2
-    ]
+    "category_id": 1
   }
 },
 {
@@ -256,10 +200,7 @@
     "year": 1971,
     "description": null,
     "slug": "dzhentlmeny-udachi_demo",
-    "category": 1,
-    "genre": [
-      2
-    ]
+    "category_id": 1
   }
 },
 {
@@ -271,10 +212,7 @@
     "year": 2012,
     "description": null,
     "slug": "dzhango-osvobozhdennyj_demo",
-    "category": 1,
-    "genre": [
-      1
-    ]
+    "category_id": 1
   }
 },
 {
@@ -286,10 +224,7 @@
     "year": 2011,
     "description": null,
     "slug": "generation-p_demo",
-    "category": 1,
-    "genre": [
-      1
-    ]
+    "category_id": 1
   }
 },
 {
@@ -301,11 +236,7 @@
     "year": 1873,
     "description": null,
     "slug": "kolobok_demo",
-    "category": 2,
-    "genre": [
-      7,
-      8
-    ]
+    "category_id": 2
   }
 },
 {
@@ -317,10 +248,7 @@
     "year": 1971,
     "description": null,
     "slug": "strah-i-nenavist-v-las-vegase_demo",
-    "category": 2,
-    "genre": [
-      9
-    ]
+    "category_id": 2
   }
 },
 {
@@ -332,10 +260,7 @@
     "year": 1865,
     "description": null,
     "slug": "vojna-i-mir_demo",
-    "category": 2,
-    "genre": [
-      10
-    ]
+    "category_id": 2
   }
 },
 {
@@ -347,10 +272,7 @@
     "year": 1918,
     "description": null,
     "slug": "uliss_demo",
-    "category": 2,
-    "genre": [
-      10
-    ]
+    "category_id": 2
   }
 },
 {
@@ -362,10 +284,7 @@
     "year": 1999,
     "description": null,
     "slug": "generation-p_demo-1",
-    "category": 2,
-    "genre": [
-      10
-    ]
+    "category_id": 2
   }
 },
 {
@@ -377,10 +296,7 @@
     "year": 1926,
     "description": null,
     "slug": "vinni-puh-i-vse-vse-vse_demo",
-    "category": 2,
-    "genre": [
-      8
-    ]
+    "category_id": 2
   }
 },
 {
@@ -392,10 +308,7 @@
     "year": 2004,
     "description": null,
     "slug": "stas-mihajlov-pozyvnye-na-lju_demo",
-    "category": 3,
-    "genre": [
-      15
-    ]
+    "category_id": 3
   }
 },
 {
@@ -407,11 +320,7 @@
     "year": 1971,
     "description": null,
     "slug": "led-zeppelin-stairway-to-hea_demo",
-    "category": 3,
-    "genre": [
-      11,
-      14
-    ]
+    "category_id": 3
   }
 },
 {
@@ -423,10 +332,7 @@
     "year": 1971,
     "description": null,
     "slug": "jethro-tull-aqualung_demo",
-    "category": 3,
-    "genre": [
-      11
-    ]
+    "category_id": 3
   }
 },
 {
@@ -438,10 +344,7 @@
     "year": 1955,
     "description": null,
     "slug": "elvis-presley-blue-suede-sho_demo",
-    "category": 3,
-    "genre": [
-      12
-    ]
+    "category_id": 3
   }
 },
 {
@@ -453,10 +356,7 @@
     "year": 1971,
     "description": null,
     "slug": "deep-purple-smoke-on-the-wat_demo",
-    "category": 3,
-    "genre": [
-      14
-    ]
+    "category_id": 3
   }
 },
 {
@@ -468,10 +368,7 @@
     "year": 1784,
     "description": null,
     "slug": "motsart-turetskij-marsh_demo",
-    "category": 3,
-    "genre": [
-      13
-    ]
+    "category_id": 3
   }
 },
 {
@@ -483,500 +380,7 @@
     "year": 1739,
     "description": null,
     "slug": "bah-orkestrovaja-sjuita-no2-si-m_demo",
-    "category": 3,
-    "genre": [
-      13
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 33,
-  "fields": {
-    "is_demo": false,
-    "name": "Побег из Шоушенка",
-    "year": 1994,
-    "description": null,
-    "slug": "pobeg-iz-shoushenka",
-    "category": 4,
-    "genre": [
-      16
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 34,
-  "fields": {
-    "is_demo": false,
-    "name": "Крестный отец",
-    "year": 1972,
-    "description": null,
-    "slug": "krestnyj-otets",
-    "category": 4,
-    "genre": [
-      16
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 35,
-  "fields": {
-    "is_demo": false,
-    "name": "12 разгневанных мужчин",
-    "year": 1957,
-    "description": null,
-    "slug": "12-razgnevannyh-muzhchin",
-    "category": 4,
-    "genre": [
-      16
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 36,
-  "fields": {
-    "is_demo": false,
-    "name": "Список Шиндлера",
-    "year": 1993,
-    "description": null,
-    "slug": "spisok-shindlera",
-    "category": 4,
-    "genre": [
-      16
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 37,
-  "fields": {
-    "is_demo": false,
-    "name": "Криминальное чтиво",
-    "year": 1994,
-    "description": null,
-    "slug": "kriminalnoe-chtivo",
-    "category": 4,
-    "genre": [
-      17,
-      21,
-      22
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 38,
-  "fields": {
-    "is_demo": false,
-    "name": "Хороший, плохой, злой",
-    "year": 1966,
-    "description": null,
-    "slug": "horoshij-plohoj-zloj",
-    "category": 4,
-    "genre": [
-      18
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 39,
-  "fields": {
-    "is_demo": false,
-    "name": "Властелин колец: Братство кольца",
-    "year": 2001,
-    "description": null,
-    "slug": "vlastelin-kolets-bratstvo-kol",
-    "category": 4,
-    "genre": [
-      19
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 40,
-  "fields": {
-    "is_demo": false,
-    "name": "Бойцовский клуб",
-    "year": 1999,
-    "description": null,
-    "slug": "bojtsovskij-klub",
-    "category": 4,
-    "genre": [
-      22
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 41,
-  "fields": {
-    "is_demo": false,
-    "name": "Форрест Гамп",
-    "year": 1994,
-    "description": null,
-    "slug": "forrest-gamp",
-    "category": 4,
-    "genre": [
-      16,
-      17
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 42,
-  "fields": {
-    "is_demo": false,
-    "name": "Звёздные войны. Эпизод 5: Империя наносит ответный удар",
-    "year": 1980,
-    "description": null,
-    "slug": "zvezdnye-vojny-epizod-5-impe",
-    "category": 4,
-    "genre": [
-      19
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 43,
-  "fields": {
-    "is_demo": false,
-    "name": "Властелин колец: Две крепости",
-    "year": 2002,
-    "description": null,
-    "slug": "vlastelin-kolets-dve-kreposti",
-    "category": 4,
-    "genre": [
-      19
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 44,
-  "fields": {
-    "is_demo": false,
-    "name": "Матрица",
-    "year": 1999,
-    "description": null,
-    "slug": "matritsa",
-    "category": 4,
-    "genre": [
-      16,
-      20,
-      21,
-      23
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 45,
-  "fields": {
-    "is_demo": false,
-    "name": "Пролетая над гнездом кукушки",
-    "year": 1975,
-    "description": null,
-    "slug": "proletaja-nad-gnezdom-kukushki",
-    "category": 4,
-    "genre": [
-      16
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 46,
-  "fields": {
-    "is_demo": false,
-    "name": "Назад в будущее",
-    "year": 1985,
-    "description": null,
-    "slug": "nazad-v-buduschee",
-    "category": 4,
-    "genre": [
-      20
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 47,
-  "fields": {
-    "is_demo": false,
-    "name": "Операция «Ы» и другие приключения Шурика",
-    "year": 1965,
-    "description": null,
-    "slug": "operatsija-y-i-drugie-prikljuche",
-    "category": 4,
-    "genre": [
-      17,
-      21,
-      23
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 48,
-  "fields": {
-    "is_demo": false,
-    "name": "Карты, деньги, два ствола",
-    "year": 1998,
-    "description": null,
-    "slug": "karty-dengi-dva-stvola",
-    "category": 4,
-    "genre": [
-      17
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 49,
-  "fields": {
-    "is_demo": false,
-    "name": "Джентльмены удачи ",
-    "year": 1971,
-    "description": null,
-    "slug": "dzhentlmeny-udachi",
-    "category": 4,
-    "genre": [
-      17
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 50,
-  "fields": {
-    "is_demo": false,
-    "name": "Джанго освобожденный",
-    "year": 2012,
-    "description": null,
-    "slug": "dzhango-osvobozhdennyj",
-    "category": 4,
-    "genre": [
-      16
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 51,
-  "fields": {
-    "is_demo": false,
-    "name": "Generation П",
-    "year": 2011,
-    "description": null,
-    "slug": "generation-p",
-    "category": 4,
-    "genre": [
-      16
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 52,
-  "fields": {
-    "is_demo": false,
-    "name": "Колобок",
-    "year": 1873,
-    "description": null,
-    "slug": "kolobok",
-    "category": 5,
-    "genre": [
-      22,
-      23
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 53,
-  "fields": {
-    "is_demo": false,
-    "name": "Страх и ненависть в Лас-Вегасе",
-    "year": 1971,
-    "description": null,
-    "slug": "strah-i-nenavist-v-las-vegase",
-    "category": 5,
-    "genre": [
-      24
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 54,
-  "fields": {
-    "is_demo": false,
-    "name": "Война и мир",
-    "year": 1865,
-    "description": null,
-    "slug": "vojna-i-mir",
-    "category": 5,
-    "genre": [
-      25
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 55,
-  "fields": {
-    "is_demo": false,
-    "name": "Улисс",
-    "year": 1918,
-    "description": null,
-    "slug": "uliss",
-    "category": 5,
-    "genre": [
-      25
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 56,
-  "fields": {
-    "is_demo": false,
-    "name": "Generation П",
-    "year": 1999,
-    "description": null,
-    "slug": "generation-p-1",
-    "category": 5,
-    "genre": [
-      25
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 57,
-  "fields": {
-    "is_demo": false,
-    "name": "Винни Пух и все-все-все",
-    "year": 1926,
-    "description": null,
-    "slug": "vinni-puh-i-vse-vse-vse",
-    "category": 5,
-    "genre": [
-      23
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 58,
-  "fields": {
-    "is_demo": false,
-    "name": "Стас Михайлов - Позывные на любовь",
-    "year": 2004,
-    "description": null,
-    "slug": "stas-mihajlov-pozyvnye-na-lju",
-    "category": 6,
-    "genre": [
-      30
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 59,
-  "fields": {
-    "is_demo": false,
-    "name": "Led Zeppelin — Stairway to Heaven",
-    "year": 1971,
-    "description": null,
-    "slug": "led-zeppelin-stairway-to-hea",
-    "category": 6,
-    "genre": [
-      26,
-      29
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 60,
-  "fields": {
-    "is_demo": false,
-    "name": "Jethro Tull - Aqualung",
-    "year": 1971,
-    "description": null,
-    "slug": "jethro-tull-aqualung",
-    "category": 6,
-    "genre": [
-      26
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 61,
-  "fields": {
-    "is_demo": false,
-    "name": "Elvis Presley - Blue Suede Shoes",
-    "year": 1955,
-    "description": null,
-    "slug": "elvis-presley-blue-suede-sho",
-    "category": 6,
-    "genre": [
-      27
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 62,
-  "fields": {
-    "is_demo": false,
-    "name": "Deep Purple — Smoke on the Water",
-    "year": 1971,
-    "description": null,
-    "slug": "deep-purple-smoke-on-the-wat",
-    "category": 6,
-    "genre": [
-      29
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 63,
-  "fields": {
-    "is_demo": false,
-    "name": "Моцарт - Турецкий марш",
-    "year": 1784,
-    "description": null,
-    "slug": "motsart-turetskij-marsh",
-    "category": 6,
-    "genre": [
-      28
-    ]
-  }
-},
-{
-  "model": "reviews.title",
-  "pk": 64,
-  "fields": {
-    "is_demo": false,
-    "name": "Бах. Оркестровая Сюита №2 си минор",
-    "year": 1739,
-    "description": null,
-    "slug": "bah-orkestrovaja-sjuita-no2-si-m",
-    "category": 6,
-    "genre": [
-      28
-    ]
+    "category_id": 3
   }
 }
 ]

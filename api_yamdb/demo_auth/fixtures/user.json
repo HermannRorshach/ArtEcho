@@ -1,40 +1,10 @@
 [
 {
   "model": "users.user",
-  "pk": 1,
-  "fields": {
-    "password": "pbkdf2_sha256$260000$qPF16mJI2sfK6XWo3nJViF$xPOjgHhuYdQ+QeSp0VP5ekPDsqpf1PcCGX8BhxXJ50M=",
-    "last_login": "2025-04-27T23:50:16.079Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2025-04-26T23:39:40.739Z",
-    "bio": null,
-    "role": "superuser",
-    "email": "figasenedosuk@mail.ru",
-    "avatar": "",
-    "birth_date": null,
-    "sex": null,
-    "city": null,
-    "relationship_status": null,
-    "vk_url": null,
-    "youtube_url": null,
-    "telegram_url": null,
-    "whatsapp_url": null,
-    "is_demo": false,
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "users.user",
   "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$260000$9DcMnG8LCSPcYsWInQvwlO$rJcduMp9lyQ3rdbwsaS36KltOo4VLdAAOCBdeU620rM=",
-    "last_login": "2025-04-27T19:40:56.477Z",
+    "last_login": "2025-04-28T00:35:41.669Z",
     "is_superuser": false,
     "username": "Nalivkin",
     "first_name": "Виталий",
@@ -49,14 +19,12 @@
     "birth_date": "1975-12-31",
     "sex": "Мужской",
     "city": "Уссурийск",
-    "relationship_status": "married",
+    "relationship_status": null,
     "vk_url": null,
     "youtube_url": "https://www.youtube.com/@BARAKuda_usk",
     "telegram_url": null,
     "whatsapp_url": null,
-    "is_demo": true,
-    "groups": [],
-    "user_permissions": []
+    "is_demo": true
   }
 },
 {
@@ -84,9 +52,7 @@
     "youtube_url": null,
     "telegram_url": null,
     "whatsapp_url": null,
-    "is_demo": true,
-    "groups": [],
-    "user_permissions": []
+    "is_demo": true
   }
 },
 {
@@ -105,7 +71,7 @@
     "bio": "",
     "role": "admin",
     "email": "capt_obvious_demo@yamdb.fake",
-    "avatar": "",
+    "avatar": "users/capt_obvious_demo/avatars/ChatGPT_Image_29_апр._2025_г._02_19_07.png",
     "birth_date": null,
     "sex": null,
     "city": null,
@@ -114,9 +80,7 @@
     "youtube_url": null,
     "telegram_url": null,
     "whatsapp_url": null,
-    "is_demo": true,
-    "groups": [],
-    "user_permissions": []
+    "is_demo": true
   }
 },
 {
@@ -135,7 +99,7 @@
     "bio": "",
     "role": "user",
     "email": "faust_demo@yamdb.fake",
-    "avatar": "",
+    "avatar": "users/faust_demo/avatars/ChatGPT_Image_28_апр._2025_г._03_20_43.png",
     "birth_date": null,
     "sex": null,
     "city": null,
@@ -144,9 +108,7 @@
     "youtube_url": null,
     "telegram_url": null,
     "whatsapp_url": null,
-    "is_demo": true,
-    "groups": [],
-    "user_permissions": []
+    "is_demo": true
   }
 },
 {
@@ -165,7 +127,7 @@
     "bio": "",
     "role": "user",
     "email": "reviewer_demo@yamdb.fake",
-    "avatar": "",
+    "avatar": "users/reviewer_demo/avatars/ChatGPT_Image_28_апр._2025_г._03_25_11.png",
     "birth_date": null,
     "sex": null,
     "city": null,
@@ -174,9 +136,7 @@
     "youtube_url": null,
     "telegram_url": null,
     "whatsapp_url": null,
-    "is_demo": true,
-    "groups": [],
-    "user_permissions": []
+    "is_demo": true
   }
 },
 {
@@ -204,159 +164,7 @@
     "youtube_url": null,
     "telegram_url": null,
     "whatsapp_url": null,
-    "is_demo": true,
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "users.user",
-  "pk": 105,
-  "fields": {
-    "password": "",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "bingobongo",
-    "first_name": "",
-    "last_name": "",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2025-04-26T23:42:34.768Z",
-    "bio": "",
-    "role": "user",
-    "email": "bingobongo@yamdb.fake",
-    "avatar": "",
-    "birth_date": null,
-    "sex": null,
-    "city": null,
-    "relationship_status": null,
-    "vk_url": null,
-    "youtube_url": null,
-    "telegram_url": null,
-    "whatsapp_url": null,
-    "is_demo": false,
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "users.user",
-  "pk": 106,
-  "fields": {
-    "password": "",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "capt_obvious",
-    "first_name": "",
-    "last_name": "",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2025-04-26T23:42:34.768Z",
-    "bio": "",
-    "role": "admin",
-    "email": "capt_obvious@yamdb.fake",
-    "avatar": "",
-    "birth_date": null,
-    "sex": null,
-    "city": null,
-    "relationship_status": null,
-    "vk_url": null,
-    "youtube_url": null,
-    "telegram_url": null,
-    "whatsapp_url": null,
-    "is_demo": false,
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "users.user",
-  "pk": 107,
-  "fields": {
-    "password": "",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "faust",
-    "first_name": "",
-    "last_name": "",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2025-04-26T23:42:34.768Z",
-    "bio": "",
-    "role": "user",
-    "email": "faust@yamdb.fake",
-    "avatar": "",
-    "birth_date": null,
-    "sex": null,
-    "city": null,
-    "relationship_status": null,
-    "vk_url": null,
-    "youtube_url": null,
-    "telegram_url": null,
-    "whatsapp_url": null,
-    "is_demo": false,
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "users.user",
-  "pk": 108,
-  "fields": {
-    "password": "",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "reviewer",
-    "first_name": "",
-    "last_name": "",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2025-04-26T23:42:34.768Z",
-    "bio": "",
-    "role": "user",
-    "email": "reviewer@yamdb.fake",
-    "avatar": "",
-    "birth_date": null,
-    "sex": null,
-    "city": null,
-    "relationship_status": null,
-    "vk_url": null,
-    "youtube_url": null,
-    "telegram_url": null,
-    "whatsapp_url": null,
-    "is_demo": false,
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "users.user",
-  "pk": 109,
-  "fields": {
-    "password": "",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "angry",
-    "first_name": "",
-    "last_name": "",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2025-04-26T23:42:34.768Z",
-    "bio": "",
-    "role": "moderator",
-    "email": "angry@yamdb.fake",
-    "avatar": "",
-    "birth_date": null,
-    "sex": null,
-    "city": null,
-    "relationship_status": null,
-    "vk_url": null,
-    "youtube_url": null,
-    "telegram_url": null,
-    "whatsapp_url": null,
-    "is_demo": false,
-    "groups": [],
-    "user_permissions": []
+    "is_demo": true
   }
 }
 ]

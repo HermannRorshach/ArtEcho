@@ -17,4 +17,5 @@ urlpatterns = [
     path('auth/', include('django.contrib.auth.urls')),
     path('', include('reviews.urls')),
     path('', include('api.urls')),
+    path('', include('demo_auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
