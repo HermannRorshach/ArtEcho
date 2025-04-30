@@ -1,12 +1,20 @@
 from decouple import config
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
+from django.views import View
 
 from .restore_data_for_demo import reset_demo_data
 
 NALIVKIN_USERNAME = config('NALIVKIN_USERNAME')
 NALIVKIN_PASSWORD = config('NALIVKIN_PASSWORD')
+
+
+class DemoWelcomeView(View):
+    template_name = 'demo_auth/demo_welcome.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
 
 
 class DemoUserLoginView(LoginView):

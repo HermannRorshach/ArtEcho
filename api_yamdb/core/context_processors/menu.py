@@ -1,6 +1,7 @@
 def menu(request):
     items = {
         'common_items': [
+            {'path': 'api:schema-redoc', 'text': 'API'},
             {'path': 'reviews:contacts', 'text': 'Техподдержка'},
             {'path': 'reviews:faq', 'text': 'FAQ'},
         ],

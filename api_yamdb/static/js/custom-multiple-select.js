@@ -54,7 +54,13 @@
                 customOption.classList.add("selected");
             }
             customOption.setAttribute("tabindex", "-1");
-            customOption.addEventListener("click", selectOption);
+            customOption.addEventListener("click", function(e) {
+                if (e.ctrlKey) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                selectOption.call(this, e);
+            });
             customSelect.append(customOption);
         }
         parent.append(customSelect);
