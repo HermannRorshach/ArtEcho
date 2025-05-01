@@ -1,10 +1,11 @@
 import csv
 import json
 
-from custom_commands.utils import has_id_field
 from django.apps import apps
 from django.core.management.base import BaseCommand, CommandError
 from django.db import IntegrityError
+
+from custom_commands.utils import has_id_field
 
 
 class Command(BaseCommand):

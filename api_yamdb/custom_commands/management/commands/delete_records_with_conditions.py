@@ -1,5 +1,4 @@
-import json
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.db import connection
 
 
@@ -13,7 +12,8 @@ class Command(BaseCommand):
     - --reset-auto-increment: Если передан, сбрасывает счетчик автоинкремента.
     """
 
-    help = 'Удаляет записи из таблицы по заданным условиям и сбрасывает автоинкремент при необходимости.'
+    help = ('Удаляет записи из таблицы по заданным условиям '
+            'и сбрасывает автоинкремент при необходимости.')
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -40,7 +40,8 @@ class Command(BaseCommand):
 
         self.stdout.write(
             self.style.SUCCESS(
-                f'Удаление записей из таблицы "{table_name}" по условиям "{conditions}".'
+                f'Удаление записей из таблицы "{table_name}" '
+                f'по условиям "{conditions}".'
             )
         )
 
@@ -48,7 +49,8 @@ class Command(BaseCommand):
         with connection.cursor() as cursor:
             query = f'DELETE FROM {table_name} WHERE {conditions}'
             cursor.execute(query)
-            self.stdout.write(self.style.SUCCESS(f'Записи успешно удалены из {table_name}.'))
+            self.stdout.write(
+                self.style.SUCCESS(f'Записи успешно удалены из {table_name}.'))
 
             # Если флаг установлен, сбрасываем автоинкремент
             if reset_auto_increment:
@@ -59,13 +61,19 @@ class Command(BaseCommand):
         db_name = connection.vendor.lower()
 
         if db_name == 'postgresql':
-            cursor.execute(f'ALTER SEQUENCE {table_name}_id_seq RESTART WITH 1;')
-            self.stdout.write(self.style.SUCCESS(f'Счетчик автоинкремента для {table_name} сброшен.'))
+            cursor.execute(
+                f'ALTER SEQUENCE {table_name}_id_seq RESTART WITH 1;')
+            self.stdout.write(self.style.SUCCESS(
+                f'Счетчик автоинкремента для {table_name} сброшен.'))
         elif db_name == 'mysql':
             cursor.execute(f'ALTER TABLE {table_name} AUTO_INCREMENT = 1;')
-            self.stdout.write(self.style.SUCCESS(f'Счетчик автоинкремента для {table_name} сброшен.'))
+            self.stdout.write(self.style.SUCCESS(
+                f'Счетчик автоинкремента для {table_name} сброшен.'))
         elif db_name == 'sqlite':
-            cursor.execute(f'DELETE FROM sqlite_sequence WHERE name="{table_name}";')
-            self.stdout.write(self.style.SUCCESS(f'Счетчик автоинкремента для {table_name} сброшен.'))
+            cursor.execute(
+                f'DELETE FROM sqlite_sequence WHERE name="{table_name}";')
+            self.stdout.write(self.style.SUCCESS(
+                'Счетчик автоинкремента для {table_name} сброшен.'))
         else:
-            self.stdout.write(self.style.WARNING('Сброс автоинкремента не поддерживается для данной СУБД.'))
+            self.stdout.write(self.style.WARNING(
+                'Сброс автоинкремента не поддерживается для данной СУБД.'))

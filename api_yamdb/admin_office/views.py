@@ -1,10 +1,11 @@
-from demo_auth.mixins import DemoAccessMixin, DemoFormMixin
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic.edit import CreateView
+
+from demo_auth.mixins import DemoAccessMixin
 from reviews.models import Comment, Review
 from reviews.utils import IsAdminOrSuperuser, IsStaffMixin
 from reviews.views import CommentListView, ReviewListView
@@ -57,8 +58,8 @@ class CabinetView(IsStaffMixin, View):
             for link in links if link['check'](request.user)
         ]
 
-        return render(request, self.template_name, {'links': visible_links})
-
+        return render(
+            request, self.template_name, {'links': visible_links})
 
 
 class CabinetReviewsListView(IsStaffMixin, ReviewListView):
@@ -119,9 +120,11 @@ class CabinetUserDetailView(IsAdminOrSuperuser, UserDetailView):
             'last_login'
         ]
         context['update_url'] = reverse_lazy(
-            'admin_office:admin_update_user', kwargs={'username': self.object.username})
+            'admin_office:admin_update_user',
+            kwargs={'username': self.object.username})
         context['delete_url'] = reverse_lazy(
-            'admin_office:admin_delete_user', kwargs={'username': self.object.username})
+            'admin_office:admin_delete_user',
+            kwargs={'username': self.object.username})
         context['can_edit'] = IsAdminOrSuperuser.check_permission(
             self.request.user
         )
@@ -129,7 +132,8 @@ class CabinetUserDetailView(IsAdminOrSuperuser, UserDetailView):
             self.request.user
         )
         context['cancel_url'] = reverse_lazy(
-            'users:admin_user_detail', kwargs={'username': self.object.username})
+            'users:admin_user_detail',
+            kwargs={'username': self.object.username})
         return context
 
 
@@ -140,7 +144,8 @@ class CabinetUserUpdateView(IsAdminOrSuperuser, UserUpdateMixin):
         context = super().get_context_data(**kwargs)
         context['title'] = f'Изменить пользователя {context["object"]}'
         context['cancel_url'] = reverse_lazy(
-            'admin_office:admin_user_detail', kwargs={'username': self.object.username})
+            'admin_office:admin_user_detail',
+            kwargs={'username': self.object.username})
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -150,7 +155,8 @@ class CabinetUserUpdateView(IsAdminOrSuperuser, UserUpdateMixin):
 
     def get_success_url(self):
         return reverse_lazy(
-            'admin_office:admin_user_detail', kwargs={'username': self.object.username}
+            'admin_office:admin_user_detail',
+            kwargs={'username': self.object.username}
         )
 
 
@@ -166,6 +172,7 @@ class CabinetUserDeleteView(IsAdminOrSuperuser, UserDeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['cancel_url'] = reverse_lazy(
-            'admin_office:admin_user_detail', kwargs={'username': self.object.username})
+            'admin_office:admin_user_detail',
+            kwargs={'username': self.object.username})
         print(context)
         return context

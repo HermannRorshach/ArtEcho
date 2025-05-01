@@ -6,9 +6,10 @@ from django.core.validators import RegexValidator
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.tokens import RefreshToken
-from reviews.models import (Category, Comment, Genre, Review,
-                            Title)
+
+from reviews.models import Category, Comment, Genre, Review, Title
 from users.models import ConfirmationCode
+
 User = get_user_model()
 
 
@@ -173,7 +174,6 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             'bio': {'required': False},
             'sex': {'required': False},
             'birth_date': {'required': False},
-            'bio': {'required': False},
             'city': {'required': False},
             'relationship_status': {'required': False},
             'vk_url': {'required': False},

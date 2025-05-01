@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from demo_auth.models import IsDemoFieldModel
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
@@ -10,6 +9,8 @@ from django.db.models.functions import Coalesce
 from django.urls import reverse
 from django.utils.text import slugify
 from transliterate import translit
+
+from demo_auth.models import IsDemoFieldModel
 
 User = get_user_model()
 
@@ -146,12 +147,12 @@ class Review(SlugModel):
                 f'{cut_text(self.text, 25)}')
 
     def title_link(self):
-        path = reverse('reviews:title_detail', kwargs={'slug': self.title.slug})
+        path = reverse(
+            'reviews:title_detail', kwargs={'slug': self.title.slug})
         return f'<a href="{path}">{self.title}:</a>'
 
     def str_with_link(self):
         return f'Отзыв {self.author} на {self.title_link()}'
-
 
     def get_absolute_url(self):
         return reverse(
@@ -208,7 +209,8 @@ class Comment(SlugModel):
     def review_link(self):
         path = reverse(
             'reviews:review_detail',
-            kwargs={'title_slug': self.review.title.slug, 'pk': self.review.pk})
+            kwargs={'title_slug': self.review.title.slug, 'pk': self.review.pk}
+        )
         return f'<a href="{path}">отзыву:</a>'
 
     def str_with_link(self):

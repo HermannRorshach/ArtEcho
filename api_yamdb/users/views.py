@@ -1,14 +1,13 @@
-from demo_auth.mixins import DemoAccessMixin, DemoFormMixin
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.core.exceptions import PermissionDenied
-from django.core.files.base import ContentFile
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
+
+from demo_auth.mixins import DemoAccessMixin
 from reviews.utils import IsAdminOrSuperuser, is_owner
 
 from .forms import PublicCreationForm, PublicUpdateForm
@@ -68,7 +67,7 @@ class UserUpdateMixin(DemoAccessMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(user_context)
-        context['title'] = f'Изменить анкету'
+        context['title'] = 'Изменить анкету'
         context['is_edit'] = True
         context['cancel_url'] = reverse_lazy(
             'users:user_detail', kwargs={'username': self.object.username})
@@ -78,6 +77,7 @@ class UserUpdateMixin(DemoAccessMixin, UpdateView):
         return reverse_lazy(
             'users:user_detail', kwargs={'username': self.object.username}
         )
+
 
 class UserUpdateView(UserUpdateMixin):
 
@@ -126,7 +126,10 @@ class UserDeleteView(DemoAccessMixin, DeleteView):
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if not (is_owner(request.user, self.object) or IsAdminOrSuperuser.check_permission(request.user)):
+        if not (
+            is_owner(request.user, self.object)
+            or IsAdminOrSuperuser.check_permission(request.user)
+        ):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
@@ -160,33 +163,6 @@ class UsersListView(IsAdminOrSuperuser, DemoAccessMixin, ListView):
             'first_name', 'last_name', 'username', 'date_joined', 'role',
             'bio', 'last_login']
         return context
-
-
-# class UserDetailView(LoginRequiredMixin, DetailView):
-#     model = User
-#     template_name = 'users/profile.html'
-#     context_object_name = 'profile_user'
-#     slug_field = 'username'
-#     slug_url_kwarg = 'username'
-
-#     def get_object(self, queryset=None):
-#         username = self.kwargs.get(self.slug_url_kwarg)
-#         return get_object_or_404(User, username=username)
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = f'Профиль пользователя {context["object"].username}'
-#         context["update_url"] = reverse_lazy(
-#             "users:update_user", kwargs={"username": self.object.username})
-#         context["delete_url"] = reverse_lazy(
-#             "users:delete_user", kwargs={"username": self.object.username})
-#         context['back_url'] = reverse_lazy('reviews:titles')
-#         context['display_fields'] = [
-#             'bio', 'role', 'avatar', 'birth_date', 'sex', 'city',
-#             'relationship_status', 'vk_url', 'youtube_url',
-#             'telegram_url', 'whatsapp_url'
-#         ]
-#         return context
 
 
 class MeView(UserDetailView):

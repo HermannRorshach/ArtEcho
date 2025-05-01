@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+
 from demo_auth.models import IsDemoFieldModel
 
 
@@ -140,4 +141,5 @@ class User(AbstractUser):
 
     def get_admin_url(self):
         return reverse(
-            'admin_office:admin_user_detail', kwargs={'username': self.username})
+            'admin_office:admin_user_detail',
+            kwargs={'username': self.username})

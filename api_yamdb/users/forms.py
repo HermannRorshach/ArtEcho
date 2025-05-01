@@ -64,24 +64,19 @@ class PublicUpdateForm(PublicCreationForm):
             user.avatar = None  # Обнуляем поле аватара
 
             if commit:
-                User.objects.filter(pk=user.pk).update(avatar=None)  # Обновляем запись в БД
-                user.refresh_from_db(fields=['avatar'])  # Обновляем объект
-                print('user.avatar после удаления:', user.avatar)
+                User.objects.filter(pk=user.pk).update(avatar=None)
+                user.refresh_from_db(fields=['avatar'])
             return user
 
         # Если загружен новый аватар
         if avatar:
-            print("if avatar =", avatar, 'user.avatar =', user.avatar, 'user.avatar != avatar', user.avatar != avatar)
             if user.avatar and user.avatar != avatar:
-                print("удаляем старый аватар")
                 user.avatar.delete(save=False)
             user.avatar = avatar
 
         if commit:
-            user.save()  # Сохраняем изменения в базе данных
-            print('user.avatar после сохранения:', user.avatar)
+            user.save()
         return user
-
 
     class Meta(UserCreationForm.Meta):
         model = User

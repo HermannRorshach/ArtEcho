@@ -1,3 +1,4 @@
+import os
 import sys
 from datetime import timedelta
 from pathlib import Path
@@ -124,6 +125,10 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Путь к оригинальному аватару демо-пользователя
+DEMO_USER_ORIGINAL_AVATAR = os.path.join(
+    BASE_DIR, 'static/images/Nalivkin.jfif')
 
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'reviews:titles'

@@ -1,4 +1,3 @@
-from demo_auth.mixins import DemoAccessMixin, DemoFormMixin
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
@@ -7,6 +6,8 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import DeleteView, DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
+
+from demo_auth.mixins import DemoAccessMixin, DemoFormMixin
 
 from .forms import CategoryForm, CommentForm, GenreForm, ReviewForm, TitleForm
 from .models import Category, Comment, Genre, Review, Title
@@ -46,7 +47,9 @@ title_context = {
 }
 
 
-class TitleCreateView(IsAdminOrSuperuser, DemoAccessMixin, DemoFormMixin, CreateView):
+class TitleCreateView(
+    IsAdminOrSuperuser, DemoAccessMixin, DemoFormMixin, CreateView
+):
     model = Title
     template_name = 'reviews/create_instance.html'
     form_class = TitleForm
@@ -64,7 +67,9 @@ class TitleCreateView(IsAdminOrSuperuser, DemoAccessMixin, DemoFormMixin, Create
         return context
 
 
-class TitleUpdateView(IsAdminOrSuperuser, DemoAccessMixin, DemoFormMixin, UpdateView):
+class TitleUpdateView(
+    IsAdminOrSuperuser, DemoAccessMixin, DemoFormMixin, UpdateView
+):
     model = Title
     form_class = TitleForm
     template_name = 'reviews/create_instance.html'
@@ -342,7 +347,9 @@ class ReviewCreateView(DemoAccessMixin, CreateView):
         return super().form_valid(form)
 
 
-class ReviewUpdateView(AuthorOrPrivilegedRequiredMixin, DemoAccessMixin, UpdateView):
+class ReviewUpdateView(
+    AuthorOrPrivilegedRequiredMixin, DemoAccessMixin, UpdateView
+):
     model = Review
     form_class = ReviewForm
     template_name = 'reviews/create_instance.html'
@@ -355,7 +362,8 @@ class ReviewUpdateView(AuthorOrPrivilegedRequiredMixin, DemoAccessMixin, UpdateV
         context['is_edit'] = True
         context['cancel_url'] = reverse_lazy(
             'reviews:review_detail',
-            kwargs={'title_slug': self.object.title.slug, 'pk': self.object.pk})
+            kwargs={'title_slug': self.object.title.slug, 'pk': self.object.pk}
+        )
         return context
 
     def get_success_url(self):
@@ -403,13 +411,16 @@ class ReviewDetailView(DemoAccessMixin, DetailView):
             review_id=self.kwargs['pk'])
         context['create_related_object_url'] = reverse_lazy(
             'reviews:create_comment',
-            kwargs={'title_slug': self.title_slug, 'review_id': self.object.pk})
+            kwargs={'title_slug': self.title_slug, 'review_id': self.object.pk}
+        )
         context['update_url'] = reverse_lazy(
             'reviews:update_review',
-            kwargs={'title_slug': self.object.title.slug, 'pk': self.object.pk})
+            kwargs={'title_slug': self.object.title.slug, 'pk': self.object.pk}
+        )
         context['delete_url'] = reverse_lazy(
             'reviews:delete_review',
-            kwargs={'title_slug': self.object.title.slug, 'pk': self.object.pk})
+            kwargs={'title_slug': self.object.title.slug, 'pk': self.object.pk}
+        )
         context['back_url'] = reverse_lazy(
             'reviews:reviews', kwargs={'title_slug': self.object.title.slug})
         context['display_fields'] = ['author', 'text', 'score', 'pub_date']
@@ -417,14 +428,17 @@ class ReviewDetailView(DemoAccessMixin, DetailView):
             self.request.user,
             context['object']
         )
-        context['can_delete'] = AuthorOrPrivilegedRequiredMixin.check_permission(
-            self.request.user,
-            context['object']
+        context['can_delete'] = (
+            AuthorOrPrivilegedRequiredMixin.check_permission(
+                self.request.user,
+                context['object'])
         )
         return context
 
 
-class ReviewDeleteView(AuthorOrPrivilegedRequiredMixin, DemoAccessMixin, DeleteView):
+class ReviewDeleteView(
+    AuthorOrPrivilegedRequiredMixin, DemoAccessMixin, DeleteView
+):
     model = Review
     success_url = reverse_lazy('reviews:reviews')
     template_name = 'reviews/confirm_delete.html'
@@ -439,7 +453,8 @@ class ReviewDeleteView(AuthorOrPrivilegedRequiredMixin, DemoAccessMixin, DeleteV
         context.update(review_context)
         context['cancel_url'] = reverse_lazy(
             'reviews:review_detail',
-            kwargs={'title_slug': self.object.title.slug, 'pk': self.object.pk})
+            kwargs={'title_slug': self.object.title.slug, 'pk': self.object.pk}
+        )
         return context
 
 
@@ -486,7 +501,8 @@ class CommentCreateView(DemoAccessMixin, CreateView):
         context['is_edit'] = False
         context['create_url'] = reverse_lazy(
             'reviews:create_review',
-            kwargs={'title_slug': self.title_slug, 'review_id': self.review_id})
+            kwargs={'title_slug': self.title_slug, 'review_id': self.review_id}
+        )
         context['cancel_url'] = reverse_lazy(
             'reviews:review_detail',
             kwargs={'title_slug': self.title_slug, 'pk': self.review_id})
@@ -499,7 +515,9 @@ class CommentCreateView(DemoAccessMixin, CreateView):
         return super().form_valid(form)
 
 
-class CommentUpdateView(AuthorOrPrivilegedRequiredMixin, DemoAccessMixin, UpdateView):
+class CommentUpdateView(
+    AuthorOrPrivilegedRequiredMixin, DemoAccessMixin, UpdateView
+):
     model = Comment
     form_class = CommentForm
     template_name = 'reviews/create_instance.html'
@@ -554,7 +572,8 @@ class CommentListView(DemoAccessMixin, ListView):
             kwargs={'title_slug': self.title_slug, 'pk': self.review_id})
         context['create_url'] = reverse_lazy(
             'reviews:create_comment',
-            kwargs={'title_slug': self.title_slug, 'review_id': self.review_id})
+            kwargs={'title_slug': self.title_slug, 'review_id': self.review_id}
+        )
         context['display_fields'] = ['author', 'text', 'pub_date']
         return context
 
@@ -585,21 +604,26 @@ class CommentDetailView(DemoAccessMixin, DetailView):
                     'review_id': self.review_id, 'pk': self.object.pk})
         context['back_url'] = reverse_lazy(
             'reviews:comments',
-            kwargs={'title_slug': self.title_slug, 'review_id': self.review_id})
+            kwargs={'title_slug': self.title_slug, 'review_id': self.review_id}
+        )
         context['display_fields'] = ['author', 'text', 'pub_date']
 
         context['can_edit'] = AuthorOrPrivilegedRequiredMixin.check_permission(
             self.request.user,
             context['object']
         )
-        context['can_delete'] = AuthorOrPrivilegedRequiredMixin.check_permission(
-            self.request.user,
-            context['object']
+        context['can_delete'] = (
+            AuthorOrPrivilegedRequiredMixin.check_permission(
+                self.request.user,
+                context['object'])
         )
         return context
 
 
-class CommentDeleteView(AuthorOrPrivilegedRequiredMixin, DemoAccessMixin, DeleteView):
+class CommentDeleteView(
+    AuthorOrPrivilegedRequiredMixin, DemoAccessMixin,
+    DeleteView
+):
     model = Comment
     template_name = 'reviews/confirm_delete.html'
 

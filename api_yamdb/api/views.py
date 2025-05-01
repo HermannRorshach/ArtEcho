@@ -2,7 +2,6 @@ import logging
 import secrets
 from datetime import timedelta
 
-from demo_auth.mixins import DemoAccessMixin, DemoFormMixin
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
@@ -18,10 +17,12 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import (TokenObtainPairView,
+                                            TokenRefreshView, TokenVerifyView)
+
+from demo_auth.mixins import DemoAccessMixin
 from reviews.models import Category, Comment, Genre, Review, Title
 from users.models import ConfirmationCode, User
-from rest_framework_simplejwt.views import TokenVerifyView, TokenRefreshView
 
 from .filters import TitleFilter
 from .permissions import AdminOnly, AuthorOrReadOnly, ReadOnly, ReadOrAdminOnly
@@ -50,7 +51,6 @@ class SignUpView(APIView):
             "Поля email и username должны быть уникальными."),
         responses={200: openapi.Response('OK', SignUpSerializer)}
     )
-
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if not serializer.is_valid():
@@ -82,7 +82,7 @@ class SignUpView(APIView):
             pass
             send_mail(
                 subject='Код подтверждения для YaMDb',
-                message = (
+                message=(
                     f'Ваш код подтверждения: {code}\n\n'
                     'Чтобы получить токен, отправьте запрос\n\n'
                     '{\n'
@@ -123,7 +123,6 @@ class ConfirmationCodeTokenView(TokenObtainPairView):
     @swagger_auto_schema(
         operation_id="Получение JWT-токена",
     )
-
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
 
@@ -203,10 +202,11 @@ class MeView(DemoAccessMixin, APIView):
         return Response(serializer.data)
 
 
-class CategoryViewSet(DemoAccessMixin, mixins.ListModelMixin,
-                   mixins.CreateModelMixin,
-                   mixins.DestroyModelMixin,
-                   viewsets.GenericViewSet):
+class CategoryViewSet(
+    DemoAccessMixin, mixins.ListModelMixin,
+    mixins.CreateModelMixin, mixins.DestroyModelMixin,
+    viewsets.GenericViewSet
+):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = 'slug'

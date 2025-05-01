@@ -1,4 +1,5 @@
 from django import forms
+
 from demo_auth.forms import DemoModelForm
 
 from .models import Category, Comment, Genre, Review, Title

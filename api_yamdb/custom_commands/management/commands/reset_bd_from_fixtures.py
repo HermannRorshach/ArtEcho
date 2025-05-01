@@ -1,8 +1,7 @@
 import json
 
-from django.apps import apps
 from django.core.management.base import BaseCommand, CommandError
-from django.db import connection, transaction
+from django.db import connection
 
 
 class Command(BaseCommand):
@@ -90,5 +89,6 @@ class Command(BaseCommand):
                 cursor.execute(query, values)
 
         self.stdout.write(
-            self.style.SUCCESS(f'Таблица {table_name} успешно обновлена из {file_path}.')
+            self.style.SUCCESS(
+                f'Таблица {table_name} успешно обновлена из {file_path}.')
         )

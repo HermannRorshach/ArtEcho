@@ -30,7 +30,8 @@ def is_author_or_privileged(user, obj=None):
         user.is_authenticated and (
             is_author
             or user.is_superuser
-            or getattr(user, 'role', '') in ['superuser', 'admin', 'moderator'])
+            or getattr(user, 'role', '') in ['superuser', 'admin', 'moderator']
+        )
     )
 
 

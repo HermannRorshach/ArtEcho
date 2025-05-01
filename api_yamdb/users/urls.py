@@ -76,6 +76,5 @@ urlpatterns = [
     path(
         'user/delete/<slug:username>/',
         views.UserDeleteView.as_view(), name='delete_user'),
-    # path('profile/<slug:username>/', views.ProfileView.as_view(), name='profile'),
     path('users/me/', views.MeView.as_view(), name='me'),
 ]

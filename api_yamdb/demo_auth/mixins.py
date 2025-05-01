@@ -1,4 +1,3 @@
-from django.views.generic.base import ContextMixin
 from django.utils.text import slugify
 from transliterate import translit
 
@@ -16,12 +15,9 @@ class DemoAccessMixin:
 
         if getattr(self.request.user, 'is_demo', False):
             # Для демо-пользователя - только демо-объекты
-            queryset = queryset.filter(is_demo=True)
-        else:
-            # Для обычных пользователей - только не-демо объекты
-            queryset = queryset.exclude(is_demo=True)
-
-        return queryset
+            return queryset.filter(is_demo=True)
+        # Для обычных пользователей - только не-демо объекты
+        return queryset.exclude(is_demo=True)
 
     def filter_queryset(self, queryset):
         if getattr(self.request.user, 'is_demo', False):
@@ -41,17 +37,23 @@ class DemoAccessMixin:
     def _process_demo_slug(self, instance):
         """Обработка slug для демо-объектов"""
 
-        if hasattr(instance, 'slug') and instance.slug and instance.slug.endswith('_demo'):
+        if (
+            hasattr(instance, 'slug')
+            and instance.slug and instance.slug.endswith('_demo')
+        ):
             return
 
         original_slug = getattr(instance, 'slug', '')
 
         # Генерация slug если пустой
         if not original_slug:
-            source_text = (getattr(instance, 'text', '') or
-                         getattr(instance, 'name', '') or
-                         getattr(instance, 'title', ''))
-            original_slug = slugify(translit(source_text[:30], 'ru', reversed=True))
+            source_text = (
+                getattr(instance, 'text', '')
+                or getattr(instance, 'name', '')
+                or getattr(instance, 'title', '')
+            )
+            original_slug = slugify(
+                translit(source_text[:30], 'ru', reversed=True))
 
         # Добавляем суффикс
         demo_slug = f"{original_slug}_demo"
@@ -84,7 +86,6 @@ class DemoAccessMixin:
             if hasattr(instance, 'slug'):
                 self._process_demo_slug(instance)
             instance.save()
-
 
 
 class DemoFormMixin:

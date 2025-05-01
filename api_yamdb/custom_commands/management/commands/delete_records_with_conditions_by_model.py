@@ -4,11 +4,14 @@ from django.core.management.base import BaseCommand, CommandError
 
 class Command(BaseCommand):
     """
-    Удаляет записи из указанной модели по заданным условиям, включая связанные данные в промежуточных таблицах ManyToMany.
+    Удаляет записи из указанной модели по заданным условиям,
+    включая связанные данные в промежуточных таблицах ManyToMany.
 
     Аргументы:
-        model_name (str): Полное имя модели в формате 'app_label.ModelName' (например, 'reviews.Title')
-        conditions (str): Условия фильтрации в формате 'field1=value1, field2__lookup=value2'
+            model_name (str): Полное имя модели в формате 'app_label.ModelName'
+        (например, 'reviews.Title')
+            conditions (str): Условия фильтрации в формате
+        'field1=value1, field2__lookup=value2'
 
     Опции:
         --help, -h: Показать это сообщение и выйти
@@ -27,11 +30,14 @@ class Command(BaseCommand):
 
         Использование различных lookup-ов:
             python manage.py delete_records_with_conditions_by_model blog.Post 'title__contains="draft", publish_date__isnull=True'
-            Удалит черновики постов (с "draft" в заголовке и без даты публикации)
+            Удалит черновики постов
+            (с "draft" в заголовке и без даты публикации)
 
     Особенности:
-    1. Поддерживает все стандартные lookups Django (__gt, __lt, __contains и т.д.)
-    2. Автоматически обрабатывает связанные ManyToMany поля - удаляет записи из промежуточных таблиц
+    1. Поддерживает все стандартные lookups Django
+       (__gt, __lt, __contains и т.д.)
+    2. Автоматически обрабатывает связанные ManyToMany поля -
+       удаляет записи из промежуточных таблиц
     3. Поддерживает различные типы значений:
     - Строки (в одинарных или двойных кавычках)
     - Числа (целые и с плавающей точкой)
@@ -45,15 +51,18 @@ class Command(BaseCommand):
     - Если не найдено ни одной записи для удаления, выводит предупреждение
 
     Особенности удаления:
-    - Для обычных моделей выполняется эффективное массовое удаление через SQL DELETE
+    - Для обычных моделей выполняется эффективное массовое удаление
+      через SQL DELETE
     - Для моделей с M2M-связями:
-    * Django сам обрабатывает удаление промежуточных записей через сигналы модели.
+    * Django сам обрабатывает удаление промежуточных записей через
+      сигналы модели.
     * Затем удаляются сами объекты
     * Вызываются сигналы pre_delete/post_delete для каждого объекта
     - Операция не является атомарной.
     """
 
-    help = 'Удаляет записи из модели и связанных промежуточных таблиц Many-to-Many или саму модель без таких связей.'
+    help = ('Удаляет записи из модели и связанных промежуточных '
+            'таблиц Many-to-Many или саму модель без таких связей.')
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -73,7 +82,8 @@ class Command(BaseCommand):
 
         self.stdout.write(
             self.style.SUCCESS(
-                f'Удаление записей из модели "{model_name}" с условиями "{conditions}".'
+                f'Удаление записей из модели "{model_name}" '
+                f'с условиями "{conditions}".'
             )
         )
 
@@ -92,9 +102,14 @@ class Command(BaseCommand):
 
         if deleted_count > 0:
             records_to_delete.delete()
-            self.stdout.write(self.style.SUCCESS(f'{deleted_count} записей успешно удалены из модели "{model_name}".'))
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f'{deleted_count} записей успешно удалены из '
+                    f'модели "{model_name}".'
+                ))
         else:
-            self.stdout.write(self.style.WARNING('Записи для удаления не найдены.'))
+            self.stdout.write(
+                self.style.WARNING('Записи для удаления не найдены.'))
 
     def _parse_conditions_dict(self, conditions):
         """Парсит строку условий в словарь для .filter()."""
@@ -102,10 +117,13 @@ class Command(BaseCommand):
         import ast
 
         condition_dict = {}
-        pairs = [pair.strip() for pair in conditions.split(',') if pair.strip()]
+        pairs = [
+            pair.strip() for pair in conditions.split(',') if pair.strip()
+        ]
         for pair in pairs:
             if '=' not in pair:
-                raise ValueError(f'Неверный формат условия: "{pair}". Ожидался "=".')
+                raise ValueError(
+                    f'Неверный формат условия: "{pair}". Ожидался "=".')
 
             key, value = pair.split('=', 1)
             key = key.strip()

@@ -1,7 +1,8 @@
 from django.urls import path
 
-from . import views
 from users.views import UsersListView
+
+from . import views
 
 app_name = 'admin_office'
 
