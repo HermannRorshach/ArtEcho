@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'api_yamdb.urls'
+ROOT_URLCONF = 'art_echo.urls'
 
 TEMPLATES_DIR = BASE_DIR / 'templates'
 TEMPLATES = [
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'api_yamdb.wsgi.application'
+WSGI_APPLICATION = 'art_echo.wsgi.application'
 
 
 # Database

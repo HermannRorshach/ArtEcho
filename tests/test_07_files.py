@@ -14,7 +14,7 @@ else:
 
 
 # test .md
-default_md = '# api_yamdb\napi_yamdb\n'
+default_md = '# art_echo\nart_echo\n'
 filename = 'README.md'
 assert filename in root_dir_content, (
     f'В корне проекта не найден файл `{filename}`'

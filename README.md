@@ -116,7 +116,7 @@ http://127.0.0.1:8000/redoc/
 
 #### Windows/macOS/Linux:
 ```bash
-git clone git@github.com:HermannRorshach/api_yamdb.git
+git clone git@github.com:HermannRorshach/art_echo.git
 ```
 
 ### 2. Установка виртуального окружения с Python 3.10
