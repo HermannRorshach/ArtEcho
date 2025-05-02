@@ -4,6 +4,8 @@ from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.decorators.http import require_GET
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 
@@ -16,10 +18,11 @@ User = get_user_model()
 
 
 class CustomLogoutView(LogoutView):
+    template_name = 'users/logged_out.html'
+
+    @method_decorator(require_GET)
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('users:login')
-        return super().dispatch(request, *args, **kwargs)
+        return self.post(request, *args, **kwargs)
 
 
 class CustomPasswordChangeView(PasswordChangeView):

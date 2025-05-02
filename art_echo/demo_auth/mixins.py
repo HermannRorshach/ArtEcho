@@ -25,7 +25,9 @@ class DemoAccessMixin:
         return queryset.exclude(is_demo=True)
 
     def form_valid(self, form):
-        if getattr(self.request.user, 'is_demo', False):
+        if (hasattr(form, 'instance')
+            and getattr(self.request.user, 'is_demo', False)
+        ):
             instance = form.instance
             instance.is_demo = True
 

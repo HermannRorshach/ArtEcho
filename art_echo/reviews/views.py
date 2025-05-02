@@ -87,7 +87,7 @@ class TitleUpdateView(
 
     def get_success_url(self):
         return reverse_lazy(
-            'reviews:title_detail', kwargs={'slug': self.kwargs['slug']}
+            'reviews:title_detail', kwargs={'slug': self.object.slug}
         )
 
 
@@ -226,7 +226,7 @@ class GenreUpdateView(IsAdminOrSuperuser, DemoAccessMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy(
-            'reviews:genre_detail', kwargs={'slug': self.kwargs['slug']}
+            'reviews:genre_detail', kwargs={'slug': self.object.slug}
         )
 
 
@@ -704,7 +704,7 @@ class CategoryUpdateView(IsAdminOrSuperuser, DemoAccessMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy(
-            'reviews:category_detail', kwargs={'slug': self.kwargs['slug']}
+            'reviews:category_detail', kwargs={'slug': self.object.slug}
         )
 
 

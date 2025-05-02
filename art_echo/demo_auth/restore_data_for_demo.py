@@ -9,41 +9,43 @@ from django.core.files import File
 User = get_user_model()
 NALIVKIN_USERNAME = config('NALIVKIN_USERNAME')
 
+fixtures_dir = os.path.join(settings.BASE_DIR, 'demo_auth', 'fixtures')
+
 
 def reset_demo_data():
     commands = (
         (
             'reset_bd_from_fixtures',
-            'demo_auth/fixtures/user.json', 'users_user'
+            os.path.join(fixtures_dir, 'user.json'), 'users_user'
         ),
         (
             'reset_bd_from_fixtures',
-            'demo_auth/fixtures/confirmation_code.json',
+            os.path.join(fixtures_dir, 'confirmation_code.json'),
             'users_confirmationcode'
         ),
         (
             'reset_bd_from_fixtures',
-            'demo_auth/fixtures/category.json', 'reviews_category'
+            os.path.join(fixtures_dir, 'category.json'), 'reviews_category'
         ),
         (
             'reset_bd_from_fixtures',
-            'demo_auth/fixtures/genre.json', 'reviews_genre'
+            os.path.join(fixtures_dir, 'genre.json'), 'reviews_genre'
         ),
         (
             'reset_bd_from_fixtures',
-            'demo_auth/fixtures/title.json', 'reviews_title'
+            os.path.join(fixtures_dir, 'title.json'), 'reviews_title'
         ),
         (
             'reset_bd_from_fixtures',
-            'demo_auth/fixtures/review.json', 'reviews_review'
+            os.path.join(fixtures_dir, 'review.json'), 'reviews_review'
         ),
         (
             'reset_bd_from_fixtures',
-            'demo_auth/fixtures/comment.json', 'reviews_comment'
+            os.path.join(fixtures_dir, 'comment.json'), 'reviews_comment'
         ),
         (
             'reset_bd_from_fixtures',
-            'demo_auth/fixtures/reviews_title_genre.json',
+            os.path.join(fixtures_dir, 'reviews_title_genre.json'),
             'reviews_title_genre'
         ),
 

@@ -12,7 +12,7 @@ app_name = 'users'
 urlpatterns = [
     path(
         'logout/',
-        views.CustomLogoutView.as_view(template_name='users/logged_out.html'),
+        views.CustomLogoutView.as_view(),
         name='logout'
     ),
     path('signup/', views.SignUp.as_view(), name='signup'),
