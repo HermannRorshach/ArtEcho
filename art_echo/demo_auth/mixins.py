@@ -4,10 +4,39 @@ from transliterate import translit
 
 class DemoAccessMixin:
     """
-    Полный контроль демо-доступа для HTML и API:
-    - Автоматически добавляет _demo к slug при сохранении
-    - Фильтрует queryset
-    - Подменяет slug при отображении
+    Миксин для поддержки логики 'демо-доступа' в HTML-представлениях
+    и DRF API.
+
+    Поведение:
+    - Фильтрует queryset в зависимости от роли пользователя:
+        - Демо-пользователи получают только объекты с is_demo=True
+        - Обычные пользователи получают объекты без is_demo
+    - Автоматически помечает создаваемые объекты как демо
+      (is_demo=True) для демо-пользователей
+    - Автоматически формирует уникальный slug с суффиксом
+      `_demo` при создании объектов
+
+    Поддерживает:
+    - Django CBV: ListView, CreateView, UpdateView
+    - Django REST Framework: GenericAPIView, CreateModelMixin и т.п.
+
+    Требования к модели:
+    - Наличие булевого поля `is_demo`
+    - (Опционально) наличие поля `slug` для формирования slug
+
+    Использование:
+        1. Унаследуйте представление от DemoAccessMixin.
+        2. Убедитесь, что у вашей модели есть поле `is_demo`.
+        3. При необходимости реализуйте свой get_queryset
+           и вызовите self.filter_queryset(queryset).
+
+    Пример:
+        class ReviewListView(DemoAccessMixin, ListView):
+            model = Review
+
+            def get_queryset(self):
+                queryset = Review.objects.filter(...)
+                return self.filter_queryset(queryset)
     """
 
     def get_queryset(self):
@@ -25,7 +54,8 @@ class DemoAccessMixin:
         return queryset.exclude(is_demo=True)
 
     def form_valid(self, form):
-        if (hasattr(form, 'instance')
+        if (
+            hasattr(form, 'instance')
             and getattr(self.request.user, 'is_demo', False)
         ):
             instance = form.instance
@@ -91,6 +121,52 @@ class DemoAccessMixin:
 
 
 class DemoFormMixin:
+    """
+    Миксин для передачи текущего пользователя (`request.user`)
+    в форму через kwargs.
+
+    Назначение:
+    -----------
+    Обеспечивает доступ к пользователю внутри формы, чтобы можно было
+    адаптировать поведение формы в зависимости от прав пользователя
+    (например, от `is_demo`), без необходимости переопределять
+    каждый раз `get_form_kwargs`.
+
+    Особенно полезен в связке с `DemoModelForm`, который фильтрует
+    доступные значения в полях типа ModelChoiceField
+    и ModelMultipleChoiceField на основе пользователя.
+
+    Использование:
+    --------------
+    Просто добавьте миксин к классу-представлению (например, CreateView):
+
+        class MyCreateView(DemoFormMixin, CreateView):
+            form_class = MyForm
+
+    Или совместно с `DemoAccessMixin`:
+
+        class MyCreateView(
+            DemoAccessMixin, DemoFormMixin, CreateView
+        ):
+            ...
+
+    Совместное использование:
+    -------------------------
+    - `DemoAccessMixin` отвечает за фильтрацию queryset и генерацию
+      slug для демо-объектов.
+    - `DemoFormMixin` передаёт пользователя в форму.
+    - Вместе они позволяют реализовать полноценную поддержку
+      демо-доступа как в представлении, так и в формах.
+
+    Важно:
+    ------
+    Порядок наследования имеет значение. Чтобы `DemoFormMixin`
+    корректно переопределил `get_form_kwargs`, он должен быть
+    указан **до** базового класса вьюхи (например, CreateView).
+    Рекомендуется придерживаться следующего порядка:
+        DemoAccessMixin, DemoFormMixin, ViewClass
+
+    """
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user

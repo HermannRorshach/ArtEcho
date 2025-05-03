@@ -11,6 +11,10 @@ NALIVKIN_PASSWORD = config('NALIVKIN_PASSWORD')
 
 
 class DemoWelcomeView(View):
+    """
+    Отображает приветственную страницу демо-режима.
+    Используется как точка входа перед входом в демо-пользователя.
+    """
     template_name = 'demo_auth/demo_welcome.html'
 
     def get(self, request):
@@ -18,6 +22,15 @@ class DemoWelcomeView(View):
 
 
 class DemoUserLoginView(LoginView):
+    """
+    Вход в систему от имени демо-пользователя.
+
+    При GET-запросе:
+    - сбрасывает данные демо-режима;
+    - аутентифицирует и логинит пользователя с фиксированными
+      учетными данными;
+    - перенаправляет на страницу списка произведений.
+    """
     def get(self, request, *args, **kwargs):
         reset_demo_data()
         user = authenticate(

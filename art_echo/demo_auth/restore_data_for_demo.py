@@ -13,6 +13,53 @@ fixtures_dir = os.path.join(settings.BASE_DIR, 'demo_auth', 'fixtures')
 
 
 def reset_demo_data():
+    """
+    Полностью сбрасывает и восстанавливает демонстрационные данные
+    в базе данных.
+
+    Назначение:
+    -----------
+    Используется для восстановления заранее подготовленного состояния
+    базы данных для демонстрационного пользователя (например, "Наливкин").
+    Полезно при показе возможностей проекта без риска повредить
+    реальные данные.
+
+    Механизм работы:
+    ----------------
+    1. Загружает фикстуры (json-файлы) в определённые таблицы
+       базы данных с помощью кастомной команды `reset_bd_from_fixtures`
+       из приложения `custom_commands`.
+
+    2. Удаляет лишние записи с флагом `is_demo=True` и id выше
+       допустимого порога с помощью других кастомных команд
+       (`delete_records_with_conditions` и
+       `delete_records_with_conditions_by_model`).
+
+    3. Удаляет текущий аватар пользователя-демо (если установлен)
+       и копирует оригинальный аватар из файла, указанного
+       в `settings.DEMO_USER_ORIGINAL_AVATAR`.
+
+    Команды, выполняемые в рамках сброса, перечислены в виде
+    кортежей и охватывают все ключевые модели: пользователей,
+    категории, жанры, тайтлы, рецензии, комментарии
+    и промежуточные связи.
+
+    Зависимости:
+    ------------
+    - Кастомные команды из приложения `custom_commands`:
+        - `reset_bd_from_fixtures`
+        - `delete_records_with_conditions`
+        - `delete_records_with_conditions_by_model`
+    - Файл аватара: `settings.DEMO_USER_ORIGINAL_AVATAR`
+    - Статический username демо-пользователя: `NALIVKIN_USERNAME`
+
+    Примечание:
+    -----------
+    Функция должна вызываться только в безопасной среде,
+    предназначенной для демонстраций, так как она перезаписывает
+    и удаляет данные в базе.
+    """
+
     commands = (
         (
             'reset_bd_from_fixtures',
@@ -83,12 +130,10 @@ def reset_demo_data():
 
     # Удаляем текущий аватар, если он есть
     if demo_user.avatar:
-        print('удаляем аватар')
         demo_user.avatar.delete(save=False)
 
     # Копируем оригинальный аватар из указанного пути
     if os.path.exists(settings.DEMO_USER_ORIGINAL_AVATAR):
-        print('Директория доступна')
         with open(settings.DEMO_USER_ORIGINAL_AVATAR, 'rb') as f:
             demo_user.avatar.save(
                 os.path.basename(settings.DEMO_USER_ORIGINAL_AVATAR),

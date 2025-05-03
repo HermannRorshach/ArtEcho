@@ -1,9 +1,9 @@
 # ArtEcho — платформа для отзывов на произведения
 
 
-[![Python](https://img.shields.io/badge/Python-3.9-blue)](https://python.org)
-[![Django](https://img.shields.io/badge/Django-3.2-green)](https://djangoproject.com)
-[![DRF](https://img.shields.io/badge/DRF-3.12-red)](https://www.django-rest-framework.org)
+[![Python](https://img.shields.io/badge/Python-3.12-blue)](https://python.org)
+[![Django](https://img.shields.io/badge/Django-5.0.9-green)](https://djangoproject.com)
+[![DRF](https://img.shields.io/badge/DRF-3.15.1-red)](https://www.django-rest-framework.org)
 
 
 **ArtEcho** — это платформа, где пользователи могут публиковать отзывы и оценки на произведения разных категорий: фильмы, книги, музыку и другие медиа. Проект включает:
@@ -30,7 +30,7 @@
   ```python
   bio = models.TextField()
   role = models.CharField(choices=ROLES)
-```
+  ```
 Функционал:
 - Регистрация через email
 - Смена пароля
@@ -61,6 +61,26 @@ http://127.0.0.1:8000/redoc/
 
 - Импорт данных – загрузка в БД из CSV/JSON файлов
 - Очистка таблиц – удаление записей из таблицы или списка таблиц
+- Восстановление данных в БД из фикстур
+
+#### 5. `admin_office` - кастомная административная панель.
+Облегчённая альтернатива стандартной Django admin, предназначенная для клиентов с ограничённым набором прав. Позволяет управлять пользователями, отзывами и комментариями без доступа к критичным настройкам проекта.
+
+Основные возможности:
+- Просмотр и редактирование профилей пользователей
+- Создание и удаление пользователей
+- Управление отзывами и комментариями
+- Безопасный интерфейс для клиентов без риска повредить важные данные
+
+#### 6. `demo_auth` - демонстрационный режим
+Приложение добавляет поддержку демо-режима с ограниченными правами пользователя. В этом режиме все действия не затрагивают реальные данные, что подходит для публичных демонстраций проекта.
+
+Основные возможности:
+- Ограничение доступа к данным через флаг is_demo.
+- Фильтрация данных в формах и представлениях.
+- Сброс базы данных к исходному состоянию для демо-пользователя.
+
+Используется для создания быстрых безопасных публичных демонстраций без регистраций и смс. Подробнее, как подключить и настроить читайте в README.md приложения.
 
 ## Особенности интерфейса
 
@@ -91,11 +111,11 @@ http://127.0.0.1:8000/redoc/
 
 ### Бекенд
 
-- Python 3.10
+- Python 3.12
 
-- Django 3.2
+- Django 5.0.9
 
-- Django REST Framework 3.12
+- Django REST Framework 3.15.1
 
 - JWT-аутентификация
 
@@ -116,18 +136,18 @@ http://127.0.0.1:8000/redoc/
 
 #### Windows/macOS/Linux:
 ```bash
-git clone git@github.com:HermannRorshach/art_echo.git
+git clone git@github.com:HermannRorshach/ArtEcho.git
 ```
 
-### 2. Установка виртуального окружения с Python 3.10
+### 2. Установка виртуального окружения с Python 3.12
 
 #### Windows:
 ```bash
-py -3.10 -m venv venv
+py -3.12 -m venv venv
 ```
 #### macOS/Linux:
 ```bash
-`python3.10 -m venv venv`
+`python3.12 -m venv venv`
 ```
 
 ### 3. Активировать виртуальное окружение
@@ -148,6 +168,12 @@ source venv/bin/activate
 #### Windows/macOS/Linux:
 ```bash
 pip install -r requirements.txt
+```
+
+### 5. Запуск локального сервера
+В папке с файлом manage.py выполните команду:
+```bash
+python manage.py runserver
 ```
 
 **Автор**: Борисов Павел, веб-разработчик

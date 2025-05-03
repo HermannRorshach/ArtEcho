@@ -81,11 +81,11 @@ class PublicUpdateForm(PublicCreationForm):
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if User.objects.exclude(pk=self.instance.pk).filter(
-            username=username).exists():
+            username=username).exists(
+        ):
             raise forms.ValidationError(
                 'Пользователь с таким логином уже существует.')
         return username
-
 
     class Meta(UserCreationForm.Meta):
         model = User

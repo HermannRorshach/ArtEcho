@@ -140,6 +140,8 @@ dmypy.json
 .vscode/
 *.code-workspace
 
+*.cfg
+
 # Local History for Visual Studio Code
 .history/
 
@@ -147,4 +149,3 @@ dmypy.json
 
 # папки со статикой и медиа
 media/
-
