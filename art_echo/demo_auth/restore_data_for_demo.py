@@ -126,20 +126,25 @@ def reset_demo_data():
         ),
     )
 
-    demo_user = User.objects.get(username=NALIVKIN_USERNAME)
+    # Удаляем всех демо-пользователей
+    User.objects.filter(is_demo=True).delete()
 
-    # Удаляем текущий аватар, если он есть
-    if demo_user.avatar:
-        demo_user.avatar.delete(save=False)
-
-    # Копируем оригинальный аватар из указанного пути
-    if os.path.exists(settings.DEMO_USER_ORIGINAL_AVATAR):
-        with open(settings.DEMO_USER_ORIGINAL_AVATAR, 'rb') as f:
-            demo_user.avatar.save(
-                os.path.basename(settings.DEMO_USER_ORIGINAL_AVATAR),
-                File(f),
-                save=True
-            )
-
+    # Загружаем фикстуры
     for cmd in commands:
         management.call_command(cmd[0], *cmd[1:])
+
+    # Получаем демо-пользователя
+    demo_user = User.objects.get(username=NALIVKIN_USERNAME)
+
+    # Очищаем папку аватаров
+    avatar_dir_path = os.path.join(settings.MEDIA_ROOT, f'users/{demo_user.username}/avatars/')
+    for filename in os.listdir(avatar_dir_path):
+        os.remove(os.path.join(avatar_dir_path, filename))
+
+    # Устанавливаем оригинальный аватар
+    with open(settings.DEMO_USER_ORIGINAL_AVATAR, 'rb') as f:
+        demo_user.avatar.save(
+            os.path.basename(settings.DEMO_USER_ORIGINAL_AVATAR),
+            File(f),
+            save=True
+        )
