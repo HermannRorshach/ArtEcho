@@ -62,6 +62,35 @@ def reset_demo_data():
 
     commands = (
         (
+            'delete_records_with_conditions',
+            'reviews_comment', 'is_demo=True', '-r'
+        ),
+        (
+            'delete_records_with_conditions',
+            'reviews_review', 'is_demo=True', '-r'
+        ),
+        (
+            'delete_records_with_conditions_by_model',
+            'reviews.Title', 'is_demo=True'
+        ),
+        (
+            'delete_records_with_conditions',
+            'reviews_genre', 'is_demo=True', '-r'
+        ),
+        (
+            'delete_records_with_conditions',
+            'reviews_category', 'is_demo=True', '-r'
+        ),
+        (
+            'delete_records_with_conditions',
+            'users_confirmationcode', 'is_demo=True', '-r'
+        ),
+        (
+            'delete_records_with_conditions',
+            'users_user', 'is_demo=True', '-r'
+        ),
+
+        (
             'reset_bd_from_fixtures',
             os.path.join(fixtures_dir, 'user.json'), 'users_user'
         ),
@@ -95,35 +124,6 @@ def reset_demo_data():
             os.path.join(fixtures_dir, 'reviews_title_genre.json'),
             'reviews_title_genre'
         ),
-
-        (
-            'delete_records_with_conditions',
-            'users_user', 'is_demo=True AND id > 109', '-r'
-        ),
-        (
-            'delete_records_with_conditions',
-            'users_confirmationcode', 'is_demo=True', '-r'
-        ),
-        (
-            'delete_records_with_conditions',
-            'reviews_category', 'is_demo=True AND id > 6', '-r'
-        ),
-        (
-            'delete_records_with_conditions',
-            'reviews_genre', 'is_demo=True AND id > 30', '-r'
-        ),
-        (
-            'delete_records_with_conditions_by_model',
-            'reviews.Title', 'is_demo=True, pk__gt=64'
-        ),
-        (
-            'delete_records_with_conditions',
-            'reviews_review', 'is_demo=True AND id > 147', '-r'
-        ),
-        (
-            'delete_records_with_conditions',
-            'reviews_comment', 'is_demo=True AND id > 19', '-r'
-        ),
     )
 
     # Удаляем всех демо-пользователей
@@ -148,3 +148,18 @@ def reset_demo_data():
             File(f),
             save=True
         )
+    
+    # Сброс sequences для всех затронутых таблиц
+    from django.db import connection
+    with connection.cursor() as cursor:
+        sequences = [
+            ('users_user', 'users_user_id_seq'),
+            ('reviews_category', 'reviews_category_id_seq'),
+            ('reviews_genre', 'reviews_genre_id_seq'),
+            ('reviews_title', 'reviews_title_id_seq'),
+            ('reviews_review', 'reviews_review_id_seq'),
+            ('reviews_comment', 'reviews_comment_id_seq'),
+        ]
+        
+        for table, seq in sequences:
+            cursor.execute(f"SELECT setval('{seq}', COALESCE((SELECT MAX(id) FROM {table}), 1))")

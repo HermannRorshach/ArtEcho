@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -95,19 +96,23 @@ class TitleListView(DemoAccessMixin, ListView):
     model = Title
     template_name = 'reviews/instances.html'
     paginate_by = settings.PAGINATION_PAGE_SIZE
+    ordering = ['name']
 
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        # Фильтрация по жанру (если параметр есть)
-        if genre_id := self.request.GET.get('genre'):
-            return queryset.filter(genre__id=genre_id)
+        genre_id = self.request.GET.get('genre')
+        category_id = self.request.GET.get('category')
 
-        # Фильтрация по категории (если параметр есть)
-        if category_id := self.request.GET.get('category'):
-            return queryset.filter(category__id=category_id)
+        # Фильтрация по жанру (ManyToMany)
+        if genre_id:
+            queryset = queryset.filter(genre__id=genre_id)
 
-        return queryset
+        # Фильтрация по категории (ForeignKey)
+        if category_id:
+            queryset = queryset.filter(category__id=category_id)
+
+        return queryset.distinct()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -234,6 +239,7 @@ class GenreListView(IsStaffMixin, DemoAccessMixin, ListView):
     model = Genre
     template_name = 'reviews/instances.html'
     paginate_by = settings.PAGINATION_PAGE_SIZE
+    ordering = ['name']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -712,6 +718,7 @@ class CategoryListView(IsStaffMixin, DemoAccessMixin, ListView):
     model = Category
     template_name = 'reviews/instances.html'
     paginate_by = settings.PAGINATION_PAGE_SIZE
+    ordering = ['name']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

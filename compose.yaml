@@ -1,0 +1,66 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-server
+    restart: always
+    networks:
+      - dbnet
+    expose:
+      - 8088
+    ports:
+      - "80:8088"
+    volumes:
+      - ./art_echo/staticfiles:/app/www/art_echo/staticfiles
+      - ./art_echo/media:/app/www/art_echo/media
+      - ./art_echo/logs:/app/www/art_echo/logs
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - artecho
+  artecho:
+    build: ./art_echo
+    image: art_echo
+    container_name: artecho_container
+    restart: always
+    command: "gunicorn -c gunicorn.py art_echo.wsgi"
+    env_file:
+      - .env
+    links:
+      - "postgres:dbps"
+    networks:
+      - dbnet
+    volumes:
+      - ./art_echo:/app/www/art_echo
+      - ./art_echo/media:/app/www/art_echo/media:rw
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - "8080:8080"
+    links:
+      - "postgres:db"
+    networks:
+      - dbnet
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:17-alpine
+    container_name: psgr
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    networks:
+      - dbnet
+
+networks:
+  dbnet:
+    driver: bridge
+
+volumes:
+  postgres_volume:
